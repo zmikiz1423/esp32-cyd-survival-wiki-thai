@@ -73,7 +73,7 @@ if __name__=='__main__':
         assert 'config.txt' in z.namelist() and 'wiki/catalog.tsv' in z.namelist()
         assert not any(n.startswith('sdcard/') for n in z.namelist())
     helper=ROOT/'Thailand-Map-Downloader.zip'
-    helper_files=[ROOT/'ดาวน์โหลดแผนที่ไทย.bat',ROOT/'MAPS_TH.md',ROOT/'OFFLINE_MAPS_TH.md',ROOT/'README_TH.md',
+    helper_files=[ROOT/'LICENSE',ROOT/'ดาวน์โหลดแผนที่ไทย.bat',ROOT/'MAPS_TH.md',ROOT/'OFFLINE_MAPS_TH.md',ROOT/'README_TH.md',
         *[ROOT/'scripts'/p for p in ('map-downloader.bat','map-downloader-gui.ps1','thailand-map-server.ps1','get-map-tiles.ps1')],
         ROOT/'sdcard/web/Sarabun-Regular.ttf',ROOT/'sdcard/web/OFL-Sarabun.txt',
         *[p for p in (ROOT/'scripts/map-app').rglob('*') if p.is_file() and 'node_modules' not in p.parts]]
@@ -83,7 +83,7 @@ if __name__=='__main__':
     # does not need to install Python or download binary dependencies manually.
     province_helper=ROOT/'Thailand-Offline-Province-Maps.zip'
     if (ROOT/'scripts/offline-map-server.py').exists():
-        province_files=[ROOT/'เตรียมแผนที่ทั้งจังหวัด.bat',ROOT/'OFFLINE_MAPS_TH.md',ROOT/'MAPS_TH.md',ROOT/'README_TH.md',image,
+        province_files=[ROOT/'LICENSE',ROOT/'เตรียมแผนที่ทั้งจังหวัด.bat',ROOT/'OFFLINE_MAPS_TH.md',ROOT/'MAPS_TH.md',ROOT/'README_TH.md',image,
             ROOT/'sdcard/web/Sarabun-Regular.ttf',ROOT/'sdcard/web/OFL-Sarabun.txt',
             *[ROOT/'scripts'/p for p in ('offline-map-launcher.ps1','offline-map-server.py','offline-runtime-manifest.json','requirements-offline-maps.txt')]]
         for directory in ('offline_maps','offline-map-app','offline-runtime'):
