@@ -13,7 +13,7 @@ static const char MAP_PAGE[] PROGMEM = R"HTML(<!doctype html>
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:15px "Sarabun","Noto Sans Thai",Tahoma,system-ui,sans-serif;overscroll-behavior:none}
 body{display:flex;flex-direction:column;height:100dvh}
 header{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:var(--card)}
-header b{font-size:1.05rem}header a{color:var(--acc);text-decoration:none;font-size:.9rem}
+header b{font-size:1.05rem}#mapName{font-size:.85rem;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}header a{color:var(--acc);text-decoration:none;font-size:.9rem}
 header a.r{margin-left:auto}
 #view{flex:1;position:relative;overflow:hidden;touch-action:none;background:#2a323d}
 #layer{position:absolute;left:0;top:0;width:100%;height:100%;will-change:transform}
@@ -34,11 +34,11 @@ header{flex-wrap:wrap}header>*{min-width:0}button{min-width:0;font-family:inheri
 footer{flex-wrap:wrap}footer button{flex:1 1 52px}#msg{line-height:1.65}
 #overlay{position:absolute;inset:0;pointer-events:none;z-index:2}#panel{position:absolute;z-index:5;right:8px;top:8px;width:min(360px,calc(100% - 16px));max-height:70%;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}#panel{touch-action:pan-y}#panel[hidden]{display:none}#panel input,#panel select{width:100%;padding:8px;background:var(--bg);color:var(--text);border:1px solid var(--line);font:inherit;margin:4px 0}#panel button{padding:7px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;border-radius:6px}#poiResults button{display:block;width:100%;text-align:left;margin-top:5px}#panel p{font-size:13px;color:var(--muted);margin:6px 0}#gpsState{padding:3px 10px;font-size:13px;line-height:1.6;background:var(--card)}#info{z-index:3;max-width:calc(100% - 16px)}#msg{z-index:4}
 </style></head><body>
-<header><b>&#128506; แผนที่</b><a href="/mesh">แชต</a><a href="/tools">เครื่องมือ</a><a class="r" href="/">คู่มือ</a></header>
+<header><b>&#128506; แผนที่</b><span id="mapName"></span><a href="/mesh">แชต</a><a href="/tools">เครื่องมือ</a><a class="r" href="/">คู่มือ</a></header>
 <div id="view"><div id="layer"></div><canvas id="overlay"></canvas><section id="panel" hidden>
 <b>ค้นหาและเส้นทางออฟไลน์</b><button id="closePanel" style="float:right">ปิด</button>
 <form id="poiForm"><input id="poiQuery" maxlength="100" placeholder="ชื่อสถานที่ เช่น วัด โรงพยาบาล" aria-label="ชื่อสถานที่"><button type="submit">ค้นหาใน SD</button></form><div id="poiResults"></div><p id="poiNote"></p><button id="poiMore" hidden>ค้นหาต่อในข้อมูลส่วนถัดไป</button>
-<label for="routes">เส้นทาง GPX ใน SD</label><select id="routes"><option value="">ไม่แสดงเส้นทาง</option></select><button id="loadRoute">แสดงเส้นทาง</button><p>เพิ่มไฟล์ .gpx ใน maps/routes บน SD แล้วเปิดหน้านี้ใหม่ เส้นทางยาวจะย่อจำนวนจุดเพื่อแสดงผล ระยะไปจุดหมายเป็นเส้นตรง</p></section><div id="cross"></div><div id="info"></div><div id="msg"></div></div>
+<label for="routes">เส้นทาง GPX ใน SD</label><select id="routes"><option value="">ไม่แสดงเส้นทาง</option></select><button id="loadRoute">แสดงเส้นทาง</button><p>เพิ่มไฟล์ .gpx ในโฟลเดอร์ routes ของชุดจังหวัดที่เลือกบน SD เส้นทางยาวจะย่อจำนวนจุดเพื่อแสดงผล ระยะไปจุดหมายเป็นเส้นตรง</p></section><div id="cross"></div><div id="info"></div><div id="msg"></div></div>
 <div id="attribution" class="attribution" hidden><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> | <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> | <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a></div>
 <div id="gpsState">กำลังอ่าน GPS จากบอร์ด…</div>
 <footer>
@@ -53,7 +53,8 @@ function wp(lat,lon,zz){var n=T*Math.pow(2,zz),r=lat*Math.PI/180;return{x:(lon+1
 function ll(x,y,zz){var n=T*Math.pow(2,zz);return{lon:x/n*360-180,lat:Math.atan(Math.sinh(Math.PI*(1-2*y/n)))*180/Math.PI}}
 function say(t){msg.textContent=t;msg.style.display=t?'block':'none';if(t)setTimeout(function(){msg.style.display='none'},7000)}
 // The board serves only a few connections at a time, so load tiles three at a time and retry any that fail.
-var queue=[],gen=0,busy=0,mapRevision=String(Date.now());
+var queue=[],gen=0,busy=0,mapRevision=null,mapEpoch=0,mapLoaded=false;
+var attributionMarkup=document.getElementById('attribution').innerHTML;
 function fetchTile(im,g,tries){
   busy++;var done=false;
   function fin(ok){if(done)return;done=true;if(g!==gen)return;busy--;
@@ -64,6 +65,7 @@ function fetchTile(im,g,tries){
   im.src=im.dataset.src+'?v='+encodeURIComponent(mapRevision)+(tries?'&r='+tries:'')}
 function pump(g){while(g===gen&&busy<3&&queue.length)fetchTile(queue.shift(),g,0)}
 function draw(){
+  if(!mapLoaded)return;
   queue=[];busy=0;missingTiles=0;
   var W=view.clientWidth,H=view.clientHeight,n=Math.pow(2,z),left=cx-W/2,top=cy-H/2;
   layer.innerHTML='';layer.style.transform='translate(0,0)';
@@ -103,13 +105,38 @@ document.getElementById('loc').onclick=function(){
   navigator.geolocation.getCurrentPosition(function(p){me={lat:p.coords.latitude,lon:p.coords.longitude};var w=wp(me.lat,me.lon,z);cx=w.x;cy=w.y;say('');draw()},
     function(e){say('โทรศัพท์ไม่อนุญาตให้ใช้พิกัด ('+(e&&e.message?e.message:'ถูกปิดกั้น')+'). โปรดอนุญาตให้เบราว์เซอร์ใช้ตำแหน่ง หรือกด "ระบุจุด" แล้วแตะตำแหน่งบนแผนที่')},
     {enableHighAccuracy:true,timeout:15000})};
-fetch('/maps/center.txt',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){
-  var a=t.trim().split(/\s+/).map(Number);zmin=a[3];zmax=a[4];z=Math.max(zmin,Math.min(zmax,a[2]));var w=wp(a[0],a[1],z);cx=w.x;cy=w.y;draw();
-  if(location.search.indexOf('gps=1')>=0)document.getElementById('loc').onclick()   // we were sent here to ask for the location
-}).catch(function(){info.textContent='ไม่มีแผนที่ในการ์ด SD';say('ไม่พบแผนที่ เปิด map-downloader.bat หรือ ดาวน์โหลดแผนที่ไทย.bat บนคอมพิวเตอร์ เลือกพื้นที่ แล้วบันทึกโฟลเดอร์ maps ลง SD')});
-fetch('/maps/source.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(s){
-  if(s&&(s.provider==='openfreemap'||s.provider==='local-osm')){mapRevision=String(s.fingerprint||s.dataset||s.completedUtc||'th3').slice(0,12);var a=document.getElementById('attribution');if(s.provider==='local-osm'){while(a.childNodes.length>1)a.removeChild(a.lastChild)}a.hidden=false;draw()}
-}).catch(function(){}); // Legacy USGS map folders have no source manifest.
+// A selection on the CYD changes the logical /maps URL. Invalidate all pending
+// work, then load the new set's center and attribution before drawing it.
+async function loadMap(revision,name){
+  var epoch=++mapEpoch;mapRevision=String(revision);mapLoaded=false;gen++;queue=[];busy=0;
+  layer.replaceChildren();routePoints=[];destination=null;poiOffset=0;poiQuery='';
+  followBoard=false;document.getElementById('follow').className='';
+  document.getElementById('poiResults').replaceChildren();document.getElementById('poiQuery').value='';
+  document.getElementById('poiNote').textContent='';document.getElementById('poiMore').hidden=true;
+  document.getElementById('routes').replaceChildren(new Option('ไม่แสดงเส้นทาง',''));
+  document.getElementById('panel').hidden=true;document.getElementById('mapName').textContent=name||'';
+  var attribution=document.getElementById('attribution');attribution.innerHTML=attributionMarkup;attribution.hidden=true;
+  paintOverlay();
+  try{
+    var r=await fetch('/maps/center.txt?v='+encodeURIComponent(mapRevision),{cache:'no-store'});if(!r.ok)throw Error();
+    var text=await r.text();if(epoch!==mapEpoch)return;
+    var a=text.trim().split(/\s+/).map(Number);
+    if(a.length!==5||!a.every(Number.isFinite)||Math.abs(a[0])>85.051129||Math.abs(a[1])>180||a[3]<0||a[4]>18||a[3]>a[4])throw Error();
+    zmin=a[3];zmax=a[4];z=Math.max(zmin,Math.min(zmax,a[2]));var w=wp(a[0],a[1],z);cx=w.x;cy=w.y;mapLoaded=true;draw();
+    try{
+      var source=await fetch('/maps/source.json?v='+encodeURIComponent(mapRevision),{cache:'no-store'});
+      if(source.ok){var data=await source.json();if(epoch!==mapEpoch)return;
+        if(data&&(data.provider==='openfreemap'||data.provider==='local-osm')){
+          if(data.provider==='local-osm')while(attribution.childNodes.length>1)attribution.removeChild(attribution.lastChild);
+          attribution.hidden=false;
+        }
+      }
+    }catch(ignore){} // Legacy USGS map sets have no source manifest.
+    if(epoch!==mapEpoch)return;
+    loadRoutes();
+    if(location.search.indexOf('gps=1')>=0)document.getElementById('loc').onclick();
+  }catch(e){if(epoch!==mapEpoch)return;mapRevision=null;info.textContent='ไม่มีแผนที่ในการ์ด SD';say('ไม่พบชุดแผนที่ที่เลือก ตรวจโฟลเดอร์และไฟล์ center.txt บน SD แล้วเลือกชุดแผนที่จากจอ CYD')}
+}
 // Share this phone's GPS with the board: the board then uses it for its own map dot, radar and mesh position sharing.
 var watchId=null,lastSend=0,lastPos=null,lastSentTimestamp=0,keep=null,wake=null;
 function sendPos(p,force){
@@ -148,10 +175,17 @@ function paintOverlay(){
   var center=ll(cx,cy,z),text=center.lat.toFixed(4)+', '+center.lon.toFixed(4)+'  z'+z;
   if(lastGps&&lastGps.valid&&destination){var db=distanceBearing(lastGps,destination);text+=' → '+destination.name+' '+(db.m<1000?Math.round(db.m)+' ม.':(db.m/1000).toFixed(1)+' กม.')+' '+Math.round(db.deg)+'°'}info.textContent=text;
 }
-async function mapJson(path,body){var options={cache:'no-store'};if(body){options.method='POST';options.headers={'Content-Type':'application/x-www-form-urlencoded'};options.body=new URLSearchParams(body).toString()}var r=await fetch('/api/map/'+path,options);if(!r.ok)throw Error('อ่านข้อมูลจากบอร์ดไม่ได้');return r.json()}
+async function mapJson(path,body){var epoch=mapEpoch,options={cache:'no-store'};if(path!=='status'&&mapRevision!==null)path+=(path.includes('?')?'&':'?')+'v='+encodeURIComponent(mapRevision);if(body){options.method='POST';options.headers={'Content-Type':'application/x-www-form-urlencoded'};options.body=new URLSearchParams(body).toString()}var r=await fetch('/api/map/'+path,options);if(!r.ok)throw Error('อ่านข้อมูลจากบอร์ดไม่ได้');var data=await r.json();if(epoch!==mapEpoch)throw Error('ชุดแผนที่เปลี่ยนแล้ว');return data}
 function updateMe(){var old=layer.querySelector('.me');if(old)old.remove();if(me){var w=wp(me.lat,me.lon,z),dot=document.createElement('div');dot.className='me';dot.style.left=(w.x-cx+view.clientWidth/2)+'px';dot.style.top=(w.y-cy+view.clientHeight/2)+'px';layer.appendChild(dot)}paintOverlay()}
 var gpsBusy=false;
-async function pollGps(){if(gpsBusy||document.hidden)return;gpsBusy=true;try{var g=await mapJson('status');lastGps=g;destination=g.destination;var label=document.getElementById('gpsState');label.textContent=g.valid?(g.phone?'GPS จากโทรศัพท์':'GPS '+g.satellites+' ดาวเทียม')+' · '+Math.round(g.speed)+' กม./ชม. · '+Math.round(g.altitude)+' ม.':(g.age<4294967295?'GPS รอตำแหน่ง · ตำแหน่งล่าสุด '+g.age+' วินาทีก่อน':'GPS รอตำแหน่ง');if(g.valid){me={lat:g.lat,lon:g.lon};var w=wp(me.lat,me.lon,z);if(followBoard&&(Math.abs(w.x-cx)>12||Math.abs(w.y-cy)>12)){cx=w.x;cy=w.y;draw()}else updateMe()}else paintOverlay()}catch(e){document.getElementById('gpsState').textContent='ยังอ่านสถานะ GPS จากบอร์ดไม่ได้'}finally{gpsBusy=false}}
+async function pollGps(){if(gpsBusy||document.hidden)return;gpsBusy=true;try{
+  var g=await mapJson('status');
+  if(mapRevision!==String(g.mapRevision||0))await loadMap(g.mapRevision||0,g.mapName||'');
+  lastGps=g;destination=g.destination;
+  var label=document.getElementById('gpsState');label.textContent=g.valid?(g.phone?'GPS จากโทรศัพท์':'GPS '+g.satellites+' ดาวเทียม')+' · '+Math.round(g.speed)+' กม./ชม. · '+Math.round(g.altitude)+' ม.':(g.age<4294967295?'GPS รอตำแหน่ง · ตำแหน่งล่าสุด '+g.age+' วินาทีก่อน':'GPS รอตำแหน่ง');
+  if(g.valid){me={lat:g.lat,lon:g.lon};var w=wp(me.lat,me.lon,z);if(followBoard&&(Math.abs(w.x-cx)>12||Math.abs(w.y-cy)>12)){cx=w.x;cy=w.y;draw()}else updateMe()}else paintOverlay()
+}catch(e){document.getElementById('gpsState').textContent='ยังอ่านสถานะ GPS จากบอร์ดไม่ได้'}finally{gpsBusy=false}}
+
 document.getElementById('follow').onclick=function(){followBoard=!followBoard;this.className=followBoard?'on':'';if(followBoard){if(lastGps&&lastGps.valid){var w=wp(lastGps.lat,lastGps.lon,z);cx=w.x;cy=w.y;draw()}else say('เปิดโหมดติดตามแล้ว กำลังรอตำแหน่ง GPS จากบอร์ด')}};
 var poiOffset=0,poiQuery='';
 async function searchPois(reset){var note=document.getElementById('poiNote'),more=document.getElementById('poiMore');if(reset){poiOffset=0;poiQuery=document.getElementById('poiQuery').value.trim();document.getElementById('poiResults').replaceChildren()}more.disabled=true;note.textContent='กำลังค้นหาใน SD…';try{var data=await mapJson('pois?q='+encodeURIComponent(poiQuery)+'&offset='+poiOffset);data.items.forEach(function(p){var b=document.createElement('button');b.textContent=p.name+' · '+p.category;b.onclick=async function(){try{var ok=await mapJson('destination',{name:p.name,lat:p.lat,lon:p.lon});if(!ok.ok)throw 0;destination=p;followBoard=false;document.getElementById('follow').className='';var w=wp(p.lat,p.lon,z);cx=w.x;cy=w.y;draw();document.getElementById('panel').hidden=true;say('เลือกจุดหมายแล้ว ระยะที่แสดงเป็นเส้นตรง')}catch(e){say('กำหนดจุดหมายไม่สำเร็จ')}};document.getElementById('poiResults').appendChild(b)});poiOffset=data.next;more.hidden=data.next===null;note.textContent=data.missing?'ยังไม่มี maps/pois.tsv ให้เตรียมชุดจังหวัดก่อน':data.next!==null?'ยังมีข้อมูลส่วนถัดไป กดค้นหาต่อได้':'ค้นหาถึงท้ายข้อมูลแล้ว'}catch(e){note.textContent=e.message}finally{more.disabled=false}}
@@ -159,6 +193,6 @@ document.getElementById('poiForm').onsubmit=function(e){e.preventDefault();searc
 async function loadRoutes(){document.getElementById('routes').disabled=true;document.getElementById('loadRoute').disabled=true;try{var data=await mapJson('routes'),select=document.getElementById('routes');select.replaceChildren(new Option('ไม่แสดงเส้นทาง',''));data.items.forEach(function(n){select.add(new Option(n,n))});select.value=data.selected||'';var route=await mapJson('route');routePoints=route.points||[];paintOverlay()}catch(e){say('อ่านรายการเส้นทางไม่ได้')}finally{document.getElementById('routes').disabled=false;document.getElementById('loadRoute').disabled=false}}
 document.getElementById('find').onclick=function(){document.getElementById('panel').hidden=!document.getElementById('panel').hidden;if(!document.getElementById('panel').hidden)loadRoutes()};document.getElementById('closePanel').onclick=function(){document.getElementById('panel').hidden=true};
 document.getElementById('loadRoute').onclick=async function(){try{var result=await mapJson('route',{name:document.getElementById('routes').value});if(!result.ok)throw 0;var r=await mapJson('route');routePoints=r.points||[];paintOverlay();say(routePoints.length?'แสดงเส้นทางแล้ว'+(r.sampled?' (ย่อจำนวนจุดสำหรับแสดงผล)':''):'ปิดเส้นทางแล้ว')}catch(e){say('เปิดเส้นทางไม่สำเร็จ ตรวจไฟล์ GPX ขนาดไม่เกิน 4 MB')}};
-setInterval(pollGps,2000);pollGps();loadRoutes();
+setInterval(pollGps,2000);pollGps();
 window.onresize=draw;
 </script></body></html>)HTML";

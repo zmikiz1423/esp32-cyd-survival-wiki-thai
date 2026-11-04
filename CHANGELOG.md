@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Multiple map sets on one SD card - 1.6.0-th4 (2026-11-04)
+
+- Add a paginated CYD province selector for legacy `/maps` and separate `/maps-<slug>` folders, with no fixed application-level map-set count. SD capacity and filesystem limits still apply.
+- Persist the active map set across restarts and keep map tiles, searchable POIs, GPX selection, waypoints and recorded tracks separate by set. GPS follow remains manual and does not automatically switch provinces.
+- Route HTTP/HTTPS map requests to the selected set and refresh phone map data when the board selection changes.
+- Preserve existing th3 cards without copying the full SD package again, add Thai `name.txt` labels automatically when province builds complete while preserving custom labels on resume, and document multi-province installation in `MULTI_MAPS_TH.md`.
+- Software checks and ESP32 compilation do not replace testing this update on a physical CYD/GPS module.
+
 ### Offline province maps and live GPS - 1.6.0-th3 (2026-11-04)
 
 - Add one-click, resumable whole-province map authoring from a checksum-verified Geofabrik Thailand OSM extract, covering province polygons and islands with a boundary margin. Local image batches checkpoint automatically at 3,000 images / 50 MB; this does not split remote tile-service requests.

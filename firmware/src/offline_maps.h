@@ -8,12 +8,12 @@ struct OfflineDestination { bool valid; double lat, lon; char name[96]; uint32_t
 const OfflineRoutePoint *offlineRoute(int &count);
 bool offlineRouteRefresh();  // main task only; returns true when selection changed
 OfflineDestination offlineDestination();
-bool offlineSetDestination(double lat, double lon, const String &name);
+bool offlineSetDestination(double lat, double lon, const String &name, uint32_t expectedRevision=UINT32_MAX);
 String offlineStatusJson();
 String offlinePoisJson(const String &query, uint32_t offset);
 struct OfflinePoi { double lat, lon; String name, category; };
 // UINT32_MAX marks end of file. A scan is bounded even for an absent query.
 int offlineFindPois(const String &query, uint32_t offset, OfflinePoi *items, int capacity, uint32_t &next);
 String offlineRoutesJson();
-bool offlineSelectRoute(const String &name);
+bool offlineSelectRoute(const String &name, uint32_t expectedRevision=UINT32_MAX);
 String offlineRouteJson();

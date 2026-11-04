@@ -42,9 +42,12 @@ def run():
  check('POI TSV has firmware-compatible Thai name and coordinates','โรงพยาบาลสุราษฎร์ธานี' in (out/'pois.tsv').read_text('utf8'))
  check('Coverage complete and initial zoom within bounds',json.loads((out/'coverage.json').read_text('utf8'))['complete'] and (out/'center.txt').read_text().strip().endswith('8 8 8'))
  check('Source dataset/font/boundary hashes recorded',all(k in json.loads((out/'source.json').read_text('utf8')) for k in ['datasetSha256','fontSha256','boundarySha256','fingerprint']))
+ check('Complete build writes UTF-8 Thai province selector label',(out/'name.txt').read_text('utf8')==surat['name']+'\n')
  old={p:p.stat().st_mtime_ns for p in out.rglob('*.jpg')};center=(out/'center.txt').read_bytes();pois=(out/'pois.tsv').read_bytes()
  (out/'waypoints.txt').write_text('my waypoint','utf8');(out/'track.csv').write_text('my track','utf8')
+ (out/'name.txt').write_text('แผนที่ทริปของฉัน\n','utf8')
  b.build('TH-84',out,cache,8,8,pbf_path=source)
+ check('Resume preserves a custom province selector label',(out/'name.txt').read_text('utf8')=='แผนที่ทริปของฉัน\n')
  check('Resume keeps every valid JPEG without rewriting',all(p.stat().st_mtime_ns==stamp for p,stamp in old.items()))
  victim=next(iter(old));victim.write_bytes(b'broken');b.build('TH-84',out,cache,8,8,pbf_path=source)
  check('Resume repairs corrupt JPEG',b.valid_jpeg(victim))
@@ -55,6 +58,10 @@ def run():
  except b.BuildCancelled:pass
  check('Cancellation preserves previous center and POI index',(out/'center.txt').read_bytes()==center and (out/'pois.tsv').read_bytes()==pois)
  check('Cancellation leaves working job marker',(out/'working-job.json').exists())
+ fresh=work/'cancelled-new-maps';state[0]=False
+ try:b.build('TH-84',fresh,cache,8,8,pbf_path=source,progress=cancel_event,cancelled=lambda:state[0])
+ except b.BuildCancelled:pass
+ check('Cancelled first build does not publish a province selector label',not (fresh/'name.txt').exists() and not (fresh/'center.txt').exists())
  check('Existing waypoints and tracks preserved',(out/'waypoints.txt').read_text()=='my waypoint' and (out/'track.csv').read_text()=='my track')
  # Changing source even while all JPEGs validate must never silently reuse them.
  source.write_text(source.read_text('utf8').replace('อาคารทดสอบ','อาคารทดสอบใหม่'),'utf8')

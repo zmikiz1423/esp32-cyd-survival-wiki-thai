@@ -21,6 +21,7 @@
 #include "mesh.h"
 #include "gps.h"
 #include "offline_maps.h"
+#include "map_storage.h"
 #include "triage.h"
 #include "qrcodegen.h"
 
@@ -40,7 +41,7 @@ static int nArticles = 0;
 static std::vector<Entry> list;   // current category's articles, or the library books
 
 // ---------------------------------------------------------------- state
-enum Screen { SC_HOME, SC_CATEGORY, SC_ARTICLE, SC_LIBRARY, SC_BOOK, SC_WIFI, SC_SETTINGS, SC_NOSD, SC_LIGHT, SC_MESH, SC_QUICK, SC_KEYS, SC_NEAR, SC_MAP, SC_RADAR, SC_TRIAGE, SC_WPS, SC_INFO, SC_POIS };
+enum Screen { SC_HOME, SC_CATEGORY, SC_ARTICLE, SC_LIBRARY, SC_BOOK, SC_WIFI, SC_SETTINGS, SC_NOSD, SC_LIGHT, SC_MESH, SC_QUICK, SC_KEYS, SC_NEAR, SC_MAP, SC_RADAR, SC_TRIAGE, SC_WPS, SC_INFO, SC_POIS, SC_MAP_SETS };
 static Screen screen = SC_HOME;
 static int curCat = 0, listPage = 0, scrollY = 0, homePage = 0, nearPage = 0;
 static int bookIdx = 0, bookPart = 1, bookParts = 1;
@@ -74,6 +75,11 @@ static int poiCount=0;
 static String poiQuery;
 static uint32_t poiOffset=0,poiNext=UINT32_MAX;
 static std::vector<uint32_t> poiHistory;
+// Only one page lives in RAM regardless of how many provinces are on SD.
+static MapSetEntry mapSets[4];
+static int mapSetCount = 0;
+static uint32_t mapSetOffset = 0, mapSetNext = UINT32_MAX;
+static String mapSetError;
 static bool mapLocalData = false;
 static bool mapOpenData = false;                    // new OpenFreeMap packages need visible attribution
 static uint32_t ledOffMs = 0;        // green "message received" blink
@@ -92,6 +98,7 @@ enum BtnId : uint16_t {
   B_LIGHT, B_NIGHT, B_BACKUP_SAVE, B_BACKUP_LOAD,
   B_MESH, B_MESH_TOGGLE, B_MESH_QUICK, B_MESH_TYPE, B_MESH_NAME, B_MESH_NEAR, B_RADAR, B_GPS_SHARE, B_KB_DEL, B_KB_SHIFT, B_KB_SEND, B_MAP, B_MAP_IN, B_MAP_OUT, B_TRIAGE, B_MAP_ME, B_MAP_MARK, B_MAP_PTS, B_WP_DEL, B_WP_CLEAR, B_TRK_CLEAR,
   B_KB_LANG = 54, B_KB_PAGE, B_INFO, B_MAP_SEARCH, B_POI_QUERY,
+  B_MAP_SETS,
   B_QUICK_BASE = 60,           // 60..69: quick messages
   B_TRI_BASE = 70,             // 70..74: triage answers
   B_TILE = 100, B_ROW = 200,
@@ -1068,7 +1075,7 @@ static bool mapLoadCenter() {
   mapOpenData = false;
   mapLocalData = false;
   if (!sdUp) return false;
-  File f = SD.open("/maps/center.txt", FILE_READ);
+  File f = SD.open(mapStoragePath("center.txt"), FILE_READ);
   if (!f) return false;
   String l = readLine(f);
   f.close();
@@ -1082,7 +1089,7 @@ static bool mapLoadCenter() {
   mapLatLonToPx(lat, lon, mapZ, mapCx, mapCy);
   // The downloader writes a small source.json manifest. Read the provider
   // once per map load; do not allocate a JSON parser or read SD on every draw.
-  File source = SD.open("/maps/source.json", FILE_READ);
+  File source = SD.open(mapStoragePath("source.json"), FILE_READ);
   if (source && !source.isDirectory() && source.size() <= 4096) {
     String metadata = source.readString();
     int p = metadata.indexOf("\"provider\"");
@@ -1120,7 +1127,7 @@ static int wpMax() { return min<int>(16, ROWS_PER_PAGE); }
 static void wpLoad() {
   nWps = 0;
   if (!sdUp) return;
-  File f = SD.open("/maps/waypoints.txt", FILE_READ);
+  File f = SD.open(mapStoragePath("waypoints.txt"), FILE_READ);
   if (!f) return;
   while (f.available() && nWps < wpMax()) {
     String l = readLine(f);
@@ -1136,8 +1143,8 @@ static void wpLoad() {
 
 static void wpSave() {
   if (!sdUp) return;
-  SD.remove("/maps/waypoints.txt");
-  File f = SD.open("/maps/waypoints.txt", FILE_WRITE);
+  SD.remove(mapStoragePath("waypoints.txt"));
+  File f = SD.open(mapStoragePath("waypoints.txt"), FILE_WRITE);
   if (!f) return;
   for (int i = 0; i < nWps; i++) f.printf("%s\t%.6f\t%.6f\n", wps[i].name, wps[i].lat, wps[i].lon);
   f.close();
@@ -1147,7 +1154,7 @@ static void trkLoad() {
   trkLoaded = true;
   trkN = 0;
   if (!sdUp) return;
-  File f = SD.open("/maps/track.csv", FILE_READ);
+  File f = SD.open(mapStoragePath("track.csv"), FILE_READ);
   if (!f) return;
   while (f.available()) {
     String l = readLine(f);
@@ -1161,7 +1168,7 @@ static void trkLoad() {
 
 static void trkClear() {
   trkN = 0;
-  if (sdUp) SD.remove("/maps/track.csv");
+  if (sdUp) SD.remove(mapStoragePath("track.csv"));
 }
 
 // Called from loop(): drop a breadcrumb every 15 m of travel while the GPS has a fix.
@@ -1170,13 +1177,13 @@ static void trkLoop(uint32_t now) {
   if ((int32_t)(now - next) < 0) return;
   next = now + 5000;
   GpsFix g = gpsGet();
-  if (!g.valid) return;
+  if (!g.valid || !mapReady) return;
   if (!trkLoaded) trkLoad();
   if (trkN && geoDistM(trk[trkN - 1].lat, trk[trkN - 1].lon, g.lat, g.lon) < 15.0) return;
   if (trkN == TRK_MAX) { memmove(trk, trk + 1, sizeof(TrkPt) * (TRK_MAX - 1)); trkN--; }
   trk[trkN++] = {(float)g.lat, (float)g.lon};
   if (sdUp) {
-    File f = SD.open("/maps/track.csv", FILE_APPEND);
+    File f = SD.open(mapStoragePath("track.csv"), FILE_APPEND);
     if (f) {
       if (f.size() < 150000) f.printf("%.6f,%.6f\n", g.lat, g.lon);
       f.close();
@@ -1284,10 +1291,11 @@ static void mapDrawTiles() {
   for (int ty = (int)floor(top / 256.0); ty <= (int)floor((top + CONTENT_H - 1) / 256.0); ty++) {
     for (int tx = (int)floor(left / 256.0); tx <= (int)floor((left + SCR_W - 1) / 256.0); tx++) {
       if (tx < 0 || ty < 0 || tx >= tiles || ty >= tiles) continue;
-      char path[40];
-      snprintf(path, sizeof(path), "/maps/%d/%d/%d.jpg", mapZ, tx, ty);
+      char suffix[40];
+      snprintf(suffix, sizeof(suffix), "%d/%d/%d.jpg", mapZ, tx, ty);
+      String path = mapStoragePath(suffix);
       if(!SD.exists(path))missingTiles++;
-      else TJpgDec.drawFsJpg(tx * 256 - left, CONTENT_Y + ty * 256 - top, path, SD);   // a missing tile just stays grey
+      else TJpgDec.drawFsJpg(tx * 256 - left, CONTENT_Y + ty * 256 - top, path.c_str(), SD);   // a missing tile just stays grey
     }
   }
   mapDrawOverlays();
@@ -1343,7 +1351,12 @@ static void mapDrawTiles() {
 static void drawMap() {
   btns.clear();
   tft.fillScreen(C_BG);
-  drawHeader("แผนที่", true);
+  drawHeader("", true);
+  tft.setTextFont(1); tft.setTextDatum(ML_DATUM); tft.setTextColor(C_TEXT);
+  int nameX=SCR_W<300?38:52;
+  tft.drawString(fitText(mapStorageName(), SCR_W-80-nameX-6), nameX, HEADER_H/2);
+  // Keep province selection out of the six existing map controls.
+  addBtn(SCR_W-80, 2, 78, HEADER_H-4, B_MAP_SETS, "จังหวัด");
   if (!mapReady) {
     tft.setTextFont(2);
     tft.setTextDatum(MC_DATUM);
@@ -1522,9 +1535,51 @@ static void wpMark() {
   mapDrawTiles();
 }
 
+static void loadMapSets() {
+  mapSetCount = mapStorageList(mapSetOffset, mapSets, 4, mapSetNext);
+  gpsLoop();
+}
+
+static void drawMapSets() {
+  btns.clear(); tft.fillScreen(C_BG); drawHeader("เลือกจังหวัด", true);
+  tft.setTextFont(1); tft.setTextDatum(TL_DATUM); tft.setTextColor(C_MUTED);
+  String note = mapSetError.length() ? mapSetError : String("ใช้อยู่: ") + mapStorageName();
+  tft.drawString(fitText(note, SCR_W-12), 6, CONTENT_Y+3);
+  // Four rows fit the 240x320 CYD; fitText preserves Thai clusters.
+  String active = mapStorageRoot();
+  for (int i=0; i<mapSetCount; i++) {
+    String label = (mapSets[i].path==active ? String("* ") : String()) + mapSets[i].name;
+    addBtn(4, CONTENT_Y+31+i*44, SCR_W-8, 41, B_ROW+i, label);
+  }
+  if (!mapSetCount) {
+    tft.setTextDatum(MC_DATUM);
+    tft.drawString("ไม่พบชุดแผนที่ที่พร้อมใช้", SCR_W/2, CONTENT_Y+84);
+    tft.drawString("ตรวจโฟลเดอร์ maps บน SD", SCR_W/2, CONTENT_Y+112);
+  }
+  tft.setTextFont(1); tft.setTextDatum(MC_DATUM); tft.setTextColor(C_MUTED);
+  tft.drawString(String("หน้า ")+String(mapSetOffset/4+1), SCR_W/2, SCR_H-FOOTER_H-14);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true},{B_PREV,"ก่อน",I_LEFT,mapSetOffset>0},
+               {B_NEXT,"ต่อ",I_RIGHT,mapSetNext!=UINT32_MAX}};
+  drawFooter(f,3);
+}
+
+static void mapSetTap(int i) {
+  if (i<0 || i>=mapSetCount) return;
+  if (!mapStorageSelect(mapSets[i].path)) {
+    mapSetError="เลือกไม่ได้ ตรวจการ์ด SD"; drawMapSets(); return;
+  }
+  // All data below belongs to the chosen set, never the previous province.
+  mapFollow=false; mapToast[0]=0; wpDelMode=false;
+  wpClearMs=0; trkClearMs=0; poiQuery=""; poiOffset=0; poiNext=UINT32_MAX;
+  poiCount=0; poiHistory.clear();
+  mapLoadCenter(); wpLoad(); trkLoad(); offlineRouteRefresh();
+  screen=SC_MAP; redraw();
+}
+
 static void redraw() {
   switch (screen) {
     case SC_MAP: drawMap(); break;
+    case SC_MAP_SETS: drawMapSets(); break;
     case SC_TRIAGE: drawTriage(); break;
     case SC_WPS: drawWps(); break;
     case SC_POIS: drawPois(); break;
@@ -1675,6 +1730,8 @@ static void startup() {
     redraw();
     return;
   }
+  mapStorageBegin();
+  mapLoadCenter();
   loadConfig();
   loadCatalog();
   Serial.printf("[sd] OK: %d categories, %d articles\n", nCats, nArticles);
@@ -1705,6 +1762,7 @@ static void goBack() {
       else { screen = sdUp ? SC_HOME : SC_NOSD; }
       break;
     case SC_WPS: wpDelMode = false; screen = SC_MAP; break;
+    case SC_MAP_SETS: screen = SC_MAP; break;
     case SC_POIS: screen=SC_WPS;break;
     case SC_BOOK: doc.free(); screen = SC_LIBRARY; break;
     case SC_QUICK:
@@ -1926,6 +1984,7 @@ static void onButton(uint16_t id) {
   }
   if (id >= B_ROW) {
     int idx = id - B_ROW;
+    if (screen == SC_MAP_SETS) { mapSetTap(idx); return; }
     if (screen == SC_WPS) { wpRowTap(idx); return; }
     if (screen == SC_POIS) {if(idx<poiCount){OfflinePoi &p=poiItems[idx];offlineSetDestination(p.lat,p.lon,p.name);mapFollow=false;if(!mapReady)mapLoadCenter();if(mapReady)mapLatLonToPx(p.lat,p.lon,mapZ,mapCx,mapCy);screen=SC_MAP;redraw();}return;}
     if (idx >= (int)list.size()) return;
@@ -1957,13 +2016,15 @@ static void onButton(uint16_t id) {
       else if ((listPage + 1) * listRowsPerPage() < (int)list.size()) { listPage++; redraw(); }
       break;
     case B_PREV:
-      if(screen==SC_POIS){if(!poiHistory.empty()){poiOffset=poiHistory.back();poiHistory.pop_back();loadPois();redraw();}}
+      if(screen==SC_MAP_SETS){mapSetOffset=mapSetOffset>=4?mapSetOffset-4:0;loadMapSets();redraw();}
+      else if(screen==SC_POIS){if(!poiHistory.empty()){poiOffset=poiHistory.back();poiHistory.pop_back();loadPois();redraw();}}
       else if (screen == SC_HOME) { if (homePage > 0) { homePage--; redraw(); } }
       else if(screen==SC_NEAR) { nearPage--;redraw(); }
       else if (bookPart > 1) { bookPart--; openBookPart(false); }
       break;
     case B_NEXT:
-      if(screen==SC_POIS){if(poiNext!=UINT32_MAX){if(poiHistory.size()<128)poiHistory.push_back(poiOffset);poiOffset=poiNext;loadPois();redraw();}}
+      if(screen==SC_MAP_SETS){if(mapSetNext!=UINT32_MAX){mapSetOffset=mapSetNext;loadMapSets();redraw();}}
+      else if(screen==SC_POIS){if(poiNext!=UINT32_MAX){if(poiHistory.size()<128)poiHistory.push_back(poiOffset);poiOffset=poiNext;loadPois();redraw();}}
       else if (screen == SC_HOME) { homePage++; redraw(); }   // drawHome clamps to the last page
       else if(screen==SC_NEAR) { nearPage++;redraw(); }
       else if (bookPart < bookParts) { bookPart++; openBookPart(false); }
@@ -1985,6 +2046,7 @@ static void onButton(uint16_t id) {
     case B_MESH_NEAR: screen = SC_NEAR; redraw(); break;
     case B_RADAR: screen = SC_RADAR; redraw(); break;
     case B_GPS_SHARE: gpsShare = !gpsShare; prefs.putBool("gpsshare", gpsShare); redraw(); break;
+    case B_MAP_SETS: mapSetOffset=0;mapSetError="";loadMapSets();screen=SC_MAP_SETS;redraw();break;
     case B_MAP: if (!mapReady) mapLoadCenter(); if (!trkLoaded) trkLoad(); wpLoad(); screen = SC_MAP; redraw(); break;
     case B_MAP_IN:
       if (mapZ < mapMaxZ) { mapZ++; mapCx *= 2; mapCy *= 2; redraw(); }

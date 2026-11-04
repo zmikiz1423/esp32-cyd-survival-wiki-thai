@@ -510,6 +510,9 @@ def _build(province_id,output,cache_dir,min_zoom=8,max_zoom=14,progress=None,can
         write_json(output/'coverage.json',{**spec,'complete':True,'completed':done,'bytes':size,'missing':0,'job':jobid,'batchesActual':batch,'attribution':source['attribution']})
         atomic(output/'attribution.txt',('© OpenStreetMap contributors / ODbL\nhttps://www.openstreetmap.org/copyright\nData extract: Geofabrik\nProvince boundaries: geoBoundaries / OSM Wambacher (2017), ODbL\n').encode())
         source['completedUtc']=time.time();source['complete']=True;write_json(source_file,source)
+        # Complete-only display label for the CYD map-set selector. Keep a user
+        # label untouched when resuming or extending an existing province.
+        if not (output/'name.txt').exists():atomic(output/'name.txt',(p['name']+'\n').encode('utf-8'))
         atomic(output/'center.txt',f'{center[0]:.7f} {center[1]:.7f} {start_zoom} {min_zoom} {max_zoom}\n'.encode())
         (output/'working-job.json').unlink(missing_ok=True)
         result={'state':'complete','stage':'complete','message':'สร้างแผนที่ครบทุกแผ่นแล้ว พร้อมคัดลอกลง SD','done':done,'total':spec['count'],'count':spec['count'],'bytes':size,'missing':0,'batches':batch,'output':str(output),'pois':len(pois),'province':province_id}

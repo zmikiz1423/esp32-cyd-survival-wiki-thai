@@ -20,7 +20,7 @@ import webbrowser
 SCRIPT = Path(__file__).resolve().parent
 ROOT = SCRIPT.parent
 sys.path.insert(0, str(SCRIPT))
-VERSION = "1.6.0-th3"
+VERSION = "1.6.0-th4"
 PROFILES = [
     {"id": "overview", "name": "ภาพรวม · ซูม 8–12", "minZoom": 8, "maxZoom": 12},
     {"id": "standard", "name": "มาตรฐาน · ซูม 8–14", "minZoom": 8, "maxZoom": 14},

@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "version": "1.6.0-th4",
+  "firmwareSha256": "9f130ff294e398375d7bd14dadf1fa9be64895b4409041fe674131ce3d46dba9",
+  "nativeStorageChecks": 263,
+  "nativeMapSetsFixture": 138,
+  "phoneRegressionChecks": 18,
+  "phoneMultiMapChecks": 12,
+  "provinceBuilderChecks": 25,
+  "thaiShapingCases": 2991,
+  "thaiWholeWordMismatches": 0,
+  "sdArticles": 118,
+  "sdBookParts": 84,
+  "suratTiles": 55125,
+  "mergedImageComponentsVerified": 4,
+  "webFlasherAliasesVerified": 3,
+  "mapListUsesConstantPageMemory": true,
+  "mapSetCountLimit": null,
+  "physicalBoardTested": false,
+  "menuPreview": "host-rendered, not a board screenshot",
+  "checksums": {
+    "firmware-CYD28.bin": "9f130ff294e398375d7bd14dadf1fa9be64895b4409041fe674131ce3d46dba9",
+    "sdcard-TH.zip": "f125561bea5477312a5e8af1138a64e755beb37b8248625ab6307ca67340dc3c",
+    "Thailand-Map-Downloader.zip": "a2ce6bdb22ca109d875cee988ba38da22083ef1421856d2460cdafc80a91d50b",
+    "Thailand-Offline-Province-Maps.zip": "39c95f95d5a4050674045e06861615cf3e17e48abcfb37929dc0fc242305807d",
+    "maps-Bangkok-demo.zip": "ed30e375893279a415df7104ab97975876a5c33932067cba50f46fd6fcf8f54f",
+    "maps-Surat-Thani-offline.zip": "d8d93080581c5db51411afe83aee9b6b0fc8007961c4c222ded4749442341ad7"
+  }
+}

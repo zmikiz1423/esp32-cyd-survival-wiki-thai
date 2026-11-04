@@ -16,15 +16,18 @@
     "POI TSV has firmware-compatible Thai name and coordinates",
     "Coverage complete and initial zoom within bounds",
     "Source dataset/font/boundary hashes recorded",
+    "Complete build writes UTF-8 Thai province selector label",
+    "Resume preserves a custom province selector label",
     "Resume keeps every valid JPEG without rewriting",
     "Resume repairs corrupt JPEG",
     "Cancellation preserves previous center and POI index",
     "Cancellation leaves working job marker",
+    "Cancelled first build does not publish a province selector label",
     "Existing waypoints and tracks preserved",
     "Changed raw source refused to prevent mixed old/new tiles",
     "Legacy unknown map folder refused and preserved"
   ],
-  "count": 22,
+  "count": 25,
   "suratZoomCounts": {
     "8": 5,
     "9": 10,
@@ -36,5 +39,5 @@
   },
   "fixtureOnly": true,
   "hardwareTested": false,
-  "work": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\province-builder-qa-1793722344024052600"
+  "work": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\province-builder-qa-1793774688259089600"
 }

@@ -1,12 +1,15 @@
 #include "offline_maps.h"
 #include "gps.h"
+#include "map_storage.h"
 #include <SD.h>
 #include <math.h>
 
 static portMUX_TYPE navMux = portMUX_INITIALIZER_UNLOCKED;
 static OfflineDestination destination = {};
+static uint32_t destinationMapRevision = 0;
 static volatile uint32_t selectionSeq = 1;
 static uint32_t loadedSeq = 0;
+static uint32_t loadedMapRevision = UINT32_MAX;
 static OfflineRoutePoint routePts[600];
 static int routeN = 0;
 static bool routeTruncated = false;
@@ -21,24 +24,27 @@ static String boundedLine(File &f, unsigned max=512) {
   return longLine ? String() : s;
 }
 static bool coordinate(const String &s,double &n,double max){char *end=nullptr;n=strtod(s.c_str(),&end);return end!=s.c_str()&&!*end&&isfinite(n)&&fabs(n)<=max;}
-OfflineDestination offlineDestination(){portENTER_CRITICAL(&navMux);OfflineDestination d=destination;portEXIT_CRITICAL(&navMux);return d;}
-bool offlineSetDestination(double lat,double lon,const String &name){
+OfflineDestination offlineDestination(){uint32_t rev=mapStorageRevision();portENTER_CRITICAL(&navMux);OfflineDestination d=destination;if(destinationMapRevision!=rev)d.valid=false;portEXIT_CRITICAL(&navMux);return d;}
+bool offlineSetDestination(double lat,double lon,const String &name,uint32_t expectedRevision){
+  uint32_t rev=mapStorageRevision();if(expectedRevision!=UINT32_MAX&&rev!=expectedRevision)return false;
   if(!isfinite(lat)||!isfinite(lon)||fabs(lat)>90||fabs(lon)>180)return false;
   OfflineDestination d={};d.valid=true;d.lat=lat;d.lon=lon;
   size_t n=min<size_t>(name.length(),sizeof(d.name)-1);while(n&&((uint8_t)name[n]&0xc0)==0x80)n--;
   memcpy(d.name,name.c_str(),n);d.name[n]=0;
-  portENTER_CRITICAL(&navMux);d.seq=destination.seq+1;destination=d;portEXIT_CRITICAL(&navMux);return true;
+  portENTER_CRITICAL(&navMux);d.seq=destination.seq+1;destination=d;destinationMapRevision=rev;portEXIT_CRITICAL(&navMux);return true;
 }
 String offlineStatusJson(){
+  MapStorageSnapshot map=mapStorageSnapshot();
   GpsFix g=gpsGet();OfflineDestination d=offlineDestination();
   String j="{\"valid\":"+String(g.valid?"true":"false")+",\"lat\":"+String(g.lat,6)+",\"lon\":"+String(g.lon,6);
   j+=",\"speed\":"+String(g.speedKmh,1)+",\"course\":"+String(g.courseDeg,1)+",\"altitude\":"+String(g.altM,1)+",\"hdop\":"+String(g.hdop,1)+",\"satellites\":"+String(g.sats)+",\"phone\":"+String(g.phone?"true":"false")+",\"age\":"+String(gpsFixAgeS());
   j+=",\"destination\":";if(d.valid)j+="{\"name\":\""+esc(d.name)+"\",\"lat\":"+String(d.lat,6)+",\"lon\":"+String(d.lon,6)+"}";else j+="null";
+  j+=",\"mapRevision\":"+String(map.revision)+",\"mapName\":\""+esc(map.name)+"\"";
   return j+"}";
 }
 String offlinePoisJson(const String &input,uint32_t offset){
   String query=input.substring(0,160);query.toLowerCase();query.trim();
-  File f=SD.open("/maps/pois.tsv",FILE_READ);if(!f||f.isDirectory())return "{\"items\":[],\"next\":null,\"missing\":true}";
+  File f=SD.open(mapStoragePath("/pois.tsv"),FILE_READ);if(!f||f.isDirectory())return "{\"items\":[],\"next\":null,\"missing\":true}";
   if(offset>f.size()){f.close();return "{\"items\":[],\"next\":null}";}f.seek(offset);
   String j="{\"items\":[";int found=0,scanned=0;uint32_t started=millis();
   // Each page scans at most 1500 lines / 500 ms; the phone explicitly offers
@@ -54,7 +60,7 @@ String offlinePoisJson(const String &input,uint32_t offset){
 }
 int offlineFindPois(const String &input,uint32_t offset,OfflinePoi *items,int capacity,uint32_t &next){
   next=UINT32_MAX;String query=input.substring(0,160);query.trim();query.toLowerCase();
-  File f=SD.open("/maps/pois.tsv",FILE_READ);if(!f||f.isDirectory())return 0;
+  File f=SD.open(mapStoragePath("/pois.tsv"),FILE_READ);if(!f||f.isDirectory())return 0;
   if(offset>f.size()){f.close();return 0;}f.seek(offset);
   int count=0,scanned=0;uint32_t started=millis();
   while(f.available()&&count<capacity&&scanned++<1500&&millis()-started<500){
@@ -68,17 +74,20 @@ int offlineFindPois(const String &input,uint32_t offset,OfflinePoi *items,int ca
   if(f.available())next=f.position();f.close();return count;
 }
 static bool safeRoute(const String &name){return name.length()>4&&name.length()<96&&name.endsWith(".gpx")&&name.indexOf('/')<0&&name.indexOf('\\')<0&&name.indexOf("..")<0&&name.indexOf('\n')<0&&name.indexOf('\r')<0;}
-static String selected(){File f=SD.open("/maps/active-route.txt",FILE_READ);String n=f?boundedLine(f,96):String();if(f)f.close();n.trim();return safeRoute(n)?n:String();}
+static String selected(const String &root){File f=SD.open(root+"/active-route.txt",FILE_READ);String n=f?boundedLine(f,96):String();if(f)f.close();n.trim();return safeRoute(n)?n:String();}
 String offlineRoutesJson(){
-  String j="{\"selected\":\""+esc(selected())+"\",\"items\":[";File dir=SD.open("/maps/routes");int n=0;
+  String root=mapStorageRoot();
+  String j="{\"selected\":\""+esc(selected(root))+"\",\"items\":[";File dir=SD.open(root+"/routes");int n=0;
   if(dir&&dir.isDirectory()){for(File f=dir.openNextFile();f&&n<40;f=dir.openNextFile()){String name=f.name();int slash=name.lastIndexOf('/');if(slash>=0)name=name.substring(slash+1);if(!f.isDirectory()&&safeRoute(name)&&f.size()<=4194304){if(n++)j+=',';j+='"';j+=esc(name);j+='"';}f.close();}dir.close();}
   return j+"]}";
 }
-bool offlineSelectRoute(const String &name){
+bool offlineSelectRoute(const String &name,uint32_t expectedRevision){
+  MapStorageSnapshot map=mapStorageSnapshot();if(expectedRevision!=UINT32_MAX&&map.revision!=expectedRevision)return false;
+  String root=map.root;
   if(name.length()&&!safeRoute(name))return false;
-  if(name.length()){File f=SD.open("/maps/routes/"+name);bool ok=f&&!f.isDirectory()&&f.size()<=4194304;if(f)f.close();if(!ok)return false;}
-  File f=SD.open("/maps/active-route.txt",FILE_WRITE);if(!f)return false;f.print(name);f.close();
-  portENTER_CRITICAL(&navMux);selectionSeq++;portEXIT_CRITICAL(&navMux);return true;
+  if(name.length()){File f=SD.open(root+"/routes/"+name);bool ok=f&&!f.isDirectory()&&f.size()<=4194304;if(f)f.close();if(!ok)return false;}
+  File f=SD.open(root+"/active-route.txt",FILE_WRITE);if(!f)return false;f.print(name);f.close();
+  portENTER_CRITICAL(&navMux);selectionSeq++;portEXIT_CRITICAL(&navMux);return mapStorageRevision()==map.revision;
 }
 static bool attr(const String &s,const char *key,double &n,double max){
   int p=s.indexOf(String(key));if(p<0||(p&& !isspace((unsigned char)s[p-1])))return false;p+=strlen(key);
@@ -98,9 +107,15 @@ static bool nextPoint(File &f,OfflineRoutePoint &pt,bool &segment){
   }return false;
 }
 bool offlineRouteRefresh(){
-  uint32_t seq;portENTER_CRITICAL(&navMux);seq=selectionSeq;portEXIT_CRITICAL(&navMux);if(seq==loadedSeq)return false;loadedSeq=seq;routeN=0;routeTruncated=false;
-  String name=selected();strlcpy(activeName,name.c_str(),sizeof(activeName));if(!name.length())return true;
-  File f=SD.open("/maps/routes/"+name);if(!f||f.size()>4194304){if(f)f.close();return true;}
+  MapStorageSnapshot map=mapStorageSnapshot();
+  uint32_t seq;portENTER_CRITICAL(&navMux);seq=selectionSeq;
+  if(destinationMapRevision!=map.revision){destination.valid=false;++destination.seq;destinationMapRevision=map.revision;}
+  portEXIT_CRITICAL(&navMux);
+  if(seq==loadedSeq&&map.revision==loadedMapRevision)return false;
+  loadedSeq=seq;loadedMapRevision=map.revision;routeN=0;routeTruncated=false;
+  String root=map.root;
+  String name=selected(root);strlcpy(activeName,name.c_str(),sizeof(activeName));if(!name.length())return true;
+  File f=SD.open(root+"/routes/"+name);if(!f||f.size()>4194304){if(f)f.close();return true;}
   OfflineRoutePoint p,last={};bool seg=true;uint32_t total=0;while(nextPoint(f,p,seg)){total++;if((total&255)==0){gpsLoop();yield();}}
   f.seek(0);seg=true;uint32_t step=total<=600?1:max<uint32_t>(1,(total+597)/598),i=0,limit=total<=600?600:599;bool pendingBreak=false;
   while(nextPoint(f,p,seg)){pendingBreak|=p.start;last=p;if((i++%step)==0&&routeN<(int)limit){p.start=pendingBreak;routePts[routeN++]=p;pendingBreak=false;}if((i&255)==0){gpsLoop();yield();}}
@@ -110,7 +125,8 @@ bool offlineRouteRefresh(){
 const OfflineRoutePoint *offlineRoute(int &count){count=routeN;return routePts;}
 String offlineRouteJson(){
   // Read the selected file independently so HTTPS never races main-task buffers.
-  String name=selected();File f=name.length()?SD.open("/maps/routes/"+name):File();String j="{\"name\":\""+esc(name)+"\",\"points\":[";
+  String root=mapStorageRoot();
+  String name=selected(root);File f=name.length()?SD.open(root+"/routes/"+name):File();String j="{\"name\":\""+esc(name)+"\",\"points\":[";
   if(!f||f.size()>4194304){if(f)f.close();return j+"]}";}
   OfflineRoutePoint p,last={},saved={};bool seg=true;uint32_t n=0;while(nextPoint(f,p,seg)){n++;if((n&255)==0)yield();}f.seek(0);seg=true;uint32_t step=n<=300?1:max<uint32_t>(1,(n+297)/298),i=0,kept=0,limit=n<=300?300:299;bool pending=false;
   while(nextPoint(f,p,seg)){pending|=p.start;last=p;if((i++%step)==0&&kept<limit){if(kept++)j+=',';j+="["+String(p.lat,6)+","+String(p.lon,6)+","+String(pending?1:0)+"]";pending=false;saved=p;}if((i&255)==0)yield();}

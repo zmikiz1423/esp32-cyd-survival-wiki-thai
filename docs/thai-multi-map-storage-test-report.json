@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "details": "PASS 263 checks: 138-package pagination, validation, persistence failures/recovery, POI/route/destination isolation",
+  "implementation": "Actual firmware/src/map_storage.cpp and offline_maps.cpp compiled against host Arduino/SD adapters",
+  "physicalBoardTested": false,
+  "fixturePath": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\multi-map-storage-1793774873968100300"
+}

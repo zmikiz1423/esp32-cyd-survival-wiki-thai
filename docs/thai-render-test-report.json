@@ -1,9 +1,9 @@
 {
-  "shaping_cases": 2990,
+  "shaping_cases": 2991,
   "whole_thai_words": 6835,
   "whole_word_mismatches": 0,
-  "wrapped_lines": 141444,
-  "sources": 224,
+  "wrapped_lines": 142778,
+  "sources": 228,
   "missing_thai": 0,
   "vertical_extent_failures": 0,
   "preview": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\docs\\thai-render-preview.png",

@@ -106,7 +106,7 @@ try {
     $request.Timeout=1500;$request.Headers['X-Map-Token']=$active.token
     $response=$request.GetResponse();$reader=New-Object IO.StreamReader($response.GetResponseStream())
     try {$existing=$reader.ReadToEnd()|ConvertFrom-Json}finally{$reader.Dispose();$response.Dispose()}
-    if($existing.version -eq '1.6.0-th3'){Start-Process -FilePath $active.url|Out-Null;exit 0}
+    if($existing.version -eq '1.6.0-th4'){Start-Process -FilePath $active.url|Out-Null;exit 0}
    }
   }catch{}
   Remove-Item -LiteralPath $stateFile -Force

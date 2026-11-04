@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "checks": [
+    "Initial map selection loads its center and Thai name",
+    "Old set requests are in flight",
+    "Old map API response is rejected after set change",
+    "Selection switch clears previous POI results and overlays",
+    "New map uses its own center and zoom limits",
+    "New map loads its own GPX list",
+    "Switching local to OpenFreeMap restores full attribution",
+    "Tile requests carry selected-map revision",
+    "Metadata requests carry selected-map revision",
+    "API requests carry selected-map revision",
+    "Map selection name fits narrow screen",
+    "No JavaScript errors"
+  ],
+  "count": 12,
+  "html": "actual firmware MAP_PAGE",
+  "gpsAndSdApis": "simulated",
+  "physicalBoardTested": false
+}

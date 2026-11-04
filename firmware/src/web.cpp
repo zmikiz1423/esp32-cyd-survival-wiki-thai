@@ -6,6 +6,7 @@
 #include "httpscert.h"
 #include "gps.h"
 #include "offline_maps.h"
+#include "map_storage.h"
 #include "toolspage.h"
 #include <esp_https_server.h>
 #include <WiFi.h>
@@ -260,53 +261,97 @@ static esp_err_t sslPos(httpd_req_t *req) {
 }
 // Map APIs have bounded response sizes and share the same implementation on
 // HTTP and HTTPS, so searching and selecting a route also work while sharing GPS.
-static String mapApi(const String &path,const String &q,const String &offset,const String &name,const String &lat,const String &lon,bool post){
+static String mapApi(const String &path,const String &q,const String &offset,const String &name,const String &lat,const String &lon,bool post,uint32_t expectedRevision){
   if(!post&&path=="/api/map/status")return offlineStatusJson();
   if(!post&&path=="/api/map/pois")return offlinePoisJson(q,(uint32_t)max(0L,offset.toInt()));
   if(!post&&path=="/api/map/routes")return offlineRoutesJson();
   if(!post&&path=="/api/map/route")return offlineRouteJson();
-  if(post&&path=="/api/map/route")return offlineSelectRoute(name)?"{\"ok\":true}":"{\"ok\":false}";
+  if(post&&path=="/api/map/route")return offlineSelectRoute(name,expectedRevision)?"{\"ok\":true}":"{\"ok\":false}";
   if(post&&path=="/api/map/destination"){
     char *a=nullptr,*b=nullptr;double la=strtod(lat.c_str(),&a),lo=strtod(lon.c_str(),&b);
-    bool ok=lat.length()&&lon.length()&&a&&b&&!*a&&!*b&&offlineSetDestination(la,lo,name);
+    bool ok=lat.length()&&lon.length()&&a&&b&&!*a&&!*b&&offlineSetDestination(la,lo,name,expectedRevision);
     return ok?"{\"ok\":true}":"{\"ok\":false}";
   }
   return "{\"error\":\"Unknown map API\"}";
 }
-static void handleMapApi(){server.sendHeader("Cache-Control","no-store");server.send(200,"application/json",mapApi(server.uri(),server.arg("q"),server.arg("offset"),server.arg("name"),server.arg("lat"),server.arg("lon"),server.method()==HTTP_POST));}
+static void handleMapApi(){
+  server.sendHeader("Cache-Control","no-store");
+  uint32_t expected=mapStorageRevision();
+  if(server.hasArg("v")&&server.arg("v")!=String(expected)){server.send(409,"application/json","{\"error\":\"Map changed\"}");return;}
+  String response=mapApi(server.uri(),server.arg("q"),server.arg("offset"),server.arg("name"),server.arg("lat"),server.arg("lon"),server.method()==HTTP_POST,expected);
+  if(mapStorageRevision()!=expected){server.send(409,"application/json","{\"error\":\"Map changed\"}");return;}
+  server.send(200,"application/json",response);
+}
+
 static esp_err_t sslMapApi(httpd_req_t *req){
+  uint32_t expected=mapStorageRevision();
   char body[1024]={},value[512]={};bool post=req->method==HTTP_POST;
   if(post){if(req->content_len>=sizeof(body))return sslText(req,"application/json","{\"ok\":false}");int pos=0;while(pos<req->content_len){int n=httpd_req_recv(req,body+pos,req->content_len-pos);if(n<=0)return ESP_FAIL;pos+=n;}}
   else if(httpd_req_get_url_query_len(req)>=sizeof(body))return sslText(req,"application/json","{\"ok\":false}");
   else httpd_req_get_url_query_str(req,body,sizeof(body));
   auto arg=[&](const char *key)->String{value[0]=0;httpd_query_key_value(body,key,value,sizeof(value));return urlDecode(value);};
   String path=req->uri;int qm=path.indexOf('?');if(qm>=0)path=path.substring(0,qm);
-  return sslText(req,"application/json",mapApi(path,arg("q"),arg("offset"),arg("name"),arg("lat"),arg("lon"),post).c_str());
-}
-// /maps/{z}/{x}/{y}.jpg and /maps/center.txt, streamed from the SD card in small pieces.
-static esp_err_t sslMapFile(httpd_req_t *req) {
-  char path[72];
-  strlcpy(path, req->uri, sizeof(path));
-  char *qm = strchr(path, '?');
-  if (qm) *qm = 0;
-  bool fontFile=strcmp(path,"/web/Sarabun-Regular.ttf")==0;
-  if ((!fontFile&&strncmp(path, "/maps/", 6) != 0) || strstr(path, "..") || strlen(req->uri) >= sizeof(path)) return httpd_resp_send_404(req);
-  File f = SD.open(path, FILE_READ);
-  if (!f || f.isDirectory()) { Serial.printf("[https] 404 %s\n", path); return httpd_resp_send_404(req); }
-  Serial.printf("[https] %s %u bytes (heap %u, lowest %u)\n", path, (unsigned)f.size(), (unsigned)ESP.getFreeHeap(), (unsigned)ESP.getMinFreeHeap());
-  httpd_resp_set_type(req, fontFile ? "font/ttf" : strstr(path, ".jpg") ? "image/jpeg" : "text/plain");
-  httpd_resp_set_hdr(req, "Cache-Control", "max-age=86400");
-  uint8_t *buf = (uint8_t *)malloc(2048);
-  esp_err_t res = ESP_OK;
-  while (buf && f.available()) {
-    size_t n = f.read(buf, 2048);
-    if (!n) break;
-    if (httpd_resp_send_chunk(req, (const char *)buf, n) != ESP_OK) { res = ESP_FAIL; break; }
+  char query[1024]={},version[24]={};
+  if(httpd_req_get_url_query_len(req)>=sizeof(query))return sslText(req,"application/json","{\"ok\":false}");
+  httpd_req_get_url_query_str(req,query,sizeof(query));
+  if(httpd_query_key_value(query,"v",version,sizeof(version))==ESP_OK && String(version)!=String(expected)){
+    httpd_resp_set_status(req,"409 Conflict");return sslText(req,"application/json","{\"error\":\"Map changed\"}");
   }
-  if (res == ESP_OK) httpd_resp_send_chunk(req, nullptr, 0);
-  free(buf);
+  String response=mapApi(path,arg("q"),arg("offset"),arg("name"),arg("lat"),arg("lon"),post,expected);
+  if(mapStorageRevision()!=expected){httpd_resp_set_status(req,"409 Conflict");return sslText(req,"application/json","{\"error\":\"Map changed\"}");}
+  return sslText(req,"application/json",response.c_str());
+}
+// /maps is a logical URL: resolve it against one selected-map snapshot per request.
+static bool mapRelativePath(const String &path, String &relative) {
+  if (!path.startsWith("/maps/") || path.length() > 160) return false;
+  relative = path.substring(6);
+  if (!relative.length() || relative.indexOf("..") >= 0) return false;
+  for (size_t i=0;i<relative.length();i++) {
+    unsigned char c=relative[i];
+    if(c<32 || c==127 || c=='\\' || c=='%' || c=='?' || c=='#') return false;
+  }
+  return true;
+}
+static void handleMapFile() {
+  String relative;
+  if(!mapRelativePath(server.uri(),relative)){server.send(404,"text/plain","Not found");return;}
+  MapStorageSnapshot selected=mapStorageSnapshot();
+  server.sendHeader("Cache-Control","no-store");
+  if(server.hasArg("v") && server.arg("v")!=String(selected.revision)){server.send(409,"text/plain","Map changed");return;}
+  File f=selected.root.length()?SD.open(selected.root+"/"+relative,FILE_READ):File();
+  if(!f || f.isDirectory()){if(f)f.close();server.send(404,"text/plain","Not found");return;}
+  server.streamFile(f,relative.endsWith(".jpg")?"image/jpeg":relative.endsWith(".json")?"application/json":"text/plain; charset=utf-8");
   f.close();
-  return res;
+}
+static esp_err_t sslMapFile(httpd_req_t *req) {
+  String path=req->uri;int qm=path.indexOf('?');if(qm>=0)path=path.substring(0,qm);
+  bool fontFile=path=="/web/Sarabun-Regular.ttf";
+  String relative;
+  if(!fontFile && !mapRelativePath(path,relative))return httpd_resp_send_404(req);
+  MapStorageSnapshot selected=mapStorageSnapshot();
+  if(!fontFile){
+    char query[160]={},version[24]={};
+    if(httpd_req_get_url_query_len(req)>=sizeof(query))return httpd_resp_send_404(req);
+    httpd_req_get_url_query_str(req,query,sizeof(query));
+    if(httpd_query_key_value(query,"v",version,sizeof(version))==ESP_OK && String(version)!=String(selected.revision)){
+      httpd_resp_set_status(req,"409 Conflict");httpd_resp_set_hdr(req,"Cache-Control","no-store");return httpd_resp_sendstr(req,"Map changed");
+    }
+    if(!selected.root.length())return httpd_resp_send_404(req);
+    path=selected.root+"/"+relative;
+  }
+  File f=SD.open(path,FILE_READ);
+  if(!f || f.isDirectory()){if(f)f.close();return httpd_resp_send_404(req);}
+  httpd_resp_set_type(req,fontFile?"font/ttf":path.endsWith(".jpg")?"image/jpeg":path.endsWith(".json")?"application/json":"text/plain; charset=utf-8");
+  httpd_resp_set_hdr(req,"Cache-Control",fontFile?"max-age=86400":"no-store");
+  uint8_t *buf=(uint8_t *)malloc(2048);
+  if(!buf){f.close();httpd_resp_set_status(req,"503 Service Unavailable");return httpd_resp_sendstr(req,"Busy");}
+  esp_err_t res=ESP_OK;
+  while(f.available()){
+    size_t n=f.read(buf,2048);if(!n)break;
+    if(httpd_resp_send_chunk(req,(const char *)buf,n)!=ESP_OK){res=ESP_FAIL;break;}
+  }
+  if(res==ESP_OK)httpd_resp_send_chunk(req,nullptr,0);
+  free(buf);f.close();return res;
 }
 
 static void sslStart() {
@@ -355,6 +400,7 @@ static void handleNotFound() {
     redirectHome();
     return;
   }
+  if(server.method()==HTTP_GET && server.uri().startsWith("/maps/")){handleMapFile();return;}
   server.send(404, "text/html; charset=utf-8",
               "<html lang='th'><meta charset='utf-8'><meta name=viewport content='width=device-width'><h2>ไม่พบหน้านี้</h2>"
               "<p><a href='/'>กลับสู่คู่มือเอาตัวรอด</a></p></html>");
@@ -415,7 +461,7 @@ void webStart(const WifiConfig &cfg) {
   for(const char *p:{"/api/map/status","/api/map/pois","/api/map/routes","/api/map/route"})server.on(p,HTTP_GET,handleMapApi);
   server.on("/api/map/route",HTTP_POST,handleMapApi);
   server.on("/api/map/destination",HTTP_POST,handleMapApi);
-  server.serveStatic("/maps", SD, "/maps", "max-age=86400");
+  // Dynamic /maps requests are resolved in handleNotFound().
   server.on("/api/mesh", handleMeshApi);
   server.on("/api/mesh/send", HTTP_POST, handleMeshSend);
   server.serveStatic("/web", SD, "/web", "max-age=86400");

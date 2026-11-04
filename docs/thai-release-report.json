@@ -1,17 +1,17 @@
 {
   "board": "ESP32-2432S028R CYD 2.8 / ILI9341",
-  "version": "1.6.0-th3",
+  "version": "1.6.0-th4",
   "flash_offset": "0x0",
   "flash_mode": "dio",
   "flash_frequency": "40m",
   "flash_size": "4MB",
-  "firmware_bytes": 1575376,
+  "firmware_bytes": 1590496,
   "merged_components_verified": 4,
   "matching_web_flasher_images": 3,
   "articles": 118,
   "book_parts": 84,
   "thai_diagrams": 22,
-  "sd_files": 55398,
+  "sd_files": 55400,
   "largest_book_part_bytes": 28602,
   "keyboard_page_lengths": [
     30,
@@ -21,12 +21,12 @@
   ],
   "keyboard_counter_overlap": false,
   "checksums": {
-    "firmware-CYD28.bin": "96f9a5f10ac6b8ef5e41c88a2d698e5550cfd7ebd133fc6fe7abace994cb8004",
-    "sdcard-TH.zip": "5aab9fd5430a4d0c374e95f786fec1581058efee8e61af202aa665d0e7efbace",
-    "Thailand-Map-Downloader.zip": "ad2ffbd04de9c219b69ab53a130fe053584063a80fb2faf6d7b330eb1224a3e7",
-    "Thailand-Offline-Province-Maps.zip": "3e7ea8ca18e021f239937a8acd3491ec555f19bcb2ce09c53ddb98895beb0474",
+    "firmware-CYD28.bin": "9f130ff294e398375d7bd14dadf1fa9be64895b4409041fe674131ce3d46dba9",
+    "sdcard-TH.zip": "f125561bea5477312a5e8af1138a64e755beb37b8248625ab6307ca67340dc3c",
+    "Thailand-Map-Downloader.zip": "a2ce6bdb22ca109d875cee988ba38da22083ef1421856d2460cdafc80a91d50b",
+    "Thailand-Offline-Province-Maps.zip": "39c95f95d5a4050674045e06861615cf3e17e48abcfb37929dc0fc242305807d",
     "maps-Bangkok-demo.zip": "ed30e375893279a415df7104ab97975876a5c33932067cba50f46fd6fcf8f54f",
-    "maps-Surat-Thani-offline.zip": "a5a9f2f48516522d700e6e5c7f39b0a645c949c9b5898d3280c16a2d3f67606b"
+    "maps-Surat-Thani-offline.zip": "d8d93080581c5db51411afe83aee9b6b0fc8007961c4c222ded4749442341ad7"
   },
   "physical_board_tested": false,
   "sd_map": {
