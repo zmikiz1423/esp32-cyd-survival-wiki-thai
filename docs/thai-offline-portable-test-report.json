@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "checks": [
+    "ZIP CRC validation",
+    "Bundled runtime marker matches pinned manifest",
+    "Extracted launcher imports all portable dependencies",
+    "Extracted server starts in Unicode and space path",
+    "Extracted province data has all 77 choices",
+    "Default output resolves inside extracted portable folder",
+    "Extracted UI has Thai text and replaced token",
+    "Extracted asset loads: /app.js",
+    "Extracted asset loads: /Sarabun-Regular.ttf",
+    "Extracted actual Surat boundary planner works offline",
+    "Extracted server closes cleanly"
+  ],
+  "count": 11,
+  "archive": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\Thailand-Offline-Province-Maps.zip",
+  "sha256": "8b73fd1f94e240116d6798ecf8e272b13e92e87b75cfc4c9bffdcc4b632c2873",
+  "test_path": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\portable province ทดสอบ 1793753858",
+  "external_requests": 0,
+  "installed_python_required_for_end_user": false
+}

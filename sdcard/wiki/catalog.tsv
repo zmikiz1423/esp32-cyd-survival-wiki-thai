@@ -1,0 +1,119 @@
+# id	category	title
+rule-of-threes	basics	กฎเลขสามเพื่อเอาชีวิตรอด
+stop	basics	STOP: หยุด คิด สังเกต วางแผน
+survival-kit	basics	ชุดอุปกรณ์เอาชีวิตรอด
+weather-hazards	basics	ฟ้าผ่าและภัยจากสภาพอากาศ
+knots	basics	เงื่อนเชือกที่ควรรู้
+animal-encounters	basics	เมื่อพบสัตว์อันตราย
+falling-through-ice	basics	น้ำแข็งบางและการตกน้ำเย็นจัด
+staying-calm	basics	ตั้งสติและรักษากำลังใจ
+power-outage	basics	เหตุฉุกเฉินในบ้านและไฟดับ
+finding-water	water	การหาแหล่งน้ำ
+purifying-water	water	ทำน้ำให้ปลอดภัยสำหรับดื่ม
+improvised-filter	water	ทำเครื่องกรองน้ำอย่างง่าย
+solar-still	water	กลั่นน้ำด้วยแสงอาทิตย์
+dehydration	water	ภาวะขาดน้ำและปริมาณน้ำที่ต้องการ
+water-storage	water	การสำรองน้ำไว้ใช้ในบ้าน
+fire-basics	fire	พื้นฐานการก่อไฟ
+fire-lays	fire	รูปแบบการจัดกองฟืน
+starting-fire	fire	วิธีจุดไฟ
+fire-safety	fire	ใช้ไฟอย่างปลอดภัย
+cooking-fire	fire	ทำอาหารบนกองไฟ
+wet-weather-fire	fire	ก่อไฟในสภาพอากาศเปียกชื้น
+shelter-basics	shelter	เลือกที่ตั้งและสร้างที่พัก
+nuclear-get-inside	basics	เหตุนิวเคลียร์: เข้าที่กำบังและติดตามข่าว
+nuclear-decon	basics	ชำระฝุ่นกัมมันตรังสีอย่างปลอดภัย
+nuclear-time	basics	ฝุ่นกัมมันตรังสี: หลบภัยนานเท่าใด
+lean-to	shelter	ที่พักแบบเพิงลาด
+debris-hut	shelter	กระท่อมใบไม้และกิ่งไม้
+tarp-shelters	shelter	ทำที่พักจากผ้าใบหรือเสื้อกันฝน
+cold-weather	shelter	ที่พักในอากาศหนาวและหิมะ
+hot-weather	shelter	ที่พักในทะเลทรายและอากาศร้อน
+sleeping-warm	shelter	นอนให้อบอุ่น
+snow-cave	shelter	ถ้ำหิมะและกระท่อมหิมะ
+first-aid-priorities	firstaid	ลำดับความสำคัญในการปฐมพยาบาล
+cpr	firstaid	การช่วยฟื้นคืนชีพ (CPR)
+severe-bleeding	firstaid	การห้ามเลือดที่ออกรุนแรง
+choking	firstaid	สิ่งแปลกปลอมอุดกั้นทางเดินหายใจ
+shock	firstaid	ภาวะช็อก
+hypothermia	firstaid	ตัวเย็นเกินและเนื้อเยื่อถูกความเย็น
+heat-illness	firstaid	อ่อนเพลียจากความร้อนและฮีตสโตรก
+burns	firstaid	แผลไหม้และน้ำร้อนลวก
+fractures-sprains	firstaid	กระดูกหักและข้อแพลง
+wound-care	firstaid	ดูแลบาดแผลและป้องกันการติดเชื้อ
+snakebite	firstaid	เมื่องูกัด
+anaphylaxis	firstaid	ภาวะแพ้รุนแรงเฉียบพลัน
+head-injury	firstaid	บาดเจ็บศีรษะและสมองกระทบกระเทือน
+bites-stings	firstaid	เห็บ แมลงต่อย และแมงมุมกัด
+seizures	firstaid	อาการชัก
+diarrhea-vomiting	firstaid	ท้องเสีย อาเจียน และการชดเชยน้ำ
+eye-injuries	firstaid	การบาดเจ็บที่ดวงตา
+drowning	firstaid	จมน้ำและการช่วยคนตกน้ำ
+electric-shock	firstaid	ไฟฟ้าดูด
+poisoning	firstaid	สารพิษและการใช้ยาเกินขนาด
+diabetic-emergency	firstaid	เหตุฉุกเฉินจากเบาหวาน
+stroke-heart-attack	firstaid	หลอดเลือดสมองและหัวใจขาดเลือด
+spinal-injury	firstaid	การบาดเจ็บกระดูกสันหลัง
+food-priorities	food	อาหารในสถานการณ์เอาชีวิตรอด
+foraging-safely	food	หาพืชอาหารอย่างปลอดภัย
+insects-fishing	food	แมลง ปลา และสัตว์เล็กเป็นอาหาร
+food-storage	food	เก็บอาหารและดูแลค่ายให้ปลอดภัย
+emergency-food	food	สำรองอาหารสำหรับเหตุฉุกเฉิน
+food-after-outage	food	ความปลอดภัยของอาหารหลังไฟดับ
+shadow-stick	navigation	หาทิศด้วยเงาไม้
+watch-method	navigation	หาทิศด้วยนาฬิกา
+stars	navigation	หาทิศจากดวงดาว
+map-compass	navigation	พื้นฐานแผนที่และเข็มทิศ
+staying-found	navigation	เดินทางอย่างไรไม่ให้หลง
+natural-direction	navigation	เบาะแสทิศทางและแสงจากธรรมชาติ
+ground-signals	signals	สัญญาณภาคพื้นสำหรับอากาศยาน
+signal-mirror	signals	กระจกส่งสัญญาณ
+sos-signals	signals	ส่งสัญญาณด้วย SOS นกหวีด ไฟ และควัน
+emergency-radio	signals	ใช้วิทยุและโทรศัพท์ในเหตุฉุกเฉิน
+night-signals	signals	ส่งสัญญาณในเวลากลางคืน
+helping-searchers	signals	ทำให้ทีมค้นหาพบคุณง่ายขึ้น
+goodboy-heat	goodboy	ฮีตสโตรกในสุนัข
+goodboy-toxic	goodboy	สารพิษและอาหารอันตรายต่อสุนัข
+goodboy-choking	goodboy	สุนัขสำลักและทางเดินหายใจอุดตัน
+goodboy-wounds	goodboy	แผล เลือดออก และอุ้งเท้าสุนัข
+goodboy-cpr	goodboy	การช่วยฟื้นคืนชีพสุนัข
+goodboy-cold	goodboy	ดูแลสุนัขในอากาศหนาว
+goodboy-pack	goodboy	กระเป๋าฉุกเฉินสำหรับสุนัข
+tornado	weather	รับมือพายุทอร์นาโด
+flood	weather	น้ำท่วมและน้ำป่าไหลหลาก
+hurricane	weather	เฮอริเคนและคลื่นพายุซัดฝั่ง
+wildfire	weather	ไฟป่าและควันไฟ
+blizzard	weather	พายุหิมะและพายุน้ำแข็ง
+earthquake	weather	แผ่นดินไหว
+extreme-heat	weather	คลื่นความร้อนรุนแรง
+stranded-winter	vehicles	ติดอยู่ในรถช่วงฤดูหนาว
+car-breakdown	vehicles	รถเสียระหว่างทาง
+flat-tire	vehicles	เปลี่ยนยางรถที่แบน
+jump-start	vehicles	พ่วงแบตเตอรี่สตาร์ตรถ
+car-fire	vehicles	รถเกิดไฟไหม้
+car-in-water	vehicles	เมื่อรถตกน้ำ
+car-kit	vehicles	ชุดฉุกเฉินประจำรถ
+gas-leak	home	แก๊สรั่ว
+house-fire	home	ไฟไหม้บ้าน: ออกจากอาคารให้เร็ว
+burst-pipe	home	ท่อน้ำแตกและน้ำในท่อแข็งตัว
+carbon-monoxide	home	พิษคาร์บอนมอนอกไซด์
+generator-safety	home	ใช้เครื่องปั่นไฟอย่างปลอดภัย
+utility-shutoffs	home	ปิดระบบแก๊ส ไฟฟ้า และน้ำ
+downed-power-lines	home	สายไฟฟ้าขาดตกพื้น
+72-hour-kit	home	ชุดฉุกเฉินสำหรับ 72 ชั่วโมง
+radio-basics	radio	เลือกวิทยุสำหรับเหตุฉุกเฉิน
+frs-gmrs	radio	วิทยุสื่อสาร FRS และ GMRS
+ham-radio	radio	วิทยุสมัครเล่นในเหตุฉุกเฉิน
+radio-calls	radio	เรียกขอความช่วยเหลือทางวิทยุ
+noaa-weather-radio	radio	วิทยุและประกาศเตือนอากาศ NOAA
+mesh-messaging	radio	ส่งข้อความระหว่างบอร์ดผ่านเมช
+radio-range	radio	เพิ่มระยะรับส่งวิทยุ
+children-first-aid	family	ข้อควรรู้เมื่อปฐมพยาบาลเด็ก
+child-fever	family	เด็กมีไข้
+baby-care	family	ดูแลทารกเมื่อไฟดับ
+kids-calm	family	ช่วยเด็กตั้งสติและรับมือความเครียด
+family-plan	family	แผนฉุกเฉินสำหรับครอบครัว
+lost-child	family	เด็กพลัดหลงหรือสูญหาย
+elders-special-needs	family	ผู้สูงอายุและผู้ต้องการความช่วยเหลือพิเศษ
+emergency-toilet	hygiene	ห้องน้ำฉุกเฉินและการจัดการของเสีย
+handwashing	hygiene	ล้างมือเมื่อมีน้ำน้อย

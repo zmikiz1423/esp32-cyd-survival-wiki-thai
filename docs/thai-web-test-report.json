@@ -1,0 +1,1379 @@
+{
+  "result": "PASS",
+  "testedAtUtc": "2026-11-03T15:56:51.780Z",
+  "browser": "Headless Chromium / installed Chrome",
+  "environment": "Local HTTP server serves real generated SD files and gzip. ESP32 status/chat API responses are simulated.",
+  "articleCount": 118,
+  "allArticlesAt240px": true,
+  "viewports": [
+    240,
+    320,
+    390
+  ],
+  "layoutChecks": [
+    {
+      "width": 240,
+      "url": "/#/",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/#/library",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/#/about",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/mesh",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/map",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/tools",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/tools#sun",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/tools#level",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/tools#cam",
+      "viewport": 240,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/#/",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/#/library",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/#/about",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/mesh",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/map",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/tools",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/tools#sun",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/tools#level",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 320,
+      "url": "/tools#cam",
+      "viewport": 320,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/#/",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/#/library",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/#/about",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/mesh",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/map",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/tools",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/tools#sun",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/tools#level",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 390,
+      "url": "/tools#cam",
+      "viewport": 390,
+      "lang": "th"
+    },
+    {
+      "width": 240,
+      "url": "/#/a/rule-of-threes",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/rule_of_threes.jpg",
+          "width": 448,
+          "height": 600
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/stop",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/survival-kit",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/weather-hazards",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/knots",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/animal-encounters",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/falling-through-ice",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/ice_1101.jpg",
+          "width": 448,
+          "height": 580
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/staying-calm",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/power-outage",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/finding-water",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/purifying-water",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/improvised-filter",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/water_filter.jpg",
+          "width": 448,
+          "height": 660
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/solar-still",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/solar_still.jpg",
+          "width": 448,
+          "height": 585
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/dehydration",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/water-storage",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/fire-basics",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/fire_triangle.jpg",
+          "width": 448,
+          "height": 510
+        },
+        {
+          "src": "/wiki/img/fire_materials.jpg",
+          "width": 448,
+          "height": 540
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/fire-lays",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/fire_lays.jpg",
+          "width": 448,
+          "height": 520
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/starting-fire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/fire-safety",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/cooking-fire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/wet-weather-fire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/shelter-basics",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/nuclear-get-inside",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/nuclear-decon",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/nuclear-time",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/lean-to",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/lean_to.jpg",
+          "width": 448,
+          "height": 570
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/debris-hut",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/debris_hut.jpg",
+          "width": 448,
+          "height": 550
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/tarp-shelters",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/tarp_shelter.jpg",
+          "width": 448,
+          "height": 550
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/cold-weather",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/hot-weather",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/sleeping-warm",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/snow-cave",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/first-aid-priorities",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/cpr",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/cpr.jpg",
+          "width": 448,
+          "height": 570
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/severe-bleeding",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/tourniquet.jpg",
+          "width": 448,
+          "height": 550
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/choking",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/shock",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/hypothermia",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/heat-illness",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/burns",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/fractures-sprains",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/wound-care",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/snakebite",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/anaphylaxis",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/head-injury",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/bites-stings",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/tick_removal.jpg",
+          "width": 448,
+          "height": 570
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/seizures",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/diarrhea-vomiting",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/ors_recipe.jpg",
+          "width": 448,
+          "height": 585
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/eye-injuries",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/drowning",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/electric-shock",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/poisoning",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/diabetic-emergency",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/stroke-heart-attack",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/spinal-injury",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/food-priorities",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/foraging-safely",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/insects-fishing",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/food-storage",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/emergency-food",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/food-after-outage",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/shadow-stick",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/shadow_stick.jpg",
+          "width": 448,
+          "height": 570
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/watch-method",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/watch_method.jpg",
+          "width": 448,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/stars",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/north_star.jpg",
+          "width": 448,
+          "height": 585
+        },
+        {
+          "src": "/wiki/img/southern_cross.jpg",
+          "width": 448,
+          "height": 690
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/map-compass",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/staying-found",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/natural-direction",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/hand_sunset.jpg",
+          "width": 448,
+          "height": 570
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/ground-signals",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/ground_signals.jpg",
+          "width": 448,
+          "height": 605
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/signal-mirror",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/signal_mirror.jpg",
+          "width": 448,
+          "height": 590
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/sos-signals",
+      "viewport": 240,
+      "lang": "th",
+      "images": [
+        {
+          "src": "/wiki/img/sos_morse.jpg",
+          "width": 448,
+          "height": 440
+        }
+      ]
+    },
+    {
+      "width": 240,
+      "url": "/#/a/emergency-radio",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/night-signals",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/helping-searchers",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-heat",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-toxic",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-choking",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-wounds",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-cpr",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-cold",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/goodboy-pack",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/tornado",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/flood",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/hurricane",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/wildfire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/blizzard",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/earthquake",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/extreme-heat",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/stranded-winter",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/car-breakdown",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/flat-tire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/jump-start",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/car-fire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/car-in-water",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/car-kit",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/gas-leak",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/house-fire",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/burst-pipe",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/carbon-monoxide",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/generator-safety",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/utility-shutoffs",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/downed-power-lines",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/72-hour-kit",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/radio-basics",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/frs-gmrs",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/ham-radio",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/radio-calls",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/noaa-weather-radio",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/mesh-messaging",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/radio-range",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/children-first-aid",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/child-fever",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/baby-care",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/kids-calm",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/family-plan",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/lost-child",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/elders-special-needs",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/emergency-toilet",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    },
+    {
+      "width": 240,
+      "url": "/#/a/handwashing",
+      "viewport": 240,
+      "lang": "th",
+      "images": []
+    }
+  ],
+  "thaiSearch": [
+    {
+      "query": "ห้ามเลือด",
+      "resultCount": 9,
+      "requiredResult": "severe-bleeding"
+    },
+    {
+      "query": "เงื่อน",
+      "resultCount": 2,
+      "requiredResult": "knots"
+    },
+    {
+      "query": "น้ำ",
+      "resultCount": 94,
+      "requiredResult": "purifying-water"
+    }
+  ],
+  "books": [
+    {
+      "id": "field-guide",
+      "part": 1,
+      "totalParts": 22,
+      "sourceBytes": 21945,
+      "fullTextSha256": "3e2db6ce1b0f92224dca2c1a3533dd7a2494181b01b1e9a7dd8fbe971ed9593d",
+      "viewport": 240,
+      "width": 240,
+      "lang": "th"
+    },
+    {
+      "id": "field-guide",
+      "part": 22,
+      "totalParts": 22,
+      "sourceBytes": 13851,
+      "fullTextSha256": "5f70d30454f309a7cc4170d6a08d5758367e08d7b6b53287ef5514a5ee2de1d1",
+      "viewport": 240,
+      "width": 240,
+      "lang": "th"
+    },
+    {
+      "id": "fm21-76",
+      "part": 1,
+      "totalParts": 62,
+      "sourceBytes": 8147,
+      "fullTextSha256": "fd36b69b87a997890bec38b17a33e53131d9becb85d88855c6afc20a1efdc0b0",
+      "viewport": 240,
+      "width": 240,
+      "lang": "th"
+    },
+    {
+      "id": "fm21-76",
+      "part": 62,
+      "totalParts": 62,
+      "sourceBytes": 5586,
+      "fullTextSha256": "64103f7bd18afe4b2bf3ecbc55b9a1762165bff764eac0ca6a5afce5314e47dd",
+      "viewport": 240,
+      "width": 240,
+      "lang": "th"
+    }
+  ],
+  "allBookPartFilesChecked": 84,
+  "localFont": {
+    "loaded": true,
+    "check": true
+  },
+  "images": [
+    {
+      "path": "/wiki/img/rule_of_threes.jpg",
+      "width": 448,
+      "height": 600,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ice_1101.jpg",
+      "width": 448,
+      "height": 580,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/water_filter.jpg",
+      "width": 448,
+      "height": 660,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/solar_still.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_triangle.jpg",
+      "width": 448,
+      "height": 510,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_materials.jpg",
+      "width": 448,
+      "height": 540,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_lays.jpg",
+      "width": 448,
+      "height": 520,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/lean_to.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/debris_hut.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tarp_shelter.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/cpr.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tourniquet.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tick_removal.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ors_recipe.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/shadow_stick.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/watch_method.jpg",
+      "width": 448,
+      "height": 640,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/north_star.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/southern_cross.jpg",
+      "width": 448,
+      "height": 690,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/hand_sunset.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ground_signals.jpg",
+      "width": 448,
+      "height": 605,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/signal_mirror.jpg",
+      "width": 448,
+      "height": 590,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/sos_morse.jpg",
+      "width": 448,
+      "height": 440,
+      "progressive": false,
+      "baseline": true
+    }
+  ],
+  "thaiChat": {
+    "utf8RoundTrip": true,
+    "message63ByteLimit": true,
+    "name11ByteLimit": true,
+    "unsentTextPreserved": true
+  },
+  "offlineExport": {
+    "articleFiles": 118,
+    "searchRecords": 118,
+    "embeddedJpegImages": 22,
+    "embeddedSarabunFont": true,
+    "fileBytes": 2563939,
+    "reopenedWithNetworkingDisabled": true,
+    "thaiArticle": true,
+    "thaiSearch": true,
+    "thaiImageDecode": true,
+    "fontLoaded": true,
+    "httpRequests": []
+  },
+  "gzipMatches": true,
+  "javaScriptErrors": [],
+  "limitations": [
+    "No physical ESP32, LCD, touchscreen or SD electrical interface was connected.",
+    "Phone GPS, compass, camera, sensor permissions and self-signed HTTPS certificate flow were not hardware tested.",
+    "PDF layout and firmware binary validation are checked separately."
+  ]
+}

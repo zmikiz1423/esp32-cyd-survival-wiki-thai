@@ -1,0 +1,15 @@
+# Preserve text/gzip agreement and binary assets on Windows.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gz binary
+*.bin binary
+*.3mf binary
+*.stl binary
+*.blend binary
+*.ttf binary
+*.ico binary
+*.zip binary

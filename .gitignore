@@ -1,0 +1,55 @@
+# Build outputs
+.pio/
+.vscode/.browse.c_cpp.ver.json
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch/
+*.bin.gz
+*.orig
+
+# Python cache & virtual environment
+__pycache__/
+*.pyc
+.env
+venv/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Creator listing assets & build scripts (local only)
+*Cover*
+*Banner*
+*listing*
+*Listing*
+*MakerWorld*
+MW_*
+*.py
+!scripts/*.py
+!scripts/offline_maps/**/*.py
+!scripts/offline_maps/*.py
+tools/
+*ESP32_35*rev1*
+
+
+# Downloaded offline map tiles (large, made with scripts/get-map-tiles.ps1)
+sdcard/maps/
+
+# Local source backups, translation cache and temporary visual QA
+.thai-work/
+tmp/
+scripts/offline-runtime/
+province-maps/
+small-area-maps/
+
+# Distribution archives and extracted portable copies (publish via Releases)
+/*.zip
+/sdcard-TH/
+/Thailand-Map-Downloader/
+/Thailand-Offline-Province-Maps/
+**/node_modules/
+*.pbf
+*.pbf.part
+*.sqlite
+*.log

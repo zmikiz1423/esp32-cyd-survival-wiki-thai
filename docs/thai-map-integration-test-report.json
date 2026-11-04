@@ -1,0 +1,59 @@
+{
+  "result": "PASS",
+  "backend": "Real Windows PowerShell localhost server",
+  "mapData": "Real OpenFreeMap OpenMapTiles data",
+  "physicalCydTested": false,
+  "defaultRegion": {
+    "lon": 100.5018,
+    "radius": 2,
+    "lat": 13.7563,
+    "maxZoom": 14,
+    "minZoom": 11
+  },
+  "tiles": 14,
+  "jpeg256Baseline": true,
+  "allTilesWritten": true,
+  "centerAfterComplete": true,
+  "cancelPreservesPreviousCenter": true,
+  "incompleteFinishRejected": true,
+  "missingTokenRejected": true,
+  "crossOriginRejected": true,
+  "unplannedTileRejected": true,
+  "oversizeRejected": true,
+  "existingDownloadResumedWithoutPbfFetch": true,
+  "provinceAndCityPresets": 82,
+  "customRadiusAndZoomPreserved": true,
+  "layout": [
+    {
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 900,
+      "scrollWidth": 900
+    },
+    {
+      "width": 1200,
+      "scrollWidth": 1200
+    }
+  ],
+  "source": {
+    "provider": "openfreemap",
+    "rendererVersion": 1,
+    "attribution": "© OpenStreetMap contributors | © OpenMapTiles | OpenFreeMap",
+    "data": "https://www.openstreetmap.org/copyright",
+    "schema": "https://www.openmaptiles.org/",
+    "service": "https://openfreemap.org/",
+    "terms": "https://openfreemap.org/tos/",
+    "createdUtc": "2026-11-02T15:40:49.7291393Z",
+    "dataset": "20261025_080012_pt",
+    "completedUtc": "2026-11-02T15:40:49.7291393Z",
+    "upstreamBytes": 4114053
+  },
+  "javaScriptErrors": [],
+  "screenshot": "docs\\thai-map-app-preview.png"
+}

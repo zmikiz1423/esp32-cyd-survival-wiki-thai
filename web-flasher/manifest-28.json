@@ -1,0 +1,17 @@
+{
+  "name": "Survival Wiki ภาษาไทย (CYD 2.8)",
+  "version": "1.6.0-th3",
+  "home_assistant_domain": "esp32-cyd-survival-wiki",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "firmware/survival-wiki-28-full.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

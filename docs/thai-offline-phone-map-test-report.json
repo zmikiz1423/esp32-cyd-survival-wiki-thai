@@ -1,0 +1,48 @@
+{
+  "result": "PASS",
+  "checks": [
+    "Board GPS updates without phone geolocation",
+    "Follow recenters on changing board GPS",
+    "Manual map pan disables follow",
+    "POI API results rendered as escaped text",
+    "POI pagination appends results",
+    "POI selection sends destination",
+    "GPX selection displays route with separate segments",
+    "Phone panel fits 240/320/390/640 pixels",
+    "Lost GPS fix is visibly reported",
+    "Local map attribution only credits OSM",
+    "Fresh phone GPS sample posts to board",
+    "Keepalive cannot repost the same cached GPS timestamp",
+    "Stale phone GPS timestamp cannot post",
+    "Newer fresh phone GPS sample posts to board",
+    "Non-finite phone GPS timestamp cannot post",
+    "Geolocation error clears watch, keepalive, cached fix, and wake lock",
+    "Stopping GPS share clears watch, keepalive, cached fix, and wake lock",
+    "No JavaScript errors"
+  ],
+  "count": 18,
+  "layouts": [
+    {
+      "width": 240,
+      "scroll": 240
+    },
+    {
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "width": 640,
+      "scroll": 640
+    }
+  ],
+  "javaScriptErrors": [],
+  "phonePositionPosts": 4,
+  "gpsAndSdApis": "simulated",
+  "geolocationAndWakeLock": "stubbed on intercepted HTTPS origin",
+  "html": "actual firmware MAP_PAGE",
+  "physicalBoardTested": false
+}

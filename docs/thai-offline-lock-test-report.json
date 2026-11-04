@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "count": 8,
+  "checks": [
+    "Separate process acquires cache and output locks",
+    "Concurrent shared cache is refused",
+    "Concurrent shared output is refused",
+    "Output contention releases partially acquired cache lock",
+    "Lock holder exits cleanly",
+    "Successful process releases both locks",
+    "Cancellation releases both build locks",
+    "Failure releases both build locks"
+  ],
+  "work": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\offline-lock-qa-1793722368425243600",
+  "hardwareTested": false,
+  "externalRequests": 0
+}

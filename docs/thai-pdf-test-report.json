@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "checks": {
+    "field": {
+      "pages": 130,
+      "thai_pages_checked": 130,
+      "source_text_units_in_order": 2504,
+      "missing_source_text_units": 0,
+      "extracted_private_use_characters": 0,
+      "water_search_hits": 637,
+      "text_outside_page_bounds": 0,
+      "sha256": "d82131bbb9a67e53a0433f81313e7d98872eecc8573a742653dd3a5c5ebeed21"
+    },
+    "manual": {
+      "pages": 464,
+      "thai_pages_checked": 231,
+      "source_text_units_in_order": 2803,
+      "missing_source_text_units": 0,
+      "extracted_private_use_characters": 0,
+      "water_search_hits": 1532,
+      "text_outside_page_bounds": 0,
+      "sha256": "a78a1396a71b42b22ae30b3119b730c875f2121bdae09d27b8a1a8fd7536412b"
+    }
+  },
+  "original_appendix": {
+    "pages": 233,
+    "page_content_streams_equal": 233,
+    "page_boxes_and_rotations_equal": 233,
+    "image_instances_equal": 139
+  },
+  "shaping": {
+    "mixed_latin_thai_runs": "passed",
+    "sara_am_decomposition": "passed",
+    "contextual_tone_and_descender_variants": "passed",
+    "unicode_actual_text": "passed"
+  },
+  "visual_review": {
+    "renderer": "Poppler pdftoppm",
+    "manual_pages": [
+      1,
+      2,
+      3,
+      25
+    ],
+    "field_guide_pages": [
+      2
+    ],
+    "result": "readable Thai, positioned marks, readable normalized TOC, no observed clipping/overlap"
+  },
+  "text_extraction": {
+    "engine": "PyMuPDF honors ActualText",
+    "bundled_pdftotext_available": false,
+    "note": "Bundled Poppler contains pdftoppm and pdfinfo; text coverage independently checked against every ActualText source unit."
+  }
+}

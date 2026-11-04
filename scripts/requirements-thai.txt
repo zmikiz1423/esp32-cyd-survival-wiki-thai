@@ -1,0 +1,8 @@
+platformio==6.2.0
+Pillow==13.0.0
+uharfbuzz==0.57.0
+freetype-py==2.5.1
+fonttools==4.68.0
+pythainlp==5.4.0
+reportlab==5.1.0
+pypdf==6.21.4

@@ -1,0 +1,40 @@
+{
+  "result": "PASS",
+  "checks": [
+    "77 provinces and Surat default",
+    "Province plan counts above old single-job cap",
+    "No horizontal overflow 320/390/760/1120",
+    "Thai province search",
+    "No-results disables start",
+    "One click starts asynchronous whole-province job",
+    "Cancel unlocks and preserves settings",
+    "Cancelled first job has no committed center",
+    "Automatic build finishes and verifies without per-batch clicks",
+    "Coverage complete and zero missing",
+    "Resume does not rewrite existing valid JPEGs",
+    "No browser JavaScript errors",
+    "Close program from browser"
+  ],
+  "count": 13,
+  "layouts": [
+    {
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 760,
+      "scrollWidth": 760
+    },
+    {
+      "width": 1120,
+      "scrollWidth": 1120
+    }
+  ],
+  "javaScriptErrors": [],
+  "source": "Tiny synthetic OSM fixture, actual Windows portable Python server and browser; not proof of real data completeness",
+  "physicalBoardTested": false
+}

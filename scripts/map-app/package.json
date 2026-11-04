@@ -1,0 +1,8 @@
+{
+  "name": "cyd-thailand-map-authoring",
+  "private": true,
+  "type": "module",
+  "description": "Developer-only vendor rebuild; no npm or Node.js required by map downloader users",
+  "scripts": {"build:vendor": "esbuild vendor-entry.js --bundle --format=esm --platform=browser --target=es2020 --minify --outfile=vendor/vector.js"},
+  "devDependencies": {"@mapbox/vector-tile": "3.0.0", "pbf": "5.1.2", "esbuild": "0.28.2"}
+}

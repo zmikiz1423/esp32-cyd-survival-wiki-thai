@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "source": "Real checksum-verified Geofabrik Thailand OSM",
+  "oneClickBrowserBuild": true,
+  "province": "TH-84",
+  "minZoom": 8,
+  "maxZoom": 16,
+  "tiles": 55125,
+  "missing": 0,
+  "jpegBytes": 127305550,
+  "job": "6fbafc93b7604b742cf9900b",
+  "javaScriptErrors": [],
+  "physicalBoardTested": false
+}

@@ -1,0 +1,40 @@
+{
+  "board": "ESP32-2432S028R CYD 2.8 / ILI9341",
+  "version": "1.6.0-th3",
+  "flash_offset": "0x0",
+  "flash_mode": "dio",
+  "flash_frequency": "40m",
+  "flash_size": "4MB",
+  "firmware_bytes": 1575376,
+  "merged_components_verified": 4,
+  "matching_web_flasher_images": 3,
+  "articles": 118,
+  "book_parts": 84,
+  "thai_diagrams": 22,
+  "sd_files": 55397,
+  "largest_book_part_bytes": 28602,
+  "keyboard_page_lengths": [
+    30,
+    30,
+    30,
+    30
+  ],
+  "keyboard_counter_overlap": false,
+  "checksums": {
+    "firmware-CYD28.bin": "96f9a5f10ac6b8ef5e41c88a2d698e5550cfd7ebd133fc6fe7abace994cb8004",
+    "sdcard-TH.zip": "a8a4e9f2439962f90f30fe5f660039689cef0a2ae0cf49836170a684e7b94a83",
+    "Thailand-Map-Downloader.zip": "3fef5b5236f2686958d830c000c52ae89a7f35a3cc4b153f93664ea4538a713f",
+    "Thailand-Offline-Province-Maps.zip": "8b73fd1f94e240116d6798ecf8e272b13e92e87b75cfc4c9bffdcc4b632c2873",
+    "maps-Bangkok-demo.zip": "ed30e375893279a415df7104ab97975876a5c33932067cba50f46fd6fcf8f54f",
+    "maps-Surat-Thani-offline.zip": "a5a9f2f48516522d700e6e5c7f39b0a645c949c9b5898d3280c16a2d3f67606b"
+  },
+  "physical_board_tested": false,
+  "sd_map": {
+    "province": "TH-84",
+    "tiles": 55125,
+    "minZoom": 8,
+    "maxZoom": 16,
+    "complete": true,
+    "missing": 0
+  }
+}

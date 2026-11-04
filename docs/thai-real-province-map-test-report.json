@@ -1,0 +1,150 @@
+{
+  "result": "PASS",
+  "realGeofabrikSource": true,
+  "sourceSha256": "ad4a11a4632397ae7f6fe9f9d02ed8852b695ea6db4f3ad61acbf7ecffbfa64b",
+  "sourceBytes": 329709798,
+  "rawOsmFeaturesIndexed": 88948,
+  "province": "TH-84",
+  "zooms": [
+    8,
+    16
+  ],
+  "tiles": 55125,
+  "zoomCounts": {
+    "8": 5,
+    "9": 10,
+    "10": 24,
+    "11": 70,
+    "12": 217,
+    "13": 746,
+    "14": 2739,
+    "15": 10462,
+    "16": 40852
+  },
+  "missing": 0,
+  "jpegBytes": 127305550,
+  "coverageListingSha256": "05e3c970b5e079ebdf8b5090e54b1b2d74e023d805802258618a844c74e19270",
+  "independentDecodedSamples": 568,
+  "allFilesDecodedByBuilderBeforeCompletion": true,
+  "batchLimitsVerified": true,
+  "batches": [
+    [
+      1,
+      3000,
+      14630345
+    ],
+    [
+      2,
+      3000,
+      7951580
+    ],
+    [
+      3,
+      3000,
+      7711958
+    ],
+    [
+      4,
+      3000,
+      10760666
+    ],
+    [
+      5,
+      3000,
+      8998513
+    ],
+    [
+      6,
+      3000,
+      3475887
+    ],
+    [
+      7,
+      3000,
+      3287832
+    ],
+    [
+      8,
+      3000,
+      3750311
+    ],
+    [
+      9,
+      3000,
+      5300171
+    ],
+    [
+      10,
+      3000,
+      5308489
+    ],
+    [
+      11,
+      3000,
+      5174341
+    ],
+    [
+      12,
+      3000,
+      5138443
+    ],
+    [
+      13,
+      3000,
+      5740870
+    ],
+    [
+      14,
+      3000,
+      6360643
+    ],
+    [
+      15,
+      3000,
+      7997606
+    ],
+    [
+      16,
+      3000,
+      8297498
+    ],
+    [
+      17,
+      3000,
+      5424210
+    ],
+    [
+      18,
+      3000,
+      7015585
+    ],
+    [
+      19,
+      1125,
+      4980602
+    ]
+  ],
+  "islandChecksEveryZoom": [
+    "city",
+    "Samui",
+    "Phangan",
+    "Tao",
+    "AngThong"
+  ],
+  "pois": 6363,
+  "detailSamples": [
+    {
+      "place": "Surat city",
+      "zoom": 16,
+      "tiles": 9,
+      "preview": "docs/thai-offline-surat-city.png"
+    },
+    {
+      "place": "Koh Tao",
+      "zoom": 16,
+      "tiles": 9,
+      "preview": "docs/thai-offline-koh-tao.png"
+    }
+  ],
+  "physicalBoardTested": false
+}

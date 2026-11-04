@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "realRawSource": true,
+  "firstCancelledBytes": 1048576,
+  "resumedCancelledBytes": 2097152,
+  "incompleteFileNotCommitted": true,
+  "sourceSnapshot": {
+    "etag": "\"13a6f8e6-65f543500d724\"",
+    "size": 329709798,
+    "md5": "f6cf5bb69f7d7768d70dbf5910c4b271"
+  },
+  "network": "One-byte metadata range, MD5 metadata and two 1MB source ranges"
+}

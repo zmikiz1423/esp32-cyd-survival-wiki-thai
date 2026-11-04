@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "environment": "Headless Chromium, real Bangkok PBF data, local mocked backend contract",
+  "provinceAndCityPresets": 82,
+  "layout": [
+    {
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "width": 900,
+      "scroll": 900
+    },
+    {
+      "width": 1200,
+      "scroll": 1200
+    }
+  ],
+  "thaiSearchSelection": true,
+  "invalidCoordinatesRejected": true,
+  "oversizeRejected": true,
+  "downloadAndResume": true,
+  "actualVectorLayers": [
+    "aeroway",
+    "boundary",
+    "building",
+    "housenumber",
+    "landcover",
+    "landuse",
+    "place",
+    "poi",
+    "transportation",
+    "transportation_name",
+    "water",
+    "water_name",
+    "waterway"
+  ],
+  "jpegFiles": 3,
+  "errors": []
+}

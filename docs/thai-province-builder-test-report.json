@@ -1,0 +1,40 @@
+{
+  "result": "PASS",
+  "checks": [
+    "77 unique ISO provinces",
+    "Province plan includes true polygon and all zooms",
+    "Surat city covered at every requested zoom",
+    "Samui covered at every requested zoom",
+    "Phangan covered at every requested zoom",
+    "Tao covered at every requested zoom",
+    "AngThong covered at every requested zoom",
+    "Landmask includes neighboring province land",
+    "Native HarfBuzz FreeType Thai shaped mask",
+    "Tile bottom contains map pixels without a painted credit stripe",
+    "Forest polygon clearing preserves ground instead of inventing water",
+    "Complete build creates all validated baseline JPEGs",
+    "POI TSV has firmware-compatible Thai name and coordinates",
+    "Coverage complete and initial zoom within bounds",
+    "Source dataset/font/boundary hashes recorded",
+    "Resume keeps every valid JPEG without rewriting",
+    "Resume repairs corrupt JPEG",
+    "Cancellation preserves previous center and POI index",
+    "Cancellation leaves working job marker",
+    "Existing waypoints and tracks preserved",
+    "Changed raw source refused to prevent mixed old/new tiles",
+    "Legacy unknown map folder refused and preserved"
+  ],
+  "count": 22,
+  "suratZoomCounts": {
+    "8": 5,
+    "9": 10,
+    "10": 24,
+    "11": 70,
+    "12": 217,
+    "13": 746,
+    "14": 2739
+  },
+  "fixtureOnly": true,
+  "hardwareTested": false,
+  "work": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\province-builder-qa-1793722344024052600"
+}

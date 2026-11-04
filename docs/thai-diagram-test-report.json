@@ -1,0 +1,369 @@
+{
+  "diagrams": 22,
+  "font": "Sarabun Regular (OFL)",
+  "reports": [
+    {
+      "name": "cpr",
+      "width": 448,
+      "height": 570,
+      "texts": 11,
+      "resizedLabels": [
+        {
+          "text": "ปล่อยหน้าอก",
+          "initial": 24,
+          "size": 23.5
+        }
+      ],
+      "issues": []
+    },
+    {
+      "name": "debris_hut",
+      "width": 448,
+      "height": 550,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "fire_lays",
+      "width": 448,
+      "height": 520,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "fire_materials",
+      "width": 448,
+      "height": 540,
+      "texts": 13,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "fire_triangle",
+      "width": 448,
+      "height": 510,
+      "texts": 5,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "ground_signals",
+      "width": 448,
+      "height": 605,
+      "texts": 13,
+      "resizedLabels": [
+        {
+          "text": "ทำแต่ละสัญลักษณ์ให้ใหญ่ 3 ม. (10 ฟุต) ขึ้นไป",
+          "initial": 24,
+          "size": 22.5
+        }
+      ],
+      "issues": []
+    },
+    {
+      "name": "hand_sunset",
+      "width": 448,
+      "height": 570,
+      "texts": 9,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "ice_1101",
+      "width": 448,
+      "height": 580,
+      "texts": 15,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "lean_to",
+      "width": 448,
+      "height": 570,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "north_star",
+      "width": 448,
+      "height": 585,
+      "texts": 8,
+      "resizedLabels": [
+        {
+          "text": "ประมาณ 5 เท่าของระยะห่าง",
+          "initial": 24,
+          "size": 23.5
+        }
+      ],
+      "issues": []
+    },
+    {
+      "name": "ors_recipe",
+      "width": 448,
+      "height": 585,
+      "texts": 16,
+      "resizedLabels": [
+        {
+          "text": "1/2 ช้อนชา",
+          "initial": 25,
+          "size": 24.5
+        }
+      ],
+      "issues": []
+    },
+    {
+      "name": "rule_of_threes",
+      "width": 448,
+      "height": 600,
+      "texts": 12,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "shadow_stick",
+      "width": 448,
+      "height": 570,
+      "texts": 9,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "signal_mirror",
+      "width": 448,
+      "height": 590,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "solar_still",
+      "width": 448,
+      "height": 585,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "sos_morse",
+      "width": 448,
+      "height": 440,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "southern_cross",
+      "width": 448,
+      "height": 690,
+      "texts": 9,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "tarp_shelter",
+      "width": 448,
+      "height": 550,
+      "texts": 4,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "tick_removal",
+      "width": 448,
+      "height": 570,
+      "texts": 9,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "tourniquet",
+      "width": 448,
+      "height": 550,
+      "texts": 7,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "watch_method",
+      "width": 448,
+      "height": 640,
+      "texts": 9,
+      "resizedLabels": [],
+      "issues": []
+    },
+    {
+      "name": "water_filter",
+      "width": 448,
+      "height": 660,
+      "texts": 10,
+      "resizedLabels": [],
+      "issues": []
+    }
+  ],
+  "result": "PASS",
+  "jpegFrames": [
+    {
+      "path": "/wiki/img/rule_of_threes.jpg",
+      "width": 448,
+      "height": 600,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ice_1101.jpg",
+      "width": 448,
+      "height": 580,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/water_filter.jpg",
+      "width": 448,
+      "height": 660,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/solar_still.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_triangle.jpg",
+      "width": 448,
+      "height": 510,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_materials.jpg",
+      "width": 448,
+      "height": 540,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/fire_lays.jpg",
+      "width": 448,
+      "height": 520,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/lean_to.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/debris_hut.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tarp_shelter.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/cpr.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tourniquet.jpg",
+      "width": 448,
+      "height": 550,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/tick_removal.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ors_recipe.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/shadow_stick.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/watch_method.jpg",
+      "width": 448,
+      "height": 640,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/north_star.jpg",
+      "width": 448,
+      "height": 585,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/southern_cross.jpg",
+      "width": 448,
+      "height": 690,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/hand_sunset.jpg",
+      "width": 448,
+      "height": 570,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/ground_signals.jpg",
+      "width": 448,
+      "height": 605,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/signal_mirror.jpg",
+      "width": 448,
+      "height": 590,
+      "progressive": false,
+      "baseline": true
+    },
+    {
+      "path": "/wiki/img/sos_morse.jpg",
+      "width": 448,
+      "height": 440,
+      "progressive": false,
+      "baseline": true
+    }
+  ],
+  "validation": [
+    "All 22 original diagrams were inspected before reauthoring.",
+    "Native SVGs use Sarabun and preserve labels, numeric instructions and diagram relationships.",
+    "All text fits its assigned width and canvas; no text bounding boxes overlap.",
+    "All exported JPEGs use baseline encoding, width 448, for CYD 1/2 scaling."
+  ]
+}

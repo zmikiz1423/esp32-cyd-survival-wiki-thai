@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C2A22">
+<link rel="manifest" href="/web/manifest.json">
+<link rel="icon" type="image/png" href="/web/icon-192.png">
+<link rel="apple-touch-icon" href="/web/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="คู่มือเอาตัวรอด">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>คู่มือเอาตัวรอด</title>
+<style>
+@font-face{font-family:Sarabun;src:url('/web/Sarabun-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+:root{
+  --paper:#E6ECE2; --paper-2:#F4F7F1; --ink:#1C2A22; --ink-2:#4A5A50; --rule:#C6D0C1;
+  --blaze:#E2580B; --blaze-ink:#FFFFFF; --warn-bg:#FCEBDD; --warn-edge:#E2580B;
+  --link:#1D5E8C; --head:#1C2A22; --head-ink:#EAF0E6; --contour:rgba(234,240,230,.16);
+  --shadow:0 1px 0 rgba(28,42,34,.08);
+  --cond:"Sarabun","Noto Sans Thai",Tahoma,system-ui,sans-serif;
+  --body:"Sarabun","Noto Sans Thai",Tahoma,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111C17; --paper-2:#17241E; --ink:#DCE6DA; --ink-2:#9FB0A3; --rule:#2A3A32;
+    --blaze:#FF7A2E; --blaze-ink:#1A0E05; --warn-bg:#2E1E12; --warn-edge:#FF7A2E;
+    --link:#8CC4EE; --head:#0B1410; --head-ink:#DCE6DA; --contour:rgba(220,230,218,.10);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111C17; --paper-2:#17241E; --ink:#DCE6DA; --ink-2:#9FB0A3; --rule:#2A3A32;
+  --blaze:#FF7A2E; --blaze-ink:#1A0E05; --warn-bg:#2E1E12; --warn-edge:#FF7A2E;
+  --link:#8CC4EE; --head:#0B1410; --head-ink:#DCE6DA; --contour:rgba(220,230,218,.10);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--body)}
+a{color:var(--link)}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blaze);outline-offset:2px}
+
+/* ---------- header with generated contour lines ---------- */
+.top{position:relative;background:var(--head);color:var(--head-ink);overflow:hidden;
+  padding:calc(14px + env(safe-area-inset-top)) 16px 16px}
+.top svg.contours{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.top-inner{position:relative;max-width:720px;margin:0 auto}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand a{color:inherit;text-decoration:none;font:700 26px/1.1 var(--cond);font-stretch:condensed;letter-spacing:.01em}
+.brand small{font-size:13px;opacity:.75}
+.search{margin-top:12px;display:flex;background:var(--paper-2);border-radius:10px;overflow:hidden;
+  border:2px solid transparent}
+.search:focus-within{border-color:var(--blaze)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:17px var(--body);padding:12px 14px;outline:none}
+.search button{border:0;background:transparent;padding:0 14px;color:var(--ink-2);cursor:pointer}
+.tools{display:flex;gap:8px;margin-top:10px}
+.tools a{flex:1;text-align:center;text-decoration:none;color:var(--head-ink);background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.35);border-radius:10px;padding:9px 8px;font:600 15px var(--body)}
+.tools a:active,.tools a:hover{background:rgba(255,255,255,.26)}
+.crumbs{position:relative;max-width:720px;margin:10px auto 0;font-size:14px}
+.crumbs a{color:var(--head-ink);opacity:.85}
+
+main{max-width:720px;margin:0 auto;padding:18px 16px 60px}
+
+/* ---------- urgent strip ---------- */
+.urgent h2,.section-h{font:700 19px/1.2 var(--cond);font-stretch:condensed;margin:6px 0 10px}
+.urgent-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (min-width:560px){.urgent-row{grid-template-columns:repeat(4,1fr)}}
+.urgent a{display:flex;align-items:center;gap:10px;min-height:56px;padding:10px 12px;border-radius:8px;
+  background:var(--blaze);color:var(--blaze-ink);text-decoration:none;font:700 17px/1.15 var(--cond);font-stretch:condensed}
+.urgent a svg{flex:none}
+
+/* ---------- category rows ---------- */
+.cats{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--rule)}
+.cats li{border-bottom:1px solid var(--rule)}
+.cats a{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:12px;padding:12px 4px 12px 0;
+  text-decoration:none;color:var(--ink)}
+.cats .blaze{width:10px;height:42px;border-radius:2px}
+.cats .ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.cats b{display:block;font:700 19px/1.2 var(--cond);font-stretch:condensed}
+.cats span.d{display:block;font-size:14px;color:var(--ink-2);line-height:1.35}
+.cats em{font-style:normal;font-size:14px;color:var(--ink-2)}
+
+/* ---------- article lists ---------- */
+.list{list-style:none;margin:0;padding:0}
+.list li{border-bottom:1px solid var(--rule)}
+.list a{display:block;padding:13px 2px;text-decoration:none;color:var(--ink)}
+.list b{display:block;font-weight:600}
+.list span{display:block;font-size:14px;color:var(--ink-2);margin-top:2px}
+.cat-intro{margin:0 0 14px;color:var(--ink-2)}
+.cat-head{display:flex;align-items:center;gap:12px;margin:2px 0 6px}
+.cat-head .bar{width:10px;align-self:stretch;border-radius:2px}
+.cat-head h1{margin:0}
+
+/* ---------- article ---------- */
+h1{font:700 30px/1.15 var(--cond);font-stretch:condensed;margin:4px 0 6px}
+.lede{color:var(--ink-2);margin:0 0 18px;font-size:16px}
+.art h2{font:700 22px/1.2 var(--cond);font-stretch:condensed;margin:28px 0 8px;padding-top:12px;border-top:1px solid var(--rule)}
+.art p,.art li{max-width:68ch}
+.art ul,.art ol{padding-left:1.3em}
+.art li{margin:4px 0}
+.art ol li::marker{font-weight:700;color:var(--blaze)}
+.art figure{margin:18px -16px;background:var(--paper-2)}
+@media (min-width:752px){.art figure{margin:18px 0;border-radius:8px;overflow:hidden}}
+.art figure img{width:100%;height:auto}
+.art figcaption{font-size:14px;color:var(--ink-2);padding:8px 16px 10px}
+.art blockquote{margin:16px 0;padding:12px 14px 12px 16px;background:var(--warn-bg);border-left:5px solid var(--warn-edge);border-radius:0 8px 8px 0}
+.art blockquote p{margin:0}
+.art code{background:var(--paper-2);padding:1px 5px;border-radius:4px;font-size:.95em}
+.art hr{border:0;border-top:1px solid var(--rule);margin:22px 0}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:34px}
+.pager a{display:block;padding:12px;border:1px solid var(--rule);border-radius:8px;text-decoration:none;color:var(--ink);background:var(--paper-2)}
+.pager small{display:block;color:var(--ink-2);font-size:13px}
+.pager .next{text-align:right}
+
+/* ---------- library / book ---------- */
+.book-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;border:1px solid var(--rule);background:var(--paper-2);text-decoration:none;color:var(--ink);cursor:pointer}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.book-text p{max-width:68ch}
+
+.foot{max-width:720px;margin:0 auto;padding:0 16px 40px;font-size:14px;color:var(--ink-2);display:flex;gap:16px;flex-wrap:wrap}
+.foot a,.foot button{color:var(--ink-2);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer;font-size:14px}
+.empty{padding:20px 0;color:var(--ink-2)}
+mark{background:transparent;color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--blaze);text-decoration-thickness:2px}
+@media (prefers-reduced-motion:no-preference){.top svg.contours path{animation:draw 1.6s ease-out both}
+  @keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}}
+/* Thai marks need full line boxes; native browser Thai line breaking stays enabled. */
+body{line-height:1.7;overflow-wrap:anywhere;word-break:normal;line-break:auto}
+h1,h2,h3,.brand a,.urgent a,.cats b,.section-h{line-height:1.55;letter-spacing:normal;font-stretch:normal}
+.brand{flex-wrap:wrap}.tools{flex-wrap:wrap}.tools a{min-width:80px;flex:1 1 80px;font-size:14px;padding:9px 4px;white-space:nowrap}
+.cats a{grid-template-columns:40px minmax(0,1fr) auto}.cats a>*{min-width:0}
+.cats span.d{line-height:1.6}.pager{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.art img{max-width:100%}.book-text{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<header class="top">
+  <svg class="contours" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 400 160" id="contours"></svg>
+  <div class="top-inner">
+    <div class="brand"><a href="#/">คู่มือเอาตัวรอด</a><small id="status">ใช้งานออฟไลน์</small></div>
+    <form class="search" role="search" onsubmit="event.preventDefault();go('#/search/'+encodeURIComponent(q.value.trim()))">
+      <input id="q" type="search" placeholder="ค้นหา เช่น น้ำ ห้ามเลือด ก่อไฟ ทิศเหนือ..." autocomplete="off" aria-label="ค้นหาในคู่มือ">
+      <button type="submit" aria-label="ค้นหา"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    </form>
+    <div class="tools"><a href="/mesh">&#128225; แชตเมช</a><a href="/map">&#128506; แผนที่</a><a href="/tools">&#129517; เครื่องมือ</a></div>
+  </div>
+  <nav class="crumbs" id="crumbs" aria-label="เส้นทางหน้าปัจจุบัน"></nav>
+</header>
+<main id="view"><p class="empty">กำลังโหลดคู่มือ...</p></main>
+<footer class="foot">
+  <a href="#/">หน้าแรก</a><a href="#/library">คลังคู่มือ</a><a href="/mesh">แชตผ่านเมช</a><a href="/map">แผนที่</a><a href="#/about">เกี่ยวกับอุปกรณ์</a>
+  <button type="button" id="themeBtn">ใช้สีสำหรับกลางคืน</button>
+  <button type="button" id="saveBtn">บันทึกไว้ในโทรศัพท์</button> <span id="saveMsg" style="font-size:.85em"></span>
+</footer>
+<script>
+(function(){
+// ---------------------------------------------------------------- contour header
+(function contours(){
+  var svg=document.getElementById('contours'), out='';
+  for(var k=0;k<9;k++){
+    var d='', base=16+k*17, amp=6+k%3*4, ph=k*0.9;
+    for(var x=-10;x<=410;x+=10){
+      var y=base+Math.sin(x/52+ph)*amp+Math.sin(x/19+k)*3;
+      d+=(x===-10?'M':'L')+x+' '+y.toFixed(1);
+    }
+    out+='<path d="'+d+'" fill="none" stroke="var(--contour)" stroke-width="'+(k%4===0?1.6:0.8)+'" stroke-dasharray="900" />';
+  }
+  svg.innerHTML=out;
+})();
+
+var view=document.getElementById('view'), crumbs=document.getElementById('crumbs');
+var q=document.getElementById('q'); window.q=q;
+var cats=[], arts=[], byId={}, search=null, books=null;
+
+var ICONS={
+  basics:'<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/>',
+  water:'<path d="M12 3c3.5 4.6 6 8 6 11a6 6 0 0 1-12 0c0-3 2.5-6.4 6-11z"/>',
+  fire:'<path d="M12 3c1 4 5 5.5 5 10.5A5 5 0 0 1 7 13.5C7 10 9.5 9 9.5 6.5 11 8 11.5 9.5 11.5 11 13 9.5 12.5 6 12 3z"/>',
+  shelter:'<path d="M3 20 12 5l9 15H3z"/><path d="M12 20v-6"/>',
+  firstaid:'<path d="M9 4h6v5h5v6h-5v5H9v-5H4V9h5z"/>',
+  food:'<path d="M4 12c3-5 9-6 13-2l3-3v10l-3-3c-4 4-10 3-13-2z"/>',
+  navigation:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M8 12h2l1-2 2 4 1-2h2"/>',
+  drop:'<path d="M12 3c3.5 4.6 6 8 6 11a6 6 0 0 1-12 0c0-3 2.5-6.4 6-11z"/><path d="M12 11v6M9 14h6"/>',
+  lungs:'<path d="M12 4v8M12 12c-2 0-3-2-5-2-2 0-3 3-3 6s1 4 3 4 5-1 5-4zM12 12c2 0 3-2 5-2 2 0 3 3 3 6s-1 4-3 4-5-1-5-4z"/>',
+  snow:'<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9.5 4.5 12 7l2.5-2.5M9.5 19.5 12 17l2.5 2.5"/>',
+  signals:'<circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14"/>',
+  weather:'<path d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15"/><path d="m12.5 11-2.5 4h3l-2 4.5"/>',
+  vehicles:'<path d="M4 16v-4l2-5h12l2 5v4z"/><path d="M4.5 12h15"/><circle cx="8" cy="17" r="1.8"/><circle cx="16" cy="17" r="1.8"/>',
+  family:'<circle cx="9" cy="7" r="3"/><path d="M4 20v-5a5 5 0 0 1 10 0v5"/><circle cx="17.5" cy="12" r="2"/><path d="M15 20v-3a2.5 2.5 0 0 1 5 0v3"/>',
+  radio:'<rect x="6" y="9" width="12" height="12" rx="2"/><path d="M14 9 17 3M9 14h6M9 18h6"/>',
+  home:'<path d="m4 11 8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>'
+};
+function icon(id,size){return '<svg width="'+(size||22)+'" height="'+(size||22)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">'+(ICONS[id]||'<circle cx="12" cy="12" r="8"/>')+'</svg>';}
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function go(h){location.hash=h;}
+window.go=go;
+function get(url){if(window.OFFLINE&&window.OFFLINE[url]!=null)return Promise.resolve(window.OFFLINE[url]);return fetch(url,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.text();});}
+function tsv(text){return text.split(/\r?\n/).filter(function(l){return l&&l[0]!=='#';}).map(function(l){return l.split('\t');});}
+
+// ---------------------------------------------------------------- data
+function loadAll(){
+  return Promise.all([get('/wiki/categories.tsv'),get('/wiki/catalog.tsv')]).then(function(r){
+    cats=tsv(r[0]).map(function(p){return{id:p[0],name:p[1],color:p[2]||'#666',desc:p[3]||''};})
+      .filter(function(c){return c.id!=='goodboy'||location.hash==='#goodboy';});   // easter egg: hidden unless asked for
+    arts=tsv(r[1]).map(function(p){return{id:p[0],cat:p[1],title:p[2]};});
+    arts.forEach(function(a){byId[a.id]=a;});
+  });
+}
+function loadSearch(){
+  if(search)return Promise.resolve(search);
+  return get('/wiki/search.json').then(function(t){search=JSON.parse(t);return search;});
+}
+function loadBooks(){
+  if(books)return Promise.resolve(books);
+  return get('/library/catalog.tsv').then(function(t){
+    books=tsv(t).map(function(p){return{id:p[0],title:p[1],parts:+p[2]||1,pdf:p[3]||'',source:p[4]||''};});return books;
+  }).catch(function(){books=[];return books;});
+}
+function cat(id){for(var i=0;i<cats.length;i++)if(cats[i].id===id)return cats[i];return{id:id,name:id,color:'#666',desc:''};}
+
+// ---------------------------------------------------------------- markdown (same subset the device reads)
+function inline(s){
+  s=esc(s);
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/(^|[\s(])_([^_]+)_(?=[\s).,;:!?]|$)/g,'$1<em>$2</em>');
+  s=s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,function(m,t,u){
+    var md=u.match(/^([\w-]+)\.md$/);
+    if(md)return '<a href="#/a/'+md[1]+'">'+t+'</a>';
+    return '<a href="'+u+'">'+t+'</a>';
+  });
+  return s;
+}
+function parseFront(text){
+  var meta={},body=text;
+  if(text.indexOf('---\n')===0||text.indexOf('---\r\n')===0){
+    var end=text.indexOf('\n---',4);
+    if(end>0){
+      text.slice(4,end).split(/\r?\n/).forEach(function(l){var i=l.indexOf(':');if(i>0)meta[l.slice(0,i).trim()]=l.slice(i+1).trim();});
+      body=text.slice(text.indexOf('\n',end+1)+1);
+    }
+  }
+  return{meta:meta,body:body};
+}
+function md(body){
+  var lines=body.split(/\r?\n/),html='',list=null,para=[],quote=[];
+  function flushPara(){if(para.length){html+='<p>'+inline(para.join(' '))+'</p>';para=[];}}
+  function flushList(){if(list){html+='</'+list+'>';list=null;}}
+  function flushQuote(){if(quote.length){html+='<blockquote><p>'+inline(quote.join(' '))+'</p></blockquote>';quote=[];}}
+  lines.forEach(function(raw){
+    var l=raw.trim(),m;
+    if(!l){flushPara();flushList();flushQuote();return;}
+    if(l[0]==='>'){flushPara();flushList();quote.push(l.replace(/^>\s?/,''));return;}
+    flushQuote();
+    if((m=l.match(/^(#{1,3})\s+(.*)/))){flushPara();flushList();var n=Math.max(2,m[1].length);html+='<h'+n+'>'+inline(m[2])+'</h'+n+'>';return;}
+    if(/^---+$/.test(l)){flushPara();flushList();html+='<hr>';return;}
+    if((m=l.match(/^!\[([^\]]*)\]\(([^)]+)\)/))){flushPara();flushList();
+      html+='<figure><img loading="lazy" src="'+imgSrc('/wiki/'+m[2])+'" alt="'+esc(m[1])+'">'+(m[1]?'<figcaption>'+esc(m[1])+'</figcaption>':'')+'</figure>';return;}
+    if((m=l.match(/^[-*]\s+(.*)/))){flushPara();if(list!=='ul'){flushList();html+='<ul>';list='ul';}html+='<li>'+inline(m[1])+'</li>';return;}
+    if((m=l.match(/^\d+\.\s+(.*)/))){flushPara();if(list!=='ol'){flushList();html+='<ol>';list='ol';}html+='<li>'+inline(m[1])+'</li>';return;}
+    if(list){html+='</'+list+'>';list=null;}
+    para.push(l);
+  });
+  flushPara();flushList();flushQuote();
+  return html;
+}
+
+// ---------------------------------------------------------------- views
+function setCrumbs(parts){
+  crumbs.innerHTML=parts.map(function(p){return p[1]?'<a href="'+p[1]+'">'+esc(p[0])+'</a>':esc(p[0]);}).join(' / ');
+}
+function home(){
+  setCrumbs([]);
+  document.title='คู่มือเอาตัวรอด';
+  var urgent=[['severe-bleeding','เลือดออกรุนแรง','drop'],['cpr','CPR','heart'],['choking','ทางเดินหายใจอุดกั้น','lungs'],['hypothermia','ตัวเย็นเกิน','snow']];
+  var h='<section class="urgent" aria-labelledby="urg"><h2 id="urg">เรื่องเร่งด่วน</h2><div class="urgent-row">'+
+    urgent.filter(function(u){return byId[u[0]];}).map(function(u){return '<a href="#/a/'+u[0]+'">'+icon(u[2],22)+'<span>'+u[1]+'</span></a>';}).join('')+'</div></section>';
+  h+='<ul class="cats">'+cats.map(function(c){
+    var n=arts.filter(function(a){return a.cat===c.id;}).length;
+    return '<li><a href="#/c/'+c.id+'">'+
+      '<span class="ico" style="background:'+esc(c.color)+'">'+icon(c.id,22)+'</span>'+
+      '<span><b>'+esc(c.name)+'</b><span class="d">'+esc(c.desc)+'</span></span><em>'+n+'</em></a></li>';
+  }).join('')+'</ul>';
+  view.innerHTML=h;
+}
+function category(id){
+  var c=cat(id),list=arts.filter(function(a){return a.cat===id;});
+  setCrumbs([['หน้าแรก','#/'],[c.name]]);
+  document.title=c.name+' - คู่มือเอาตัวรอด';
+  loadSearch().catch(function(){return[];}).then(function(s){
+    var sum={};(s||[]).forEach(function(e){sum[e.id]=e.s;});
+    view.innerHTML='<div class="cat-head"><span class="bar" style="background:'+esc(c.color)+'"></span><h1>'+esc(c.name)+'</h1></div>'+
+      '<p class="cat-intro">'+esc(c.desc)+'</p><ul class="list">'+
+      list.map(function(a){return '<li><a href="#/a/'+a.id+'"><b>'+esc(a.title)+'</b>'+(sum[a.id]?'<span>'+esc(sum[a.id])+'</span>':'')+'</a></li>';}).join('')+
+      '</ul>'+(list.length?'':'<p class="empty">ยังไม่มีบทความในหมวดนี้</p>');
+  });
+}
+function article(id){
+  var a=byId[id];
+  view.innerHTML='<p class="empty">กำลังเปิด...</p>';
+  get('/wiki/articles/'+id+'.md').then(function(text){
+    var f=parseFront(text),c=cat(f.meta.category||(a&&a.cat));
+    var title=f.meta.title||(a&&a.title)||id;
+    document.title=title+' - คู่มือเอาตัวรอด';
+    setCrumbs([['หน้าแรก','#/'],[c.name,'#/c/'+c.id]]);
+    var sib=arts.filter(function(x){return x.cat===c.id;}),i=sib.findIndex(function(x){return x.id===id;});
+    var prev=i>0?sib[i-1]:null,next=i>=0&&i<sib.length-1?sib[i+1]:null;
+    view.innerHTML='<article class="art"><h1>'+esc(title)+'</h1>'+(f.meta.summary?'<p class="lede">'+esc(f.meta.summary)+'</p>':'')+md(f.body)+
+      '<nav class="pager" aria-label="อ่านต่อในหมวด '+esc(c.name)+'">'+
+      (prev?'<a href="#/a/'+prev.id+'"><small>ก่อนหน้า</small>'+esc(prev.title)+'</a>':'<span></span>')+
+      (next?'<a class="next" href="#/a/'+next.id+'"><small>ถัดไป</small>'+esc(next.title)+'</a>':'<span></span>')+'</nav></article>';
+    window.scrollTo(0,0);
+  }).catch(function(){view.innerHTML='<p class="empty">เปิดบทความนี้ไม่ได้ โปรดตรวจสอบว่าในการ์ด SD มีไฟล์ wiki/articles/'+esc(id)+'.md.</p>';});
+}
+function doSearch(term){
+  q.value=term;
+  setCrumbs([['หน้าแรก','#/'],['ค้นหา']]);
+  document.title='ค้นหา - คู่มือเอาตัวรอด';
+  if(!term){view.innerHTML='<p class="empty">พิมพ์คำที่ต้องการค้นหาด้านบน เช่น "น้ำ" หรือ "ดามกระดูก"</p>';return;}
+  loadSearch().then(function(s){
+    var words=term.toLowerCase().split(/\s+/).filter(Boolean);
+    var res=s.map(function(e){
+      var t=e.t.toLowerCase(),k=(e.k||'').toLowerCase(),x=(e.x||'').toLowerCase(),score=0;
+      for(var i=0;i<words.length;i++){var w=words[i],hit=0;
+        if(t.indexOf(w)>=0)hit+=10; if(k.indexOf(w)>=0)hit+=6; if(x.indexOf(w)>=0)hit+=1+Math.min(4,x.split(w).length-2);
+        if(!hit)return null; score+=hit;}
+      return{e:e,score:score};
+    }).filter(Boolean).sort(function(a,b){return b.score-a.score;});
+    function snippet(e){
+      var x=e.x||'',lx=x.toLowerCase(),p=lx.indexOf(words[0]);
+      if(p<0)return esc(e.s||'');
+      var s=Math.max(0,p-50),out=esc((s?'...':'')+x.slice(s,p+110)+'...');
+      words.forEach(function(w){out=out.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>');});
+      return out;
+    }
+    view.innerHTML='<h1>'+'พบ '+res.length+' รายการ'+'</h1>'+
+      (res.length?'<ul class="list">'+res.map(function(r){return '<li><a href="#/a/'+r.e.id+'"><b>'+esc(r.e.t)+'</b><span>'+esc(cat(r.e.c).name)+' &ndash; '+snippet(r.e)+'</span></a></li>';}).join('')+'</ul>'
+      :'<p class="empty">ไม่พบผลลัพธ์สำหรับ "'+esc(term)+'" ลองใช้คำที่สั้นลงหรือคำที่มีความหมายกว้างขึ้น</p>');
+  }).catch(function(){view.innerHTML='<p class="empty">ไม่พบดัชนีค้นหาในการ์ด SD (wiki/search.json)</p>';});
+}
+function library(){
+  setCrumbs([['หน้าแรก','#/'],['คลังคู่มือ']]);
+  document.title='คลังคู่มือ - คู่มือเอาตัวรอด';
+  loadBooks().then(function(b){
+    view.innerHTML='<h1>คลังคู่มือ</h1><p class="cat-intro">คู่มือฉบับเต็มที่เก็บไว้ในอุปกรณ์ อ่านได้ที่นี่หรือเปิดไฟล์ PDF</p>'+
+      (b.length?'<ul class="list">'+b.map(function(x){return '<li><a href="#/book/'+x.id+'/1"><b>'+esc(x.title)+'</b><span>'+x.parts+' ตอน'+(x.pdf?', มีไฟล์ PDF':'')+'</span></a></li>';}).join('')+'</ul>'
+      :'<p class="empty">ยังไม่มีคู่มือ โปรดคัดลอกโฟลเดอร์ library พร้อมไฟล์คู่มือลงในการ์ด SD</p>');
+  });
+}
+function book(id,part){
+  loadBooks().then(function(b){
+    var bk=b.find(function(x){return x.id===id;});
+    if(!bk){view.innerHTML='<p class="empty">ไม่พบคู่มือนี้ในอุปกรณ์</p>';return;}
+    part=Math.max(1,Math.min(bk.parts,part||1));
+    setCrumbs([['หน้าแรก','#/'],['คลังคู่มือ','#/library'],[bk.title]]);
+    document.title=bk.title+' - คู่มือเอาตัวรอด';
+    var file='/library/'+id+'/'+String(part).padStart(4,'0')+'.txt';
+    get(file).then(function(t){
+      var nav='<div class="book-actions">'+
+        '<a class="btn" href="#/book/'+id+'/'+(part-1)+'" aria-disabled="'+(part<=1)+'">ตอนก่อนหน้า</a>'+
+        '<a class="btn" href="#/book/'+id+'/'+(part+1)+'" aria-disabled="'+(part>=bk.parts)+'">ตอนถัดไป</a>'+
+        (bk.pdf?'<a class="btn" href="/library/'+esc(id)+'/'+esc(bk.pdf)+'">เปิด PDF</a>':'')+'</div>';
+      view.innerHTML='<h1>'+esc(bk.title)+'</h1><p class="lede">ตอนที่ '+part+' จาก '+bk.parts+(bk.source?'. '+esc(bk.source):'')+'</p>'+nav+
+        '<div class="book-text">'+t.split(/\n\s*\n/).map(function(p){return '<p>'+esc(p.trim())+'</p>';}).join('')+'</div>'+nav;
+      window.scrollTo(0,0);
+    }).catch(function(){view.innerHTML='<p class="empty">เปิดคู่มือตอนนี้ไม่ได้</p>';});
+  });
+}
+function about(){
+  setCrumbs([['หน้าแรก','#/'],['เกี่ยวกับอุปกรณ์']]);
+  document.title='เกี่ยวกับอุปกรณ์ - คู่มือเอาตัวรอด';
+  view.innerHTML='<article class="art"><h1>เกี่ยวกับอุปกรณ์</h1><p class="lede">คู่มือเอาตัวรอดแบบพกพา ใช้พลังงานจากแบตเตอรี่และอ่านได้โดยไม่ต้องใช้อินเทอร์เน็ต</p>'+
+    '<p id="dev">กำลังตรวจสอบสถานะอุปกรณ์...</p>'+
+    '<h2>วิธีใช้งาน</h2><ul><li>เชื่อมต่อ Wi-Fi เครือข่ายนี้ไว้ หากโทรศัพท์แจ้งว่าไม่มีอินเทอร์เน็ต ให้เลือกเชื่อมต่อเครือข่ายนี้ต่อไป</li>'+
+    '<li>หากหน้านี้ไม่เปิดขึ้นโดยอัตโนมัติ ให้พิมพ์ <strong>192.168.4.1</strong> ในเบราว์เซอร์</li>'+
+    '<li>โทรศัพท์หลายเครื่องอ่านพร้อมกันได้ เมื่อมีผู้ใช้จำนวนมาก หน้าเว็บอาจโหลดช้าลงเล็กน้อย</li></ul>'+
+    '<blockquote><p>คู่มือนี้ใช้เป็นข้อมูลอ้างอิงภาคสนาม ไม่ทดแทนการฝึกอบรมหรือการดูแลจากบุคลากรทางการแพทย์ ขอความช่วยเหลือทันทีเมื่อทำได้</p></blockquote></article>';
+  fetch('/api/status',{cache:'no-store'}).then(function(r){return r.json();}).then(function(s){
+    document.getElementById('dev').textContent='บทความ '+arts.length+' เรื่อง · โทรศัพท์ที่เชื่อมต่อ '+s.clients+' เครื่อง · เปิดมาแล้ว '+Math.round(s.uptime/60)+' นาที · พื้นที่ใช้ไป '+s.sdUsedMB+' จาก '+s.sdTotalMB+' MB · เฟิร์มแวร์ '+s.version;
+  }).catch(function(){document.getElementById('dev').textContent='บทความ '+arts.length+' เรื่อง';});
+}
+
+function imgSrc(p){return (window.OFFLINE_IMG&&window.OFFLINE_IMG[p])||p;}
+
+// ---------------------------------------------------------------- save a copy to this phone
+// Downloads one self-contained page with every guide, the search index and the pictures, so the guides
+// stay on the phone and open with no Wi-Fi. (แชตผ่านเมช and the map need the board and are left out.)
+(function saveCopy(){
+  var btn=document.getElementById('saveBtn'),msg=document.getElementById('saveMsg');
+  if(!btn)return;
+  if(window.OFFLINE){btn.style.display='none';return;}
+  function blobURL(url){return fetch(url,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.blob();}).then(function(b){
+    return new Promise(function(ok){var fr=new FileReader();fr.onload=function(){ok(fr.result);};fr.readAsDataURL(b);});});}
+  btn.onclick=function(){
+    btn.disabled=true;msg.textContent='กำลังบันทึก...';
+    var data={},imgs={},list=['/wiki/categories.tsv','/wiki/catalog.tsv','/wiki/search.json'];
+    arts.forEach(function(a){list.push('/wiki/articles/'+a.id+'.md');});
+    var done=0,total=list.length,idx=0,failed=0;
+    function work(){
+      if(idx>=list.length)return Promise.resolve();
+      var u=list[idx++];
+      return get(u).then(function(t){data[u]=t;}).catch(function(){failed++;}).then(function(){
+        done++;msg.textContent='กำลังบันทึก '+done+' จาก '+total+' ไฟล์...';return work();});
+    }
+    Promise.all([work(),work(),work()]).then(function(){
+      var found={};
+      Object.keys(data).forEach(function(k){
+        if(!/\.md$/.test(k))return;
+        data[k].replace(/!\[[^\]]*\]\(([^)\s]+)\)/g,function(m,p){found['/wiki/'+p]=1;});
+      });
+      var pics=Object.keys(found),pi=0;
+      function nextPic(){
+        if(pi>=pics.length)return Promise.resolve();
+        var p=pics[pi++];
+        return blobURL(p).then(function(d){imgs[p]=d;}).catch(function(){failed++;}).then(function(){
+          msg.textContent='กำลังบันทึกภาพ '+pi+' จาก '+pics.length+' ภาพ...';return nextPic();});
+      }
+      return Promise.all([nextPic(),nextPic(),nextPic()]);
+    }).then(function(){return Promise.all([get('/'),blobURL('/web/Sarabun-Regular.ttf').catch(function(){return '';})]);}).then(function(files){
+      var src=files[0];
+      if(files[1])src=src.replace("url('/web/Sarabun-Regular.ttf')","url('"+files[1]+"')");
+      var inj='<script>window.OFFLINE='+JSON.stringify(data).replace(/</g,'\\u003c')+';window.OFFLINE_IMG='+JSON.stringify(imgs)+';<\/script>\n';
+      var css='<style>.tools,a[href="/mesh"],a[href="/map"],a[href="/tools"]{display:none!important}</style>';
+      src=src.replace('</head>',css+'</head>');
+      var i=src.indexOf('<script>');
+      src=src.slice(0,i)+inj+src.slice(i);
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(new Blob([src],{type:'text/html'}));
+      a.download='survival-wiki-offline.html';
+      document.body.appendChild(a);a.click();a.remove();
+      msg.textContent=failed?('บันทึกแล้ว แต่ข้ามไป '+failed+' ไฟล์ โปรดลองอีกครั้ง'):'บันทึกแล้ว เปิด survival-wiki-offline.html จากโฟลเดอร์ดาวน์โหลดได้เลย';
+      btn.disabled=false;
+    }).catch(function(e){msg.textContent='บันทึกไม่สำเร็จ: '+e;btn.disabled=false;});
+  };
+})();
+function route(){
+  var h=decodeURIComponent(location.hash.slice(1)||'/'),p=h.split('/').filter(Boolean);
+  if(!p.length)home();
+  else if(p[0]==='c')category(p[1]);
+  else if(p[0]==='a')article(p[1]);
+  else if(p[0]==='search')doSearch(p.slice(1).join('/'));
+  else if(p[0]==='library')library();
+  else if(p[0]==='book')book(p[1],parseInt(p[2]||'1',10));
+  else if(p[0]==='about')about();
+  else home();
+  if(p[0]!=='a'&&p[0]!=='book')window.scrollTo(0,0);
+}
+
+// theme toggle (remembered on this phone if storage works)
+var themeBtn=document.getElementById('themeBtn');
+function currentDark(){var t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyThemeLabel(){themeBtn.textContent=currentDark()?'ใช้สีสำหรับกลางวัน':'ใช้สีสำหรับกลางคืน';}
+try{var saved=localStorage.getItem('theme');if(saved)document.documentElement.dataset.theme=saved;}catch(e){}
+themeBtn.onclick=function(){var t=currentDark()?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}applyThemeLabel();};
+applyThemeLabel();
+
+window.addEventListener('hashchange',route);
+loadAll().then(function(){
+  document.getElementById('status').textContent='บทความ '+arts.length+' เรื่อง · ออฟไลน์';
+  route();
+}).catch(function(){view.innerHTML='<p class="empty">ไม่พบไฟล์คู่มือ โปรดตรวจสอบว่าในการ์ด SD มีโฟลเดอร์ wiki</p>';});
+})();
+</script>
+</body>
+</html>

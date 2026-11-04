@@ -1,0 +1,29 @@
+{
+  "version": "1.6.0-th3",
+  "target": "survival-wiki-28",
+  "compile": "passed",
+  "merged_components_verified": 4,
+  "flash_offset": "0x0",
+  "image_bytes": 1575376,
+  "sha256": "96f9a5f10ac6b8ef5e41c88a2d698e5550cfd7ebd133fc6fe7abace994cb8004",
+  "ram_static_bytes": 73700,
+  "flash_application_bytes": 1503269,
+  "features": [
+    "live GPS refresh and follow",
+    "scale/north/fix/speed indicators",
+    "standalone Thai POI search",
+    "phone offline POI search and board GPS follow",
+    "GPX track/route display with segment boundaries",
+    "straight-line destination distance/bearing",
+    "local OSM attribution"
+  ],
+  "route_display_limits": {
+    "tft": 600,
+    "phone": 300,
+    "file_bytes": 4194304
+  },
+  "hardware_tested": false,
+  "previous_image_backup": ".thai-work/backups/th2/firmware-CYD28.bin",
+  "stationary_fix_does_not_reload_tiles": true,
+  "active_follow_keeps_screen_awake": true
+}

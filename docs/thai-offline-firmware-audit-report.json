@@ -1,0 +1,123 @@
+{
+  "result": "PASS_WITH_LIMITATIONS",
+  "auditDate": "2026-11-03",
+  "target": "ESP32-2432S028 CYD, 240x320",
+  "method": "Independent read-only production-source review, generated-font measurements, and browser regression tests against the actual embedded MAP_PAGE HTML",
+  "productionFilesModifiedByAuditor": false,
+  "firmwareBuiltByAuditor": false,
+  "physicalBoardTested": false,
+  "physicalSdCardTested": false,
+  "uartGpsModuleTested": false,
+  "reviewedSourceSha256": {
+    "firmware/src/main.cpp": "8df08aa6efecc4cf613eea6a0d456fcd4f7996b755e3caef878109037e02007e",
+    "firmware/src/offline_maps.cpp": "12961efdd944f5a4b37e0660db51f448e364d19fe3da02978b93bb23d26e64d5",
+    "firmware/src/gps.cpp": "847dc36b73aeec299c1d6bf9ffff61e4c245e01c71b9da608bb6a68966afba9d",
+    "firmware/src/mappage.h": "da543d3805f1ce5165b6a13ce288408dca61230bedc7cc59dc0cad6b65ed5882"
+  },
+  "findingsAndVerifiedFixes": [
+    {
+      "area": "NMEA validity",
+      "originalFinding": "RMC accepted hemispheres belonging to the opposite coordinate axis; malformed active RMC coordinates could retain a previous valid fix.",
+      "fixReviewed": "Both GGA and RMC require finite in-range coordinates with N/S latitude and E/W longitude. RMC assigns next.valid from the validation result. Invalid or negative speed, HDOP and course values are sanitized; course wraps to 0..360 and non-finite altitude becomes zero.",
+      "verification": "Source review only; no injected UART sentences or hardware receiver test."
+    },
+    {
+      "area": "Mercator projection and clipping",
+      "originalFinding": "Accepted pole coordinates could produce non-finite Mercator values before integer conversion.",
+      "fixReviewed": "Projection rejects non-finite inputs, clamps latitude to +/-85.05112878 and longitude to +/-180, and bounds output pixels to the map world. Center-file coordinates must be finite and within the supported projection range. Route and track lines clip to the map rectangle.",
+      "verification": "Source review of projection, center loading and map-line clipping."
+    },
+    {
+      "area": "GPX full point counts",
+      "originalFinding": "Sampling began at 599 firmware points and 299 browser points, before the documented 600/300 limits.",
+      "fixReviewed": "Firmware uses step=1 and limit=600 when total<=600. Browser route JSON uses step=1 and limit=300 when n<=300. Every valid source point, including repeated coordinates, is kept within those limits. Larger routes are sampled and retain the final coordinate when needed; JSON sampled is true only above 300 source points.",
+      "boundaryCountsFromSourceReview": {
+        "firmware": [
+          {
+            "input": 598,
+            "output": 598
+          },
+          {
+            "input": 599,
+            "output": 599
+          },
+          {
+            "input": 600,
+            "output": 600
+          }
+        ],
+        "browserJson": [
+          {
+            "input": 298,
+            "output": 298
+          },
+          {
+            "input": 299,
+            "output": 299
+          },
+          {
+            "input": 300,
+            "output": 300
+          }
+        ]
+      },
+      "verification": "Control-flow and bound review of the actual C++ loops; these counts are source-derived, not results of executing firmware."
+    },
+    {
+      "area": "GPX segments, memory and loops",
+      "fixReviewed": "The parser streams files capped at 4,194,304 bytes using XML tokens capped at 256 characters. Firmware stores at most 600 route points; browser JSON returns at most 300. Opening trkseg/rte sets a segment boundary. Sampling accumulates a pending boundary until a point is emitted, preventing a connecting line across skipped segment starts. No XML DOM or external entity/resource loading is used.",
+      "verification": "Source review of both parsing passes and both line-rendering consumers. Browser route APIs are simulated and do not execute this C++ parser."
+    },
+    {
+      "area": "Standalone POI navigation and layout",
+      "fixReviewed": "Map -> points -> search opens SC_POIS. Keyboard target 2 returns to POIs on cancel and submits the POI query on search. Selecting a row sets the destination and opens its map location. Four row rectangles occupy y=68..240, above the footer starting at y=282. Next-page label changed to ต่อ.",
+      "fontMeasurement": {
+        "label": "ต่อ",
+        "fontPixels": 14,
+        "widthPixels": 17,
+        "availableLabelPixels": 30
+      },
+      "verification": "Source review and scripts/verify_thai_render.py generated-table measurement; no physical touch/display test."
+    },
+    {
+      "area": "Phone GPS source freshness",
+      "originalFinding": "The keepalive reposted the last cached phone position indefinitely, keeping the board fix valid after the source stopped updating.",
+      "fixReviewed": "sendPos accepts only finite timestamps within 15 seconds of the browser clock and refuses timestamps already sent, including forced keepalive calls. Share stop and geolocation error clear watch, interval, cached position, sent timestamp, throttle timestamp and wake lock. The board retains its 45-second phone-fix expiry.",
+      "verification": "Actual embedded HTML passed fresh, repeated, stale, newer and non-finite timestamp POST tests. Real share-handler error and manual-stop cleanup passed using stubbed geolocation/wake lock at an intercepted HTTPS origin."
+    },
+    {
+      "area": "Map HTTP/HTTPS APIs",
+      "fixReviewed": "Both transports call the same map API implementation. Destination coordinates are parsed and checked before publication. Route selection rejects separators, parent traversal, line breaks, invalid extension and oversized files. HTTPS map arguments and static paths have explicit fixed-size bounds.",
+      "verification": "Source review; this is not a penetration test or a live ESP32 networking test."
+    }
+  ],
+  "browserRegression": {
+    "command": "node scripts/verify_offline_phone_map.cjs",
+    "result": "PASS",
+    "passedChecks": 18,
+    "javaScriptErrors": 0,
+    "positionPostsObserved": 4,
+    "testedWidthsPixels": [
+      240,
+      320,
+      390,
+      640
+    ],
+    "report": "docs/thai-offline-phone-map-test-report.json",
+    "gpsAndSdApis": "simulated",
+    "geolocationAndWakeLock": "stubbed"
+  },
+  "remainingLimitations": [
+    "No physical ESP32 display, touch controller, SD card, GPS antenna, UART timing or Wi-Fi/HTTPS heap behavior was exercised.",
+    "C++ parser behavior and full-point bounds were reviewed in source; firmware compilation and on-device validation are separate from this audit.",
+    "Large GPX files are intentionally sampled above 600 firmware points or 300 browser points."
+  ],
+  "unresolvedMaterialFindings": [],
+  "postAuditChange": "Final empty-result hint now names the exact ต่อ footer label; no behavior change. Firmware rebuilt after this text correction.",
+  "finalCompiledSourceSha256": {
+    "firmware/src/main.cpp": "7744022094ce7f3ee32e341981be147aa8f1334ce1e9a7c17708b7f6d6b5a2a9",
+    "firmware/src/offline_maps.cpp": "12961efdd944f5a4b37e0660db51f448e364d19fe3da02978b93bb23d26e64d5",
+    "firmware/src/gps.cpp": "847dc36b73aeec299c1d6bf9ffff61e4c245e01c71b9da608bb6a68966afba9d",
+    "firmware/src/mappage.h": "da543d3805f1ce5165b6a13ce288408dca61230bedc7cc59dc0cad6b65ed5882"
+  }
+}

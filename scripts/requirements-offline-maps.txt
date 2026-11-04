@@ -1,0 +1,12 @@
+# Windows x64 portable lock; exact wheels and hashes: offline-runtime-manifest.json
+certifi==2026.10.23
+charset-normalizer==3.5.2
+freetype-py==2.5.1
+idna==3.20
+numpy==2.4.6
+osmium==4.3.2
+pillow==13.0.0
+requests==2.34.2
+shapely==2.2.0
+uharfbuzz==0.57.0
+urllib3==2.8.0
