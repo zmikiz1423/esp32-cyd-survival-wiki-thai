@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### GPS tools for Thai CYD - 1.7.0-th1 (2026-11-09)
+
+- Add a Thai GPS hub on Home and in Settings, with current coordinates and a Lost screen that opens the existing Thai guide on staying found.
+- Store the starting waypoint in the active map set. Add straight-line bearing and distance to any saved waypoint, with a north-up reference until GPS provides a recent course of travel.
+- Send current coordinates as a local SOS message over the existing ESP-NOW mesh.
+- Read UTC date and time from the GPS module's NMEA RMC sentences. Default to UTC+7 and a 24-hour display. Estimate sunrise, sunset and remaining daylight, with an optional warning 30, 60, 90 or 120 minutes before sunset.
+- Show speed, elevation, distance, moving time, top speed and elevation gain. Keep trip totals in RAM until reset or reboot.
+- Reuse the `1.6.0-th4` SD package and map sets. Adapt the GPS tools from [upstream 1.7.0](https://github.com/everyday3d/esp32-cyd-survival-wiki/commit/99ea3bd0c10012965e30d16beda86343e0c8c319) into the existing Thai firmware. Hardware verification remains pending.
+
 ### Multiple map sets on one SD card - 1.6.0-th4 (2026-11-04)
 
 - Add a paginated CYD province selector for legacy `/maps` and separate `/maps-<slug>` folders, with no fixed application-level map-set count. SD capacity and filesystem limits still apply.

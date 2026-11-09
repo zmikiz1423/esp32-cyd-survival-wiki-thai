@@ -9,6 +9,7 @@ struct GpsFix {
   float    altM;       // metres above sea level
   float    speedKmh;
   float    courseDeg;  // direction of travel; not a magnetic compass
+  uint32_t courseMs;  // 0 if unavailable, stale, or moving below 2 km/h
   float    hdop;
   float    accuracyM;  // phone-reported accuracy (0 when unknown)
   uint8_t  sats;       // satellites used
@@ -23,3 +24,6 @@ bool gpsPresent();                   // compiled in (PIN_GPS_RX >= 0)
 GpsFix gpsGet();                     // copy of the latest state
 uint32_t gpsFixAgeS();               // seconds since the last fix, 0xFFFFFFFF if none
 void gpsSetPhone(double lat, double lon, float accM);   // a phone shared its position (phone map page); used when no module has a fix
+
+bool gpsUtcNow(uint32_t *epochS);      // extrapolated UTC since the last valid RMC timestamp
+uint32_t gpsTimeSyncAgeS();           // UINT32_MAX until GPS has supplied a valid timestamp
