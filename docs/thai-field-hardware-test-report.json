@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "implementation": "Actual field_hardware.cpp with mocked ADC, PWM, SD and E220 UART",
+  "details": "PASS actual hardware service: filtered noisy ADC, percentage hysteresis, CRC/UTF8, atomic settings failure, E220 write/readback gate, UART timeout, rate limit, dedup, speaker PWM lifecycle",
+  "physicalHardwareTested": false,
+  "fixturePath": "C:\\Users\\Ccpo1\\Downloads\\code\\esp32-cyd-survival-wiki-main\\.thai-work\\field-hardware-1794896239410583700"
+}

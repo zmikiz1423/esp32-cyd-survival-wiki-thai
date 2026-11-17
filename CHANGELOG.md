@@ -1,3 +1,7 @@
+# 1.8.0-th1
+
+เพิ่มภาคสนาม GPX ย้อนรอย แบตเตอรี่กรองสัญญาณ เสียงเตือน E220 และแป้นเกษมณี เพิ่ม8บทความไทย แก้เนื้อหาเดิมและหนังสือ รายละเอียด CONTENT_UPDATE_TH.md
+
 # Changelog
 
 All notable changes to the **ESP32 CYD Survival Wiki** project will be documented in this file.

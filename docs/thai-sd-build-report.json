@@ -1,8 +1,8 @@
 {
-  "articles": 118,
-  "field_guide_parts": 22,
+  "articles": 126,
+  "field_guide_parts": 23,
   "manual_parts": 62,
-  "largest_document_bytes": 28602,
+  "largest_document_bytes": 28328,
   "wordbreaks": "PyThaiNLP newmm / U+200B",
-  "search_sha256": "c51b2eb4c2648f90d7b22e37ec782ef02a93c4ca0cfc63d15c8371ac085c0789"
+  "search_sha256": "79f538898edc70fcf73ee9816a5e7f79eef45ca8c496f8596cec13783eb7b567"
 }

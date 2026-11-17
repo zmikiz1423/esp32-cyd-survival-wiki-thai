@@ -5,7 +5,7 @@ an explicitly labelled reference appendix, so none of its original figures
 or tables disappear when the Thai text edition is added.
 """
 from pathlib import Path
-import re,sys,json,functools,shutil
+import re,sys,json,functools,shutil,io
 import uharfbuzz as hb
 from pythainlp.tokenize import word_tokenize
 from reportlab.pdfgen import canvas
@@ -113,7 +113,7 @@ class Book:
 
 def field_guide():
     path=SD/'library/field-guide/field-guide.pdf';book=Book(path,'คู่มือเอาตัวรอด - ฉบับภาษาไทย')
-    book.cover('คู่มือภาคสนาม 118 เรื่อง พร้อมภาพประกอบภาษาไทย',[
+    book.cover('คู่มือภาคสนาม 126 เรื่อง พร้อมภาพประกอบภาษาไทย',[
         'สำหรับโครงการ ESP32 CYD Survival Wiki อ่านได้โดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต',
         'เรียบเรียงคำแปลโดยคงลำดับการปฏิบัติ ตัวเลข และข้อควรระวังตามเนื้อหาเดิม ข้อมูลเฉพาะภูมิภาคยังระบุบริบทของต้นฉบับไว้',
         'ใช้สารบัญของไฟล์ PDF เพื่อเลือกบทที่ต้องการ และดูบทความฉบับเดียวกันบนหน้าจอ CYD หรือหน้าเว็บของอุปกรณ์ได้'])
@@ -141,7 +141,7 @@ def manual():
     textpdf=TMP/'fm21-76-thai-text.pdf';book=Book(textpdf,'FM 21-76 - คู่มือเอาชีวิตรอดฉบับแปลไทย')
     book.cover('เอกสารกองทัพบกสหรัฐอเมริกา ปี 1992',[
         HISTORICAL,
-        'ฉบับภาษาไทยแปลข้อความทั้ง 62 ส่วนของโครงการเดิม โดยไม่ย่อเนื้อหา คำแปลใช้ระบบแปลร่วมกับการเกลาศัพท์และตรวจข้อความที่อาจคลาดเคลื่อน ยังไม่ใช่งานแปลที่ผ่านผู้เชี่ยวชาญตรวจทุกบรรทัด',
+        'ฉบับภาษาไทยแก้ไขบางตอนเพื่อถอนคำแนะนำเก่าอันตราย ใช้บทความปฐมพยาบาลปัจจุบันประกอบ คำแปลใช้ระบบแปลร่วมกับการเกลาศัพท์และตรวจข้อความที่อาจคลาดเคลื่อน ยังไม่ใช่งานแปลที่ผ่านผู้เชี่ยวชาญตรวจทุกบรรทัด',
         'ภาคผนวกท้ายเล่มเก็บต้นฉบับภาษาอังกฤษครบ 233 หน้า เพื่อรักษาภาพประกอบ ตาราง แหล่งอ้างอิง และตำแหน่งหน้าต้นฉบับ'])
     for i in range(1,63):
         book.heading(f'ตอนที่ {i} จาก 62',key=f'part-{i}')
@@ -156,7 +156,14 @@ def manual():
             else:book.paragraph(para.replace('\n',' '))
     book.newpage();book.heading('ภาคผนวก - ต้นฉบับภาษาอังกฤษ 233 หน้า',key='original-appendix')
     book.paragraph('ภาพประกอบและตารางจากเอกสารต้นฉบับเก็บไว้ครบเพื่อใช้เทียบกับข้อความแปลไทย เลขหน้าที่ปรากฏในข้อความอ้างถึงเลขหน้าของต้นฉบับในภาคผนวกนี้')
-    thai_pages=book.save();writer=PdfWriter();writer.append(textpdf);writer.append(source)
+    thai_pages=book.save();writer=PdfWriter();writer.append(textpdf)
+    archive=PdfReader(source)
+    for page in archive.pages:
+        overlay=io.BytesIO();c=canvas.Canvas(overlay,pagesize=(float(page.mediabox.width),float(page.mediabox.height)))
+        c.setFillColor(HexColor('#fff0cc'));c.rect(0,float(page.mediabox.height)-25,float(page.mediabox.width),25,fill=1,stroke=0)
+        c.setFillColor(HexColor('#aa0000'));c.setFont('Helvetica-Bold',9)
+        c.drawString(8,float(page.mediabox.height)-16,'HISTORICAL 1992 ARCHIVE - NOT CURRENT MEDICAL OR SURVIVAL INSTRUCTIONS')
+        c.save();overlay.seek(0);page.merge_page(PdfReader(overlay).pages[0]);writer.add_page(page)
     writer.add_metadata({'/Title':'FM 21-76 ฉบับแปลไทย พร้อมภาคผนวกต้นฉบับ','/Author':'Survival Wiki - Thai edition'})
     with dest.open('wb') as f:writer.write(f)
     return thai_pages,thai_pages+233

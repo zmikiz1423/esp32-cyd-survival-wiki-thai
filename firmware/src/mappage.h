@@ -32,11 +32,12 @@ footer button.on{background:var(--acc);color:#111;border-color:var(--acc)}
 body{font-family:"Sarabun","Noto Sans Thai",Tahoma,system-ui,sans-serif;line-height:1.65;overflow-wrap:anywhere}
 header{flex-wrap:wrap}header>*{min-width:0}button{min-width:0;font-family:inherit;line-height:1.55;overflow-wrap:anywhere}
 footer{flex-wrap:wrap}footer button{flex:1 1 52px}#msg{line-height:1.65}
-#overlay{position:absolute;inset:0;pointer-events:none;z-index:2}#panel{position:absolute;z-index:5;right:8px;top:8px;width:min(360px,calc(100% - 16px));max-height:70%;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}#panel{touch-action:pan-y}#panel[hidden]{display:none}#panel input,#panel select{width:100%;padding:8px;background:var(--bg);color:var(--text);border:1px solid var(--line);font:inherit;margin:4px 0}#panel button{padding:7px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;border-radius:6px}#poiResults button{display:block;width:100%;text-align:left;margin-top:5px}#panel p{font-size:13px;color:var(--muted);margin:6px 0}#gpsState{padding:3px 10px;font-size:13px;line-height:1.6;background:var(--card)}#info{z-index:3;max-width:calc(100% - 16px)}#msg{z-index:4}
+#overlay{position:absolute;inset:0;pointer-events:none;z-index:2}#panel{position:absolute;z-index:5;right:8px;top:8px;width:min(360px,calc(100% - 16px));max-height:70%;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}#panel{touch-action:pan-y}#panel[hidden]{display:none}#panel input,#panel select{width:100%;padding:8px;background:var(--bg);color:var(--text);border:1px solid var(--line);font:inherit;margin:4px 0}#panel a{display:inline-block;color:var(--acc);padding:7px 0}#panel button{padding:7px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;border-radius:6px}#poiResults button{display:block;width:100%;text-align:left;margin-top:5px}#panel p{font-size:13px;color:var(--muted);margin:6px 0}#gpsState{padding:3px 10px;font-size:13px;line-height:1.6;background:var(--card)}#info{z-index:3;max-width:calc(100% - 16px)}#msg{z-index:4}
 </style></head><body>
 <header><b>&#128506; แผนที่</b><span id="mapName"></span><a href="/mesh">แชต</a><a href="/tools">เครื่องมือ</a><a class="r" href="/">คู่มือ</a></header>
 <div id="view"><div id="layer"></div><canvas id="overlay"></canvas><section id="panel" hidden>
 <b>ค้นหาและเส้นทางออฟไลน์</b><button id="closePanel" style="float:right">ปิด</button>
+<p><a id="exportTrack" href="/api/field/track.gpx" download="CYD-track.gpx">ดาวน์โหลดเส้นทางที่บันทึกเป็น GPX</a><br>เริ่มหรือหยุดบันทึกจาก ภาคสนาม → บันทึกและย้อนรอย บน CYD</p>
 <form id="poiForm"><input id="poiQuery" maxlength="100" placeholder="ชื่อสถานที่ เช่น วัด โรงพยาบาล" aria-label="ชื่อสถานที่"><button type="submit">ค้นหาใน SD</button></form><div id="poiResults"></div><p id="poiNote"></p><button id="poiMore" hidden>ค้นหาต่อในข้อมูลส่วนถัดไป</button>
 <label for="routes">เส้นทาง GPX ใน SD</label><select id="routes"><option value="">ไม่แสดงเส้นทาง</option></select><button id="loadRoute">แสดงเส้นทาง</button><p>เพิ่มไฟล์ .gpx ในโฟลเดอร์ routes ของชุดจังหวัดที่เลือกบน SD เส้นทางยาวจะย่อจำนวนจุดเพื่อแสดงผล ระยะไปจุดหมายเป็นเส้นตรง</p></section><div id="cross"></div><div id="info"></div><div id="msg"></div></div>
 <div id="attribution" class="attribution" hidden><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> | <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> | <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a></div>
@@ -108,7 +109,7 @@ document.getElementById('loc').onclick=function(){
 // A selection on the CYD changes the logical /maps URL. Invalidate all pending
 // work, then load the new set's center and attribution before drawing it.
 async function loadMap(revision,name){
-  var epoch=++mapEpoch;mapRevision=String(revision);mapLoaded=false;gen++;queue=[];busy=0;
+  var epoch=++mapEpoch;mapRevision=String(revision);document.getElementById("exportTrack").href="/api/field/track.gpx?v="+encodeURIComponent(mapRevision);mapLoaded=false;gen++;queue=[];busy=0;
   layer.replaceChildren();routePoints=[];destination=null;poiOffset=0;poiQuery='';
   followBoard=false;document.getElementById('follow').className='';
   document.getElementById('poiResults').replaceChildren();document.getElementById('poiQuery').value='';

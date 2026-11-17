@@ -1,0 +1,1641 @@
+{
+  "date": "2026-11-17",
+  "scope": "Hazard and locale screening of existing118 articles and84 parts; targeted editorial corrections, not clinician certification",
+  "articles": 126,
+  "changedOrNew": {
+    "foraging-safely": {
+      "reason": "ถอนคำแนะนำทดลองกินพืชและเกณฑ์เดาชนิดจากสี/สัตว์กิน",
+      "sources": [
+        "https://www.dmsc.moph.go.th/th/detailAll/3050/nw/25",
+        "https://www.rama.mahidol.ac.th/poisoncenter/"
+      ]
+    },
+    "snakebite": {
+      "reason": "ปรับปฐมพยาบาลงูกัดตามบริบทไทย ถอนการแนะนำพันกดตรึงแบบเหมารวม",
+      "sources": [
+        "https://kcmh.chulalongkornhospital.go.th/line/งูกัด/",
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "emergency-radio": {
+      "reason": "ถอนหมายเลขและสิทธิส่งวิทยุแบบสหรัฐฯ ที่อาจนำไปใช้ผิดประเทศ",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.disaster.go.th/"
+      ]
+    },
+    "72-hour-kit": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.tmd.go.th/",
+        "https://www.disaster.go.th/"
+      ]
+    },
+    "burns": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "carbon-monoxide": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "choking": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-basic-life-support",
+        "https://newsroom.heart.org/news/updated-cpr-guidelines-tackle-choking-response-opioid-related-emergencies-and-a-revised-chain-of-survival"
+      ]
+    },
+    "cpr": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-basic-life-support",
+        "https://newsroom.heart.org/news/updated-cpr-guidelines-tackle-choking-response-opioid-related-emergencies-and-a-revised-chain-of-survival"
+      ]
+    },
+    "downed-power-lines": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "emergency-toilet": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.cdc.gov/water-emergency/about/index.html"
+      ]
+    },
+    "family-plan": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "finding-water": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.cdc.gov/water-emergency/about/index.html"
+      ]
+    },
+    "first-aid-priorities": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "gas-leak": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "house-fire": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "lost-child": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "nuclear-time": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "radio-basics": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.tmd.go.th/",
+        "https://www.disaster.go.th/"
+      ]
+    },
+    "sos-signals": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "water-storage": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.cdc.gov/water-emergency/about/index.html"
+      ]
+    },
+    "wound-care": {
+      "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "th-emergency": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.disaster.go.th/"
+      ]
+    },
+    "th-flood": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.disaster.go.th/",
+        "https://www.tmd.go.th/",
+        "https://www.cdc.gov/water-emergency/about/index.html"
+      ]
+    },
+    "th-forest": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.dnp.go.th/",
+        "https://www.disaster.go.th/"
+      ]
+    },
+    "th-heat": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+        "https://www.tmd.go.th/"
+      ]
+    },
+    "th-snake": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://kcmh.chulalongkornhospital.go.th/line/งูกัด/",
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    },
+    "th-coast": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.disaster.go.th/",
+        "https://www.tmd.go.th/",
+        "https://www.niems.go.th/1/uploadattachfile/2025/ebook/421570_20250814235616.pdf"
+      ]
+    },
+    "th-food": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.cdc.gov/water-emergency/about/index.html",
+        "https://www.dmsc.moph.go.th/th/detailAll/3050/nw/25",
+        "https://www.rama.mahidol.ac.th/poisoncenter/"
+      ]
+    },
+    "th-family": {
+      "reason": "บทความใหม่สำหรับประเทศไทย",
+      "sources": [
+        "https://www.disaster.go.th/",
+        "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+      ]
+    }
+  },
+  "withdrawnManualParts": [
+    "sdcard/library/fm21-76/0007.txt",
+    "sdcard/library/fm21-76/0009.txt",
+    "sdcard/library/fm21-76/0010.txt",
+    "sdcard/library/fm21-76/0011.txt",
+    "sdcard/library/fm21-76/0012.txt",
+    "sdcard/library/fm21-76/0023.txt",
+    "sdcard/library/fm21-76/0024.txt",
+    "sdcard/library/fm21-76/0025.txt",
+    "sdcard/library/fm21-76/0026.txt",
+    "sdcard/library/fm21-76/0027.txt",
+    "sdcard/library/fm21-76/0030.txt",
+    "sdcard/library/fm21-76/0038.txt",
+    "sdcard/library/fm21-76/0040.txt",
+    "sdcard/library/fm21-76/0046.txt",
+    "sdcard/library/fm21-76/0047.txt",
+    "sdcard/library/fm21-76/0057.txt",
+    "sdcard/library/fm21-76/0058.txt",
+    "sdcard/library/fm21-76/0060.txt"
+  ],
+  "inventory": [
+    {
+      "file": "sdcard/wiki/articles/72-hour-kit.md",
+      "sha256": "f852f60370ed6186b14d189a14756c780d89bbcdc7fc452381d52b61a509cc70",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.tmd.go.th/",
+          "https://www.disaster.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/anaphylaxis.md",
+      "sha256": "3edc8dd2473af53b42740d20a8b778ecbb1f126bbd18efd74d409f290bc27bda",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/animal-encounters.md",
+      "sha256": "f80c6ab41270b02be7717dad9fe27b87041f99e0f89019bae1e7734b2bd67637",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/baby-care.md",
+      "sha256": "d935bdfbeb68aa216c6af47048bf9a43d29c89cf42c444ed6d31bc0217ed3732",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/bites-stings.md",
+      "sha256": "9674db22dd6015e193652074ce7152de7a6c408c4626112a93e41191bcfe30d3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/blizzard.md",
+      "sha256": "f2f0998e67714186c7ce21202a7ea031284fb14747352ad5203ff966bdc8209e",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/burns.md",
+      "sha256": "7ce6886e7454f2b34c557f8d6852abfe62d2e2df01687d24c12f662ca0b13dbc",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/burst-pipe.md",
+      "sha256": "00d7ad2fda9c92350692af656c58a82c6620c686046de1e8d75f2de21275293e",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/car-breakdown.md",
+      "sha256": "f35d016f44793ab19667039f6df6ab8fc534bfe32d1bff3af2690b2d3ac96333",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/car-fire.md",
+      "sha256": "19a6ee2ac168fa9d70862faacffdb9e7364af32d6991bb0b0907c98e8a82529c",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/car-in-water.md",
+      "sha256": "a1b5c23b1c026851f5d2c47913441ccb9c33e536c95d5c8046e19950defdcbdf",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/car-kit.md",
+      "sha256": "39310d1fba7935fad3698f8cadcb6a5fab34b78b21bd5e3b0f26bc9536d2fe69",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/carbon-monoxide.md",
+      "sha256": "a1e0b5c193e306cc6268e9b97d25cacae6ea66772f7bd64ade4bbe98c50c6370",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/child-fever.md",
+      "sha256": "73ab0a5871c221652644cde8d9b3b266f71dc03e48c96a09e42e25aafb3e5f5a",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/children-first-aid.md",
+      "sha256": "1d49b359bff560a46a986453f05b873f357da456261b825046bbe62dcf10f7fe",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/choking.md",
+      "sha256": "ef681620479aeb42a7bfd0e44f0dd801fcdc06857fd0377c6c9a3308cb26cdcc",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-basic-life-support",
+          "https://newsroom.heart.org/news/updated-cpr-guidelines-tackle-choking-response-opioid-related-emergencies-and-a-revised-chain-of-survival"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/cold-weather.md",
+      "sha256": "543f656141b89732cdd47030125828c197d9a8216be04857f6093e4b91054b8e",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/cooking-fire.md",
+      "sha256": "b078a244b913224a9817415afbcdebfb2fcfbda30f50a89d413e0cee6d1642a1",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/cpr.md",
+      "sha256": "ace52a4027803abd18c535aaecf11cd644e35fb5f6be15196878257a9aa4ceee",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/pediatric-basic-life-support",
+          "https://newsroom.heart.org/news/updated-cpr-guidelines-tackle-choking-response-opioid-related-emergencies-and-a-revised-chain-of-survival"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/debris-hut.md",
+      "sha256": "05e0fc55ee9078bd4ae69e3c73347bbc7ad9198a87a3772510c911391ac594ec",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/dehydration.md",
+      "sha256": "1e30e1d08ebc3c01e48a6417af8b73a0f32c93fe9bbe8ffe6fc1e96230c91ee7",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/diabetic-emergency.md",
+      "sha256": "7e055c5d4638789985fd21e4adb26bc8103f79fdbd9834535137f98a34ebccc4",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/diarrhea-vomiting.md",
+      "sha256": "a732a3e1e015da0293236fa6f02df3b14107ebfd50942c96c598aca6717ede63",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/downed-power-lines.md",
+      "sha256": "0097828beb1626fd318e11baee5e5bf5fe242d98aaa8c2cf099eb917feeabc3f",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/drowning.md",
+      "sha256": "9b97e42672d8e5fb32540a7f0062142b9d5379b06b0b461f1aa5b38669179bbe",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/earthquake.md",
+      "sha256": "1d918bfb43fff399daedc47226738613e1d077224a3094b52aa582e2c98344ad",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/elders-special-needs.md",
+      "sha256": "e1cb690065f76030658aed43effb976dc62919e2141eec98ed5083a6d81519dc",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/electric-shock.md",
+      "sha256": "79a8384d300dfade25ec9bddfff5a487c0596b340c1538186b7afeeecbc8bd8e",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/emergency-food.md",
+      "sha256": "19c968a6a9747c4cdd7463b6db85f959f9560f13cb435fb810f4d2574677f148",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/emergency-radio.md",
+      "sha256": "22d17be96e56953075b1e75840a91b5f4f8fdd00b9ca97040750610cf1c5ce47",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ถอนหมายเลขและสิทธิส่งวิทยุแบบสหรัฐฯ ที่อาจนำไปใช้ผิดประเทศ",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.disaster.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/emergency-toilet.md",
+      "sha256": "dfadee1410323884902c4c749a43282c5d49f97c16a2c8a57b94ce59961f9eb6",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.cdc.gov/water-emergency/about/index.html"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/extreme-heat.md",
+      "sha256": "d4e89286ea729dafe924963ef84f54e350826010f818c706c73509118eef9e98",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/eye-injuries.md",
+      "sha256": "2b2c273485157d651ffccf7c3c91967b029f4fddfcc489f51051dc7022ce2b67",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/falling-through-ice.md",
+      "sha256": "ac3ace05efd96fb1f819fd40074e651a085bb92a1eaa471605f101acfc4963d1",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/family-plan.md",
+      "sha256": "6d25de6f69b0a3ab8c38ed6366f195f881e608920941b7e7403a500d7bdc6744",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/finding-water.md",
+      "sha256": "05654b413316ae8fd7b22fc4c77d8bf50da1ddf093a9c23bcf1f5f6c4a267fa5",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.cdc.gov/water-emergency/about/index.html"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/fire-basics.md",
+      "sha256": "92facdcfdca80f0b3903c3a0df80d6171c49424ec62c14d004c90345fefd7dcc",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/fire-lays.md",
+      "sha256": "ede7b3b1438d28476c76c45688c10876dc5965d9f491ff25771c7c37af75ab22",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/fire-safety.md",
+      "sha256": "79d40ef676d2f148e1480336e033a89e2ad53e2709bd86891613cf8db99edaf8",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/first-aid-priorities.md",
+      "sha256": "52a739c76f4298c552cf78b5d88e2b34246a2a152114c70be501e6d30da2a76f",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/flat-tire.md",
+      "sha256": "c86740ef38341af622b5f8b6c6a69e8e5351d72c5d43c01f69a153d5ba5a295a",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/flood.md",
+      "sha256": "ed8a0dfe8d55f02899854f980b10369b5f2a6e80a98d52fa274f11c403621272",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/food-after-outage.md",
+      "sha256": "00722c1fad00a08cbd018f32a8ebd55cdbed46e5ec89955b01710068f1f083cf",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/food-priorities.md",
+      "sha256": "a703906c144f02801c3160234f0d15748f3804dbf07e6aaa667345c1aaba8e13",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/food-storage.md",
+      "sha256": "cfaa7bb31e3f01240580c29d1d916f0d0fcac3a19c4b983f54ccba15cbb88d0d",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/foraging-safely.md",
+      "sha256": "62b894b375cacccc213bce704644451a14c839436b3f4a72c59802c396a1a358",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ถอนคำแนะนำทดลองกินพืชและเกณฑ์เดาชนิดจากสี/สัตว์กิน",
+        "sources": [
+          "https://www.dmsc.moph.go.th/th/detailAll/3050/nw/25",
+          "https://www.rama.mahidol.ac.th/poisoncenter/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/fractures-sprains.md",
+      "sha256": "05e5032ee0df12b1f380d5a3c7641547616c54de86525b6bc8c4f3d97b673a79",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/frs-gmrs.md",
+      "sha256": "ea0e81b73d5149cd8f76307f863f871c0c53a77c119f34f45afb496bd7f104a3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/gas-leak.md",
+      "sha256": "1cc07a6395edb67979932ef1a2e4da42d652fa753d5051a569608385d8d662be",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/generator-safety.md",
+      "sha256": "a83af1ce7de3ce9fe4d2afac9d314b1241d488f43bebe2b03b33ffb55086b3c1",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-choking.md",
+      "sha256": "906c57b1c9571a22847e1a19dc85be2e4db9029a04110e65ee4277ff2553c0d3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-cold.md",
+      "sha256": "cb2531be100fb691289f2738079cf96af0f97f65241f0fcdd79508361c07f819",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-cpr.md",
+      "sha256": "bc907e67aed8082eb0531b85635d6d374a8012689029beb156c868551258679b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-heat.md",
+      "sha256": "08c635f96e9e5da9d36282326d4501aa9fa6b9f21bab3dc16c49577ec5c715c8",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-pack.md",
+      "sha256": "11725f69f19f80f4400445855c98006c95b82e7ca72f4cedc3a896e02a7954a8",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-toxic.md",
+      "sha256": "8c5106dc1cd158cfe09dafddecbfa585051608bd014e53bc8afa2d3d9bec18d4",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/goodboy-wounds.md",
+      "sha256": "6b6ea38ff05c9d70695db8d6a25ea9027fa965c5c83b49fbfc4f7c1b3546cf07",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/ground-signals.md",
+      "sha256": "d9e95489ac4405ff29a04ec3e1c123782664fac205b3a7519e117fd0ae97e74d",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/ham-radio.md",
+      "sha256": "0f9127a602b707ccf406bf320c5f0f0342f36f1c17a775c4e0de2b207bdee052",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/handwashing.md",
+      "sha256": "e58e8789cac3531d22a971dabf80496db79e8857d4f3caa3cef2fbf667291e61",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/head-injury.md",
+      "sha256": "4e2e317710fbee000905a717adc42f4bcd3ef802381b82308ed085690676c44f",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/heat-illness.md",
+      "sha256": "c8e7822569540a90b02029cf818aa833da80c95bc856d05ed97b3a70a55cfd6f",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/helping-searchers.md",
+      "sha256": "dcd5a425469df01a7157f6019e35fd9f011d5b64feb1bd6aac6907f2dda6399b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/hot-weather.md",
+      "sha256": "dea047bde299725340a78ac27e6c5b13ff66704f2afa25c6da167882a692f7fa",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/house-fire.md",
+      "sha256": "9b7ca137e18c4bea57aec23eb008a0edf8fb69d94a3c5799ad4bcf46e9d53d0d",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/hurricane.md",
+      "sha256": "e33d47fbfebdd39691149fbc833be848d82b68ed49ac5d60902b4e5981735fec",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/hypothermia.md",
+      "sha256": "2f6e41ae4be899143434e542f2e2fdacc84bdccc818bcb0e6b34058a04a7cd52",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/improvised-filter.md",
+      "sha256": "1f045bebed67ff0b3942f45b0eda12ffffa420fd3a9d2a7b091bcaafedfc2722",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/insects-fishing.md",
+      "sha256": "d8624f6094defb4740ee020b85f92fc763f6d672567085d71f53c8505a304ae5",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/jump-start.md",
+      "sha256": "28a25d45034c0dc011472c6a3cc8ed5618f94de821f22e2c0189c65f8383a825",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/kids-calm.md",
+      "sha256": "ee2897a37d504799726ec70c4fda36d9ad7dc32e71ebe9ca8453f13a1dd5ba95",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/knots.md",
+      "sha256": "69fe74440e077037c67d5de96341e7ab61abc6afb5f84a771e55f3b81d77e95d",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/lean-to.md",
+      "sha256": "da856ff885ce972f5c6eccc92c0954fb3db5bddd50d01111ef70100819c7e1b3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/lost-child.md",
+      "sha256": "af26c1c23886ebfdf6da5c389280bf1c410ffbca1464cfb69fd0d5f1fec18338",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/map-compass.md",
+      "sha256": "6f6ae5172d817f118432d3b5fea27997c8f4195b4f57079011e4f1c7fa42f181",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/mesh-messaging.md",
+      "sha256": "adaaa1e1454478a7100d8824111187dbf220ceb320945169238d6fd9918d78d8",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/natural-direction.md",
+      "sha256": "ab51216e342d0580e518f2df4961ba054e178d205fa28ab80613794cb0a8a37f",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/night-signals.md",
+      "sha256": "41bf257e60309a85f71cb557024446566ef27b7e7ad713d55b8c7a6124559c12",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/noaa-weather-radio.md",
+      "sha256": "c0fa8cac8ee89267d6fc37a10d3e7a45f733452e435dabec6f60dcc768e69c97",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/nuclear-decon.md",
+      "sha256": "627cf6e185c81d00bf65653ff67ee1d0be1815027b8c2a256b05cb16ba189c81",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/nuclear-get-inside.md",
+      "sha256": "1e5e1c9c6388496e4e9fdada0c01dfc2e1d2567e222e351055af858a35b14ddf",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/nuclear-time.md",
+      "sha256": "52141119e2630ec00c910c9e26b890e1869d4bd338e99dcd812c90d7a9f2980b",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/poisoning.md",
+      "sha256": "8f34e5418b38f38ddb3de9e23e3afe7bfecd14424616a13a4b7996e55dbebf16",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/power-outage.md",
+      "sha256": "68340f9cc6684c62a2156a92e2009abcf822fab185dd24a0fce18d0551093fac",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/purifying-water.md",
+      "sha256": "4d5e927d84950099369f2daf47b269f398591d82b050221bf471c2da27e0935e",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/radio-basics.md",
+      "sha256": "2e168bbe6d691be4ac0a7f38840e425cd8b495c924aa0713635e17821bf1fded",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.tmd.go.th/",
+          "https://www.disaster.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/radio-calls.md",
+      "sha256": "e1359976e35f1e3bc866fb185e21eced5575de523e14c9ff68568d2b7e0850ca",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/radio-range.md",
+      "sha256": "e97ac206fdc4c70538327850b8291f602dbaa82aab852caac89f29ea2dc5ef22",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/rule-of-threes.md",
+      "sha256": "bb98d8e69e88cd7145dc1b643d42f2fc70963c30d609b7b0d8eb0349c9697d8f",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/seizures.md",
+      "sha256": "93fdbb6d7afa5d16435b3ed0f77b1a7937158a2e2511ede686e04c9737bf17dd",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/severe-bleeding.md",
+      "sha256": "7cdbb917e5a486941cfd800268ede2e63701a40fa6fc7978ee4562291192425b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/shadow-stick.md",
+      "sha256": "4586aee15d00477079ece5c02ab7177051fb800c9df22dc6b671cb15477b9566",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/shelter-basics.md",
+      "sha256": "bbcd68db5b36984cb3651c23b81ebe04c8fa8f0754f0a263b873d1af10747181",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/shock.md",
+      "sha256": "91417c14ff6b137291bd6660afc75b97b895d5d41231431aedfde195ec8f6a78",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/signal-mirror.md",
+      "sha256": "9abb8133c2ce63c1355ca218ce7d52821e9d0f471dbe861b55b928bc90ceb0d3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/sleeping-warm.md",
+      "sha256": "6fd6497e4e685f0fe3d5167fec4809d816480b006908f0d6a981fc35a9dc694b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/snakebite.md",
+      "sha256": "c5b9cce76585a289c78159c2241a5f4355a15937bd5b823ada99c6947b08bfcd",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับปฐมพยาบาลงูกัดตามบริบทไทย ถอนการแนะนำพันกดตรึงแบบเหมารวม",
+        "sources": [
+          "https://kcmh.chulalongkornhospital.go.th/line/งูกัด/",
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/snow-cave.md",
+      "sha256": "a3b6ecaf6b39d58293443601dbcbf0276d2fb7c34d85f6df1dd8fe2f6a1ac7e3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/solar-still.md",
+      "sha256": "0d0779dd9e5e98307036c28d84f00612b77132946904fc19327eaafd421645d8",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/sos-signals.md",
+      "sha256": "691fe56e2fcb0f484844a3bc95e79a419a3a3bda4ba338b4be4c71743110abe0",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/spinal-injury.md",
+      "sha256": "cf3066e4fb1da9b1cc1e95be0ad13713e7fb1b79941849573c17d5a0fe21a662",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/stars.md",
+      "sha256": "73903a99114cc1bfe4e64b7f2bc8c109f582109fbca5d900f8a00f9bc245436a",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/starting-fire.md",
+      "sha256": "29cb6457f29e763c1bbf06f90bbdf457cca6062d48eb5d4648d8e4c4e1f94f0d",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/staying-calm.md",
+      "sha256": "a5b49a75f77669d99c59a249b18da6d62f9d46b7e3e4b09ce837100404a629b4",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/staying-found.md",
+      "sha256": "15f59a96a5bfd17238f9e23c00c3b0f820dedb9be194d9fc6e80778b785e29a5",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/stop.md",
+      "sha256": "53c14b13fb89d5c83d2152e4fb13ae0746240ff8dc08c78beed7ca30dcc90e93",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/stranded-winter.md",
+      "sha256": "a2f17c32c4a0de11d48fab026bdc0fd1f78cbb0db906da2dcdb5d873ef26e4f5",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/stroke-heart-attack.md",
+      "sha256": "b75013b3a3a70471a05e3f01dd1611e2c3b16afa393f109eb4cc25bb535e2572",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/survival-kit.md",
+      "sha256": "2a1cf413f3c28dc1496203f9a2e120c5a526abfb7b1e3a3efca75b5b8f1d44f9",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/tarp-shelters.md",
+      "sha256": "e473661c8561ac4d82664d5b50eec37f858870704f3aad31acc0a3de5d515eac",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/th-coast.md",
+      "sha256": "0ec501a2f2e0a2970355b3d87c78e4bab11b6b0bba36267c44391bc3709d2a51",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.disaster.go.th/",
+          "https://www.tmd.go.th/",
+          "https://www.niems.go.th/1/uploadattachfile/2025/ebook/421570_20250814235616.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-emergency.md",
+      "sha256": "9659d43c04f2cf6225412f1f267688c0f8f31e03bf54803e480e34e5f919ab47",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.disaster.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-family.md",
+      "sha256": "c737e55380d5d996a14bd1f900e27e6af44b3e50994968d507096518c0cd9cae",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.disaster.go.th/",
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-flood.md",
+      "sha256": "2a9ee1fb817eadfb6d6d4cf657946cdbd3ed3546192e9818a0beda578214d94a",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.disaster.go.th/",
+          "https://www.tmd.go.th/",
+          "https://www.cdc.gov/water-emergency/about/index.html"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-food.md",
+      "sha256": "72ac7ce61d3ce2bf0f768182eaf1d84f0d3661ea98ea5cb53259bbcaa6faf8a7",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.cdc.gov/water-emergency/about/index.html",
+          "https://www.dmsc.moph.go.th/th/detailAll/3050/nw/25",
+          "https://www.rama.mahidol.ac.th/poisoncenter/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-forest.md",
+      "sha256": "2e66dcb3a62646ab438f0d2c753ec55d7fe8192f0e0d5419992108b6dd1cb32f",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.dnp.go.th/",
+          "https://www.disaster.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-heat.md",
+      "sha256": "5b3d7bfed77c68a5f81df5406bfb3035ca7d7d488936d7049833c101a18be0ea",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.tmd.go.th/"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/th-snake.md",
+      "sha256": "300f21f77a7d01c7d55c639fa817df1078f8cd9f1bcd4b015e79b2f2adc83f51",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "บทความใหม่สำหรับประเทศไทย",
+        "sources": [
+          "https://kcmh.chulalongkornhospital.go.th/line/งูกัด/",
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/tornado.md",
+      "sha256": "8e6c9de94e258ea2661a3b7deff92979e7946da51bf73b6d9b448116decc17fa",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/utility-shutoffs.md",
+      "sha256": "ddeb413564032f65bbed0d3af699b1ae793ca83ca6ab7a45a04ad4da9e23184b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/watch-method.md",
+      "sha256": "44b636500c80da34635f19cd9b4853c2ccd3a3dacefe88cd0bbc25259bafe0ec",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/water-storage.md",
+      "sha256": "c3a17fe2ef7a34eb28a02761bb32b03a028cb2dbc3b90254c7e7f57b780223b2",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf",
+          "https://www.cdc.gov/water-emergency/about/index.html"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/wiki/articles/weather-hazards.md",
+      "sha256": "9b27499c77cc4edc942622bda2768a205155cbde82e75d73516b4df52a6855d3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/wet-weather-fire.md",
+      "sha256": "348b7157cfeda595d20febdd5fcc13df47287d8e1d9155ab27dda34d49d95392",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/wildfire.md",
+      "sha256": "970ae008a6382ace1778b076b8dfaf5e3bbfd6dfdf7ccd183abb8bcbcd54b3c2",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/wiki/articles/wound-care.md",
+      "sha256": "d866464a6b1df4401639d45012da3ea667b5c5e80d2866fbe5ec51d877be9b33",
+      "status": "updated-with-sources",
+      "review": {
+        "reason": "ปรับบริบทไทยหรือแก้คำแนะนำเฉพาะจุดที่เสี่ยงตีความผิด",
+        "sources": [
+          "https://www.niems.go.th/th/Upload/File/255806170927272659_RjIY5vBXo478QPsb.pdf"
+        ]
+      }
+    },
+    {
+      "file": "sdcard/library/fm21-76/0001.txt",
+      "sha256": "fd9d8bbd48b4aaec63bbecc4a56fd6bbad4bed669c074f48cb06d056a0a51103",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0002.txt",
+      "sha256": "99989158f0f6d1507d668ecd24fba7f8f37c893b358f7892ab61bdd8ab1c2d7c",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0003.txt",
+      "sha256": "5dd12df03c22e41d22c16ce5bc6159a5c73373fb7ce4809585b4b3b826f76965",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0004.txt",
+      "sha256": "e5da9b6d31797113f2896c4bef17bfd7e408c01c558a418148d1e8d81e55aacb",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0005.txt",
+      "sha256": "66c887410f52e7df99d66e97c0abec3d5cf9e0fdc451e54e617696b1930167da",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0006.txt",
+      "sha256": "3fc984cd65800600b6b21980fa7c80bef905aaff83796d75b59ec4960dbaf2ca",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0007.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0008.txt",
+      "sha256": "bd4c774f014fc4ed1955c8d9fcbe3fbf7ff46633e9933eb644ec5322c0874636",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0009.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0010.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0011.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0012.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0013.txt",
+      "sha256": "be3e325945a86c7ed7a66612cbfbc6b8f405fec1f77e4bbc2f197f8fc07908e9",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0014.txt",
+      "sha256": "995f366222a215eea151eef60618c87a3fa2c0762f5b6b64578e945ff0479ccd",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0015.txt",
+      "sha256": "788bb371df88013e069b10672ecd85206e7bbd8c302cb74a8b35d4d48ea71fbb",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0016.txt",
+      "sha256": "69898ea8f49f3ec5cfdc634e4b1bd2c8f65b22d4e6b2a792017882101b4de4d0",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0017.txt",
+      "sha256": "0de05b00f3d942bf13e079ba316ab85d35aceff68eb5443f48306f741715b277",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0018.txt",
+      "sha256": "7605fe7114112577a8ce03f6363b63b10802febc973d654dc7f4f321b43d9154",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0019.txt",
+      "sha256": "0b4b9f0e19cb90742b6579b3b89d4280f294430f019e44e54d2ec5840cea70a1",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0020.txt",
+      "sha256": "29b0a4ecb0d73b70e73f2d8ee011f7a8f2f685cc37ff9f34cc93bd5180b750df",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0021.txt",
+      "sha256": "6eb638a32de02e04e4d565eea9500095db494d07c844d2538b4db78010c0418b",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0022.txt",
+      "sha256": "c02cdf56f20924ba9af376c8c7642ba94bd4ee016adb83f186e9da4563f13dfd",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0023.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0024.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0025.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0026.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0027.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0028.txt",
+      "sha256": "f528fc338cf6e1ada97c68f56a08f74cc7b9d8d4ef812e604d35e8760dddb961",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0029.txt",
+      "sha256": "ec30b2de6c52e9f6f12e43faf9fb896c1a81a184d484f0d779aa603fb5e75b42",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0030.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0031.txt",
+      "sha256": "8b2361ef9408f01f7e735e358e8bafa0db8f17b8627eb8ba224ddd122b5d69cf",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0032.txt",
+      "sha256": "a9cdc0822e21ad248eddb8f6bf28ff69de2a6ff5aa5936bdedc49f55fe4c7275",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0033.txt",
+      "sha256": "b87262fa87222956c83859119ad3630967316898a22e79b4b496783ac9ea9476",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0034.txt",
+      "sha256": "bb211a040af2e294cc73b482494d3ac4e9c06bdf3ac546783cafc18766f25b02",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0035.txt",
+      "sha256": "fa3e8d21dab60ebf1440070803a4fbb1105401671a65d9d8bc8069ebf1d9dce2",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0036.txt",
+      "sha256": "794b6383055e302bb6b4013cf0a49bc1efe2d1061497817d77d3c6c28942737a",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0037.txt",
+      "sha256": "9c218626e4cf2d67d990c7ef8f1429cada3c7f365e92039ed4afa05221482194",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0038.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0039.txt",
+      "sha256": "a7abb5781634900e5ffb529f382d764cee58cdd63c9e3eb300219016f7c457c3",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0040.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0041.txt",
+      "sha256": "ba8ef9ac4faf5816c3a63befd719bfb4e0eef1e525ea3f137f1fe254362b0cc2",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0042.txt",
+      "sha256": "7d2ab9b0546a4161727a149eebca8f26ed8b4f6ea791b9b2965fa2312f100be5",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0043.txt",
+      "sha256": "431be7c4ea3438b83c3c0998f5d80078d596662a11ff1f6829ab6478e567645f",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0044.txt",
+      "sha256": "9aca2ac1ee59975beb42bf181bfe55e42b30891150686b41656a34c0ecdfcffa",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0045.txt",
+      "sha256": "5e2688636fdbaeff554bcdaf60824d7ee62199eb6b9516b31cf3d9ca638972dc",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0046.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0047.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0048.txt",
+      "sha256": "2374e566faef7d187dd4e643af5bab9d8b6013b910c963cae823963840fdfa59",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0049.txt",
+      "sha256": "60c23e236aebf08f4d83a8ecba89b5ecfed0fa2709f41cb3ccd1e825cfc0e7e5",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0050.txt",
+      "sha256": "c73f2933139ce5f706c491d14a0ee2bab84c2055942415975250247f8ae1e7b6",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0051.txt",
+      "sha256": "93094628560685723f543be930a52c7aa7b3867b4a138711d59956bd24571cca",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0052.txt",
+      "sha256": "2c42dfd664a2c0224b7605aaf1da2cc2bd5a78e47b997f8a429bdd9f38896191",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0053.txt",
+      "sha256": "f685790f48fde4b7c54c46819aaefb8984b41d1b2ee63b43ae844944a16600d4",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0054.txt",
+      "sha256": "658aa7e14b1ef16a3e2448815f109158cd088f6c31ee2e6ca318896ef56de322",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0055.txt",
+      "sha256": "a32680449db44c3046c9eec21e648615c859320a04b3dc8d0b6c09052a9a76eb",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0056.txt",
+      "sha256": "35eee0def5d0eeb5f2cf100f214d4b7db4bbef7e3f15c5b29955d37b41003a33",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0057.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0058.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0059.txt",
+      "sha256": "58d59c539b58cef583492032644c2d101fa2a65bf04716db785f1b9a55f00ca2",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0060.txt",
+      "sha256": "aa42e2728e5d04c79a4018ca68275f057d49435681bc54705b9a9644e6f2f574",
+      "status": "unsafe-original-part-withdrawn",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0061.txt",
+      "sha256": "97028de35ac3522e1dc5c5d9d6acb6a66bf6181efe960fd85a8034708fbd9382",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/fm21-76/0062.txt",
+      "sha256": "4725f1973768bcd254e00621541d16949ee06fd277d8920f8e224deb987c5d68",
+      "status": "screened-no-targeted-rewrite",
+      "review": null
+    },
+    {
+      "file": "sdcard/library/field-guide/0001.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "79f21331aae7b945f88fe1807d1b6813d0b7b4354e7d772cb73880330e356d48"
+    },
+    {
+      "file": "sdcard/library/field-guide/0002.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "4ca031b7dd52a21ab5c2c3acb8be2488d7f409afd3a629a69138aacbb33f81ec"
+    },
+    {
+      "file": "sdcard/library/field-guide/0003.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "ae91174b66473ccd233c9bd201695caa0e506adca7f993b0a0ce037410b7ee89"
+    },
+    {
+      "file": "sdcard/library/field-guide/0004.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "540ab1dafb40e38466093fcba0b61d974b7caaebbf37fcdce0e3912dacbef8d4"
+    },
+    {
+      "file": "sdcard/library/field-guide/0005.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "23d2110d2633c6c84b447553b637666cd7ab9207a3276dfdd6815a713baac062"
+    },
+    {
+      "file": "sdcard/library/field-guide/0006.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "d3a6ad10ce22dde6eaef51f1dafcf1a23f25126227c4a08415e4900de56ef013"
+    },
+    {
+      "file": "sdcard/library/field-guide/0007.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "c8732e25c175e21c4a1cea928aee87feabcd94a15024018a86158bc6fc744c1c"
+    },
+    {
+      "file": "sdcard/library/field-guide/0008.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "c0b159f98941d75a640b860d1a94577fd668a5056425ecbaa892d50f40580e7d"
+    },
+    {
+      "file": "sdcard/library/field-guide/0009.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "b3281af1da4cf1c907b7b49ecbd24db0dbe6747a8d4889df25c9422ec42b53b5"
+    },
+    {
+      "file": "sdcard/library/field-guide/0010.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "c87f38e29d3bb2a7a953e3592147fff2a6f5c23caeb652700b99f08e62786162"
+    },
+    {
+      "file": "sdcard/library/field-guide/0011.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "a449495227abfb4724502d994f18f361948e1ea24a4afaf87c7cc103364fd66e"
+    },
+    {
+      "file": "sdcard/library/field-guide/0012.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "fcdd68ee7842492ef47f12c0a23c2c7ff5a2297c3d7af3caa73099d70d6f7bb2"
+    },
+    {
+      "file": "sdcard/library/field-guide/0013.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "0113df15f5779b04bf0efc5230a6864ce3c66fd1957f3e91d9a72a0928a84f32"
+    },
+    {
+      "file": "sdcard/library/field-guide/0014.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "bf0a77efea5cc5ca62dbef077541cacd85813b896b99c16c46577d04a4b1821a"
+    },
+    {
+      "file": "sdcard/library/field-guide/0015.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "585907528d114066235cdeb693bbd852fba7eb1485a9fc19bd4d050c70e4e240"
+    },
+    {
+      "file": "sdcard/library/field-guide/0016.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "01acf01f16a1fcb2859a8d4a5042fca6246129d8e6150144f86e70084d9092b7"
+    },
+    {
+      "file": "sdcard/library/field-guide/0017.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "e6626aabcc07b796a0d9dc74f3a7570353e32bfea4a05d82e1579ee8071ad166"
+    },
+    {
+      "file": "sdcard/library/field-guide/0018.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "6e69a530d7d902eba401d356ed87c8149e3a91e021e75fd303f31d71fbf7326d"
+    },
+    {
+      "file": "sdcard/library/field-guide/0019.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "e2d3f05e8abdba8645d9b7f298860b81a6b85a62b60feb13a496f48a915cc05e"
+    },
+    {
+      "file": "sdcard/library/field-guide/0020.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "890300e3cdf538d82c292932275d1a643e7d5c02700945cff72d2626f70bf900"
+    },
+    {
+      "file": "sdcard/library/field-guide/0021.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "e1f3992c54549caea706c9e4f42e4e6032cb19b6181f327d7521418867e4d68b"
+    },
+    {
+      "file": "sdcard/library/field-guide/0022.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "f9161acd87a423be8072f2314d95e3d5629d79227606df295532e26997bb88ac"
+    },
+    {
+      "file": "sdcard/library/field-guide/0023.txt",
+      "status": "regenerated-from-reviewed-articles",
+      "sha256": "c7778e24ed1d28123a6d259b4b4b64c0c9534ffbe6df9778f369cfdf38f6881d"
+    }
+  ]
+}

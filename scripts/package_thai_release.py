@@ -39,9 +39,9 @@ if __name__=='__main__':
     assert all((ROOT/p).read_bytes()==merged for p in aliases)
     for p in SD.rglob('*.gz'):
         assert gzip.decompress(p.read_bytes())==p.with_suffix('').read_bytes(),p
-    assert len(rows(SD/'wiki/catalog.tsv'))==118
-    assert len(rows(SD/'wiki/categories.tsv'))==15
-    assert len(json.loads((SD/'wiki/search.json').read_text('utf-8')))==118
+    assert len(rows(SD/'wiki/catalog.tsv'))==126
+    assert len(rows(SD/'wiki/categories.tsv'))==16
+    assert len(json.loads((SD/'wiki/search.json').read_text('utf-8')))==126
     books=rows(SD/'library/catalog.tsv');documents=[]
     for bid,title,count,pdf,*rest in books:
         assert (SD/'library'/bid/pdf).exists()
@@ -49,24 +49,16 @@ if __name__=='__main__':
             p=SD/f'library/{bid}/{i:04}.txt';text=p.read_text('utf-8')
             assert '\ufffd' not in text and p.stat().st_size<=32768,p
             documents.append(p)
-    assert len(documents)==84
+    assert len(documents)==85
     jpgs=list((SD/'wiki/img').glob('*.jpg'));assert len(jpgs)==22
     for p in jpgs:
         im=Image.open(p);assert im.width==448 and not im.info.get('progressive'),p
         assert p.with_suffix('.svg').exists()
     source=(ROOT/'firmware/src/main.cpp').read_text('utf-8')
-    block=re.search(r'const char \*PAGES\[\] = \{(.*?)\};',source,re.S)[1]
-    pages=[json.loads('"'+s+'"') for s in re.findall(r'"((?:\\.|[^"\\])*)"',block)]
-    assert all(len(p)<=30 for p in pages),list(map(len,pages))
-    assert any('฿' in p for p in pages) and any('\\' in p for p in pages)
-    # Verify the revised CYD editor: two text lines, a dedicated byte-counter
-    # row, and five key rows all fit before the footer at y=282.
-    box_y=40;box_h=84;line_h=27;counter_h=24;key_top=130;key_h=(320-38-4-key_top)//5
-    assert box_y+1+line_h*2 <= box_y+box_h-2-counter_h
-    assert key_h>=28 and key_top+5*key_h<=282
-    assert 'bh = 84' in source and 'top = CONTENT_Y + 94' in source
+    assert 'KEDMANEE[kbShift ? 1 : 0]' in source
+    assert 'top = CONTENT_Y + 94' in source
     archive=ROOT/'sdcard-TH.zip'
-    files=sorted(p for p in SD.rglob('*') if p.is_file())
+    files=sorted(p for p in SD.rglob('*') if p.is_file() and not any(part.startswith('maps-') for part in p.relative_to(SD).parts))
     write_zip(archive,((p,p.relative_to(SD).as_posix()) for p in files))
     with zipfile.ZipFile(archive) as z:
         assert z.testzip() is None

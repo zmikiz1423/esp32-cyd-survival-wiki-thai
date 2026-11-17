@@ -251,9 +251,10 @@ static void endOfLine() {
 }
 
 void gpsBegin() {
-  // The spare TX pin stays unconnected. -1 would fall back to the blue LED pin.
+  // RX is explicit, so Arduino 2.0.17 leaves TX unassigned when passed -1.
+  // This frees IO22 for the optional E220 UART without driving its RX line.
   Serial2.setRxBufferSize(2048);
-  Serial2.begin(9600, SERIAL_8N1, PIN_GPS_RX, PIN_GPS_TX);
+  Serial2.begin(9600, SERIAL_8N1, PIN_GPS_RX, -1);
 }
 
 void gpsLoop() {

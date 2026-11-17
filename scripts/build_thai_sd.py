@@ -40,7 +40,7 @@ if __name__=='__main__':
         if line and not line.startswith('#'):
             aid,cid,_=line.split('\t',2);meta,body=article(SD/f'wiki/articles/{aid}.md')
             assert cid==meta['category'];entries.append((aid,cid,meta,body))
-    assert len(entries)==118
+    assert len(entries)==126
     catfile.write_text('# id\tcategory\ttitle\n'+''.join(f'{aid}\t{cid}\t{meta["title"]}\n' for aid,cid,meta,body in entries),'utf-8',newline='\n')
     search=[{'id':aid,'c':cid,'t':meta['title'],'s':meta.get('summary',''),'k':meta.get('tags',''),'x':strip(body)} for aid,cid,meta,body in entries]
     raw=json.dumps(search,ensure_ascii=False,separators=(',',':')).encode('utf-8')
@@ -70,7 +70,7 @@ if __name__=='__main__':
         if not s.startswith(HISTORICAL):s=HISTORICAL+'\n\n'+s
         p.write_text(breaks(s),'utf-8',newline='\n')
     (SD/'library/catalog.tsv').write_text('# id\ttitle\tparts\tpdf file\tsource\n'
-        f'field-guide\tคู่มือเอาตัวรอดฉบับรวมทุกบท\t{len(parts)}\tfield-guide.pdf\tรวมบทความภาษาไทยทั้ง 118 เรื่อง พร้อมภาพประกอบ\n'
+        f'field-guide\tคู่มือเอาตัวรอดฉบับรวมทุกบท\t{len(parts)}\tfield-guide.pdf\tรวมบทความภาษาไทยทั้ง 126 เรื่อง พร้อมภาพประกอบ\n'
         'fm21-76\tคู่มือเอาชีวิตรอดกองทัพสหรัฐฯ FM 21-76\t62\tfm21-76.pdf\tเอกสารประวัติศาสตร์ปี 1992 แปลไทย พร้อมภาคผนวกต้นฉบับสำหรับอ้างอิงภาพ\n','utf-8',newline='\n')
     for p in [SD/'web/index.html',SD/'web/Sarabun-Regular.ttf']:
         p.with_suffix(p.suffix+'.gz').write_bytes(gzip.compress(p.read_bytes(),mtime=0))

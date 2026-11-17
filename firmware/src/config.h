@@ -4,7 +4,7 @@
 //  - Sunton 2.8" ESP32-2432S028R CYD, ILI9341 + XPT2046 resistive touch (240x320)
 #pragma once
 
-#define FW_VERSION "1.7.0-th1"
+#define FW_VERSION "1.8.0-th1"
 
 // ---- Hardware Profile ----
 #if defined(BOARD_CYD_28)
@@ -49,8 +49,9 @@
   #define TILE_GAP         8
 #endif
 
-#define CONTENT_Y  HEADER_H
-#define CONTENT_H  (SCR_H - HEADER_H - FOOTER_H)
+#define STATUS_H   14
+#define CONTENT_Y  (HEADER_H + STATUS_H)
+#define CONTENT_H  (SCR_H - CONTENT_Y - FOOTER_H)
 #define MARGIN       8
 
 // ---- Colors (RGB565) ----

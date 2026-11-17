@@ -1,0 +1,6 @@
+#pragma once
+#include <cstdint>
+using TickType_t=uint32_t;
+#define pdMS_TO_TICKS(x) (x)
+#define pdTRUE 1
+#define portMAX_DELAY UINT32_MAX

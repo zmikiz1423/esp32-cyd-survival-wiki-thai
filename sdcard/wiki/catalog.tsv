@@ -1,4 +1,12 @@
 # id	category	title
+th-emergency	thailand	แจ้งเหตุฉุกเฉินในประเทศไทย
+th-flood	thailand	น้ำป่า น้ำท่วม และดินถล่ม
+th-forest	thailand	เดินป่าเขตร้อนอย่างเตรียมพร้อม
+th-heat	thailand	รับมืออากาศร้อนและความชื้นสูง
+th-snake	thailand	งูกัดและสัตว์มีพิษในไทย
+th-coast	thailand	เตรียมตัวเที่ยวทะเลและเกาะ
+th-food	thailand	น้ำดื่ม อาหาร และเห็ดป่าในไทย
+th-family	thailand	แผนฉุกเฉินของครอบครัวไทย
 rule-of-threes	basics	กฎเลขสามเพื่อเอาชีวิตรอด
 stop	basics	STOP: หยุด คิด สังเกต วางแผน
 survival-kit	basics	ชุดอุปกรณ์เอาชีวิตรอด

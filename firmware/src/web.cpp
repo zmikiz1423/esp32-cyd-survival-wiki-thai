@@ -7,6 +7,7 @@
 #include "gps.h"
 #include "offline_maps.h"
 #include "map_storage.h"
+#include "field_tracks.h"
 #include "toolspage.h"
 #include <esp_https_server.h>
 #include <WiFi.h>
@@ -354,6 +355,77 @@ static esp_err_t sslMapFile(httpd_req_t *req) {
   free(buf);f.close();return res;
 }
 
+// GPX is generated while streaming. Both protocols keep a bounded SD reader.
+static bool httpTrackSink(const char *data, size_t length, void *context) {
+  bool &started = *static_cast<bool *>(context);
+  if (!started) {
+    server.sendHeader("Cache-Control", "no-store");
+    server.sendHeader("Content-Disposition", "attachment; filename=CYD-track.gpx");
+    server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+    server.send(200, "application/gpx+xml; charset=utf-8", "");
+    started = true;
+  }
+  if (!server.client().connected()) return false;
+  server.sendContent(data, length);
+  return server.client().connected();
+}
+static void handleFieldTrack() {
+  server.sendHeader("Cache-Control", "no-store");
+  uint32_t revision = mapStorageRevision();
+  if (server.hasArg("v") && server.arg("v") != String(revision)) {
+    server.send(409, "text/plain; charset=utf-8", "ชุดแผนที่เปลี่ยนแล้ว เปิดหน้าแผนที่ใหม่");
+    return;
+  }
+  if (server.uri() == "/api/field/track") {
+    String json = fieldTrackStatusJson();
+    if (revision != mapStorageRevision()) server.send(409, "application/json", "{\"error\":\"Map changed\"}");
+    else server.send(200, "application/json", json);
+    return;
+  }
+  bool started = false;
+  bool ok = fieldTrackExport(httpTrackSink, &started, revision);
+  if (started) server.sendContent("");
+  else server.send(ok ? 200 : 404, "text/plain; charset=utf-8", "ยังไม่มีเส้นทางบันทึกในชุดแผนที่นี้");
+}
+struct SslTrackContext { httpd_req_t *request; bool started; };
+static bool sslTrackSink(const char *data, size_t length, void *context) {
+  SslTrackContext &stream = *static_cast<SslTrackContext *>(context);
+  if (!stream.started) {
+    httpd_resp_set_type(stream.request, "application/gpx+xml; charset=utf-8");
+    httpd_resp_set_hdr(stream.request, "Cache-Control", "no-store");
+    httpd_resp_set_hdr(stream.request, "Content-Disposition", "attachment; filename=CYD-track.gpx");
+    stream.started = true;
+  }
+  return httpd_resp_send_chunk(stream.request, data, length) == ESP_OK;
+}
+static esp_err_t sslFieldTrack(httpd_req_t *request) {
+  uint32_t revision = mapStorageRevision();
+  char query[100] = {}, version[24] = {};
+  if (httpd_req_get_url_query_len(request) >= sizeof(query)) return httpd_resp_send_404(request);
+  httpd_req_get_url_query_str(request, query, sizeof(query));
+  if (httpd_query_key_value(query, "v", version, sizeof(version)) == ESP_OK && String(version) != String(revision)) {
+    httpd_resp_set_status(request, "409 Conflict");
+    return sslText(request, "text/plain; charset=utf-8", "ชุดแผนที่เปลี่ยนแล้ว เปิดหน้าแผนที่ใหม่");
+  }
+  String path = request->uri;
+  int queryAt = path.indexOf('?');
+  if (queryAt >= 0) path = path.substring(0, queryAt);
+  if (path == "/api/field/track") {
+    String json = fieldTrackStatusJson();
+    if (revision != mapStorageRevision()) {
+      httpd_resp_set_status(request, "409 Conflict");
+      return sslText(request, "application/json", "{\"error\":\"Map changed\"}");
+    }
+    return sslText(request, "application/json", json.c_str());
+  }
+  if (path != "/api/field/track.gpx") return httpd_resp_send_404(request);
+  SslTrackContext context = {request, false};
+  bool ok = fieldTrackExport(sslTrackSink, &context, revision);
+  if (context.started) return ok ? httpd_resp_send_chunk(request, nullptr, 0) : ESP_FAIL;
+  httpd_resp_set_status(request, "404 Not Found");
+  return sslText(request, "text/plain; charset=utf-8", "ยังไม่มีเส้นทางบันทึกในชุดแผนที่นี้");
+}
+
 static void sslStart() {
   if (sslServer) return;
   httpd_ssl_config_t cfg = HTTPD_SSL_CONFIG_DEFAULT();
@@ -365,7 +437,7 @@ static void sslStart() {
   cfg.httpd.lru_purge_enable = true;                     // drop the oldest idle connection when a new one needs room
   cfg.httpd.stack_size = 10240;
   cfg.httpd.uri_match_fn = httpd_uri_match_wildcard;
-  cfg.httpd.max_uri_handlers = 12;
+  cfg.httpd.max_uri_handlers = 14;
   if (httpd_ssl_start(&sslServer, &cfg) != ESP_OK) {
     sslServer = nullptr;
     Serial.printf("[https] could not start (free heap %u)\n", (unsigned)ESP.getFreeHeap());
@@ -380,6 +452,7 @@ static void sslStart() {
     {"/api/mesh/send", HTTP_POST, sslMeshSend, nullptr},
     {"/api/pos", HTTP_POST, sslPos, nullptr},
     {"/api/map/*", HTTP_GET, sslMapApi, nullptr},
+    {"/api/field/*", HTTP_GET, sslFieldTrack, nullptr},
     {"/api/map/*", HTTP_POST, sslMapApi, nullptr},
     {"/maps/*", HTTP_GET, sslMapFile, nullptr},
     {"/web/Sarabun-Regular.ttf", HTTP_GET, sslMapFile, nullptr},
@@ -459,6 +532,8 @@ void webStart(const WifiConfig &cfg) {
   server.on("/tools", handleToolsPage);
   server.on("/map", handleMapPage);
   for(const char *p:{"/api/map/status","/api/map/pois","/api/map/routes","/api/map/route"})server.on(p,HTTP_GET,handleMapApi);
+  server.on("/api/field/track", HTTP_GET, handleFieldTrack);
+  server.on("/api/field/track.gpx", HTTP_GET, handleFieldTrack);
   server.on("/api/map/route",HTTP_POST,handleMapApi);
   server.on("/api/map/destination",HTTP_POST,handleMapApi);
   // Dynamic /maps requests are resolved in handleNotFound().

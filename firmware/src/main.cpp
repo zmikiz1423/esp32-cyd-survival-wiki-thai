@@ -24,6 +24,9 @@
 #include "map_storage.h"
 #include "triage.h"
 #include "qrcodegen.h"
+#include "kedmanee.h"
+#include "field_hardware.h"
+#include "field_tracks.h"
 
 ThaiDisplay tft;
 static SPIClass sdSPI(VSPI);
@@ -41,7 +44,7 @@ static int nArticles = 0;
 static std::vector<Entry> list;   // current category's articles, or the library books
 
 // ---------------------------------------------------------------- state
-enum Screen { SC_HOME, SC_CATEGORY, SC_ARTICLE, SC_LIBRARY, SC_BOOK, SC_WIFI, SC_SETTINGS, SC_NOSD, SC_LIGHT, SC_MESH, SC_QUICK, SC_KEYS, SC_NEAR, SC_MAP, SC_RADAR, SC_TRIAGE, SC_WPS, SC_INFO, SC_POIS, SC_MAP_SETS, SC_WHERE, SC_LOST, SC_GOTO, SC_CLOCK, SC_TRIP, SC_ALARM };
+enum Screen { SC_HOME, SC_CATEGORY, SC_ARTICLE, SC_LIBRARY, SC_BOOK, SC_WIFI, SC_SETTINGS, SC_NOSD, SC_LIGHT, SC_MESH, SC_QUICK, SC_KEYS, SC_NEAR, SC_MAP, SC_RADAR, SC_TRIAGE, SC_WPS, SC_INFO, SC_POIS, SC_MAP_SETS, SC_WHERE, SC_LOST, SC_GOTO, SC_CLOCK, SC_TRIP, SC_ALARM, SC_FIELD, SC_READY, SC_TRACK, SC_HARDWARE, SC_LORA };
 static Screen screen = SC_HOME;
 static int curCat = 0, listPage = 0, scrollY = 0, homePage = 0, nearPage = 0;
 static int bookIdx = 0, bookPart = 1, bookParts = 1;
@@ -102,12 +105,16 @@ enum BtnId : uint16_t {
   B_QUICK_BASE = 60,           // 60..69: quick messages
   B_TRI_BASE = 70,             // 70..74: triage answers
   B_WHERE = 300, B_LOST, B_GOTO, B_CLOCK, B_SEND_SPOT, B_SET_START, B_GOTO_START, B_LOST_GUIDE, B_GOTO_PREV, B_GOTO_NEXT, B_WP_GO, B_TZ_DN, B_TZ_UP, B_TZ_DST, B_TZ_AUTO, B_TZ_24H, B_ALARM_CYCLE, B_ALARM_OK, B_ALARM_SNOOZE, B_TRIP, B_TRIP_RESET,
+  B_FIELD = 400, B_READY, B_TRACK, B_HARDWARE, B_LORA, B_REC_TOGGLE, B_REVERSE, B_STOP_REVERSE, B_SUGGEST, B_USE_SUGGEST, B_BATTERY, B_SOUND, B_SOUND_TEST, B_LORA_ENABLE, B_LORA_CONFIG, B_LORA_NORMAL, B_LORA_WRITE, B_LORA_SEND_POS,
   B_TILE = 100, B_ROW = 200,
   B_KEY_BASE = 1000            // 1000 + character: on-screen keyboard keys
 };
 enum Icon : uint8_t { I_NONE, I_UP, I_DOWN, I_LEFT, I_RIGHT };
 struct Btn { int16_t x, y, w, h; uint16_t id; String label; uint8_t icon; bool enabled; };
 static std::vector<Btn> btns;
+static MapSetEntry suggestedMap;
+static String fieldNotice;
+static uint32_t lastBatteryRevision = UINT32_MAX;
 
 static const int ROWS_PER_PAGE = CONTENT_H / ROW_H;
 static int listRowsPerPage() { return screen==SC_LIBRARY?CONTENT_H/(SCR_W<300?54:64):ROWS_PER_PAGE; }
@@ -339,6 +346,25 @@ static void drawWifiBadge() {
   tft.drawString(wifiOn ? String(webClientCount()) + " คน" : String("ปิด"), cx + (SCR_W < 300 ? 11 : 14), (SCR_W < 300 ? 18 : 24));
 }
 
+static void drawBatteryStatus() {
+  FieldBattery battery = fieldBattery();
+  tft.fillRect(0, HEADER_H, SCR_W, STATUS_H, C_HEADER);
+  int x = SCR_W-57;
+  uint16_t color = battery.valid && battery.percent <= 15 ? C_ACCENT : C_TEXT;
+  tft.drawRect(x, HEADER_H+3, 17, 9, color);
+  tft.fillRect(x+17, HEADER_H+5, 2, 5, color);
+  if (battery.valid) tft.fillRect(x+2, HEADER_H+5, 13*battery.percent/100, 5, color);
+  tft.TFT_eSPI::setTextFont(1);
+  tft.TFT_eSPI::setTextColor(color, C_HEADER);
+  tft.TFT_eSPI::setTextDatum(TL_DATUM);
+  tft.TFT_eSPI::drawString(battery.valid ? String(battery.percent)+"%" : "--%", x+22, HEADER_H+3);
+  if (fieldTrackRecording()) {
+    tft.TFT_eSPI::setTextColor(NC(TFT_RED), C_HEADER);
+    tft.TFT_eSPI::drawString("REC", 5, HEADER_H+3);
+  }
+  lastBatteryRevision = battery.revision;
+}
+
 static void drawHeader(const String &title, bool back) {
   tft.fillRect(0, 0, SCR_W, HEADER_H, C_HEADER);
   tft.drawFastHLine(0, HEADER_H - 1, SCR_W, C_ACCENT);
@@ -361,6 +387,7 @@ static void drawHeader(const String &title, bool back) {
   }
   tft.drawString(t, tx, HEADER_H / 2);
   if (!back) drawWifiBadge();
+  drawBatteryStatus();
 }
 
 static void drawCatIcon(const String &id, int cx, int cy) {
@@ -452,8 +479,9 @@ static void drawHome() {
   tft.fillScreen(C_BG);
   drawHeader("คู่มือเอาตัวรอด", false);
   const int cols = 2, rows = SCR_W<300?3:4, gap = TILE_GAP, perPage = cols * rows;
-  int vis[MAX_CATEGORIES + 2], nVis = 0;
+  int vis[MAX_CATEGORIES + 3], nVis = 0;
   vis[nVis++] = -2;                                    // the Triage tile comes first
+  vis[nVis++] = -4;
   vis[nVis++] = -3;                                    // GPS tools also show while waiting for a fix
   for (int i = 0; i < nCats; i++) if (i != goodboyIdx) vis[nVis++] = i;   // goodboy is the hidden easter egg
   int pages = max(1, (nVis + perPage - 1) / perPage);
@@ -474,9 +502,16 @@ static void drawHome() {
     int x = gap + (slot % cols) * (tw + gap);
     int y = CONTENT_Y + gap + (slot / cols) * (th + gap);
     if (i == -2) { drawTriageTile(x, y, tw, th); continue; }
+    if (i == -4) { addBtn(x,y,tw,th,B_FIELD,"ภาคสนาม");continue; }
     if (i == -3) { addBtn(x, y, tw, th, B_WHERE, "GPS"); continue; }
     btns.push_back({(int16_t)x, (int16_t)y, (int16_t)tw, (int16_t)th, (uint16_t)(B_TILE + i), "", I_NONE, true});
     tft.fillRoundRect(x, y, tw, th, (SCR_W < 300 ? 8 : 10), cats[i].color);
+    if (cats[i].id == "thailand") {
+      tft.setTextFont(1);tft.setTextDatum(MC_DATUM);tft.setTextColor(TFT_WHITE);
+      tft.drawString("ใช้งานใน",x+tw/2,y+th/2-12);
+      tft.drawString("ประเทศไทย",x+tw/2,y+th/2+12);
+      continue;
+    }
     if (SCR_W < 300) {
       // 2.8" compact split: icon on left, title + count on right
       drawCatIcon(cats[i].id, x + 18, y + th / 2);
@@ -1013,7 +1048,7 @@ static void drawQuick() {
 }
 
 #define KB_MAX_MSG  (MESH_TEXT_LEN - 1)
-static int kbMax() { return kbTarget == 2 ? 96 : kbTarget == 0 ? KB_MAX_MSG : MESH_NAME_LEN - 1; }
+static int kbMax() { return kbTarget == 3 ? 160 : kbTarget == 2 ? 96 : kbTarget == 0 ? KB_MAX_MSG : MESH_NAME_LEN - 1; }
 
 static void drawKbText() {
   int bx = 6, by = CONTENT_Y + 4, bw = SCR_W - 12, bh = 84;
@@ -1025,7 +1060,7 @@ static void drawKbText() {
   String ln[6];
   int cnt = wrapLines(kbBuf + "_", bw - 12, ln, 6);
   int first=max(0,cnt-2); // keep the cursor/latest input visible for long messages
-  for (int k = first; k < cnt; k++) tft.drawString(ln[k], bx + 6, by + 1 + (k-first) * 27);
+  for (int k = first; k < cnt; k++) tft.drawString(ln[k], bx + 6, by + 1 + (k-first) * 28);
   tft.setTextDatum(BR_DATUM);
   tft.setTextColor(C_MUTED);
   tft.setTextFont(1);
@@ -1036,28 +1071,29 @@ static void drawKeys() {
   static const char *ROWS[] = {"1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"};
   btns.clear();
   tft.fillScreen(C_BG);
-  drawHeader(kbTarget == 2 ? "ค้นหาสถานที่" : kbTarget == 0 ? "ข้อความใหม่" : "ชื่อของคุณ", true);
+  drawHeader(kbTarget == 3 ? "ข้อความ LoRa" : kbTarget == 2 ? "ค้นหาสถานที่" : kbTarget == 0 ? "ข้อความใหม่" : "ชื่อของคุณ", true);
   drawKbText();
   int kw = SCR_W / 10;
   int top = CONTENT_Y + 94;
   int kh = (SCR_H - FOOTER_H - 4 - top) / 5;
   if(kbThai) {
-    static const char *PAGES[] = {
-      "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพ",
-      "ฟภมยรลวศษสหฬอฮะาำิีึืุูั็่้๊๋์",
-      "เแโใไๅๆฯฤฦํฺ๎๏๐๑๒๓๔๕๖๗๘๙๚๛!?.,",
-      "฿1234567890()/-+:;=%@#&*_[]{}\\"
-    };
-    const char *page=PAGES[kbThaiPage];int len=strlen(page),p=0;
-    for(int i=0;i<30&&p<len;i++) {
-      int start=p;uint32_t cp=utf8Decode(page,len,p);
-      String label=String(page+start).substring(0,p-start);
-      if(thaiMark(cp))label=String("ก")+label; // show marks on a sample base
-      addBtn((i%10)*kw,top+(i/10)*kh,kw,kh,B_KEY_BASE+cp,label);
+    for (int row = 0; row < 4; row++) {
+      const char *keys = KEDMANEE[kbShift ? 1 : 0][row];
+      int byteCount = strlen(keys), pos = 0, columns = 0;
+      while (pos < byteCount) { utf8Decode(keys, byteCount, pos); columns++; }
+      int keyWidth = SCR_W / 13;
+      int rowWidth = keyWidth * columns;
+      int startX = row == 0 || row == 1 ? 0 : (SCR_W - rowWidth)/2;
+      pos = 0;
+      for (int col = 0; col < columns; col++) {
+        int start = pos;
+        uint32_t cp = utf8Decode(keys, byteCount, pos);
+        String label = String(keys+start).substring(0, pos-start);
+        if (thaiMark(cp)) label = String("ก") + label;
+        int width = col == columns-1 && row == 1 ? SCR_W-startX-col*keyWidth : keyWidth;
+        addBtn(startX+col*keyWidth, top+row*kh, width, kh, B_KEY_BASE+cp, label);
+      }
     }
-    addBtn(0,top+3*kh,kw*3,kh,B_KB_PAGE,String("ไทย ")+String(kbThaiPage+1)+"/4");
-    addBtn(kw*3,top+3*kh,kw*4,kh,B_KB_LANG,"EN");
-    addBtn(kw*7,top+3*kh,SCR_W-kw*7,kh,B_KB_DEL,"<-");
   } else {
     for(int r=0;r<4;r++) {
       int len=strlen(ROWS[r]),x0=(SCR_W-len*kw)/2;
@@ -1070,10 +1106,10 @@ static void drawKeys() {
     }
   }
   int y=top+4*kh;
-  addBtn(0,y,kw*2,kh,kbThai?B_KB_LANG:B_KB_SHIFT,kbThai?"EN":kbShift?"ABC":"abc");
+  addBtn(0,y,kw*2,kh,B_KB_SHIFT,kbShift?"Shift*":"Shift");
   addBtn(kw*2,y,kw*4,kh,B_KEY_BASE+' ',"เว้นวรรค");
   addBtn(kw*6,y,kw*2,kh,B_KB_LANG,kbThai?"EN":"ไทย");
-  addBtn(kw*8,y,SCR_W-kw*8,kh,B_KEY_BASE+'?',"?");
+  addBtn(kw*8,y,SCR_W-kw*8,kh,B_KB_DEL,"ลบ");
   FootDef f[] = {{B_BACK, "ยกเลิก", I_NONE, true}, {B_KB_SEND, kbTarget == 2 ? "ค้นหา" : kbTarget == 0 ? "ส่ง" : "บันทึก", I_NONE, true}};
   drawFooter(f, 2);
 }
@@ -1288,6 +1324,14 @@ static void mapDrawOverlays() {
   for(int i=0;i<routeCount;i++){
     mapToScreen(route[i].lat,route[i].lon,sx,sy);
     if(prev&&!route[i].start)mapLine(px,py,sx,sy,NC(TFT_ORANGE));
+    px=sx;py=sy;prev=true;
+  }
+  int reverseCount=0;
+  const OfflineRoutePoint *reverse=fieldTrackBacktrack(reverseCount);
+  prev=false;
+  for(int i=0;i<reverseCount;i++){
+    mapToScreen(reverse[i].lat,reverse[i].lon,sx,sy);
+    if(prev&&!reverse[i].start)mapLine(px,py,sx,sy,NC(TFT_GREEN));
     px=sx;py=sy;prev=true;
   }
   OfflineDestination dest=offlineDestination();
@@ -1534,7 +1578,7 @@ static void drawWps() {
   btns.clear();
   tft.fillScreen(C_BG);
   drawHeader(wpDelMode ? "แตะเพื่อลบ" : wpGoMode ? "เลือกจุด" : "จุดที่บันทึก", true);
-  addBtn(SCR_W-74, 2, 72, HEADER_H-4, B_WP_GO, wpGoMode ? "ยกเลิก" : "นำทาง", nWps>0);
+  addBtn(SCR_W-74, 2, 72, HEADER_H-4, B_WP_GO, wpGoMode ? "ยกเลิก" : "นำทาง", I_NONE, nWps>0);
   if (!nWps) {
     tft.setTextFont(2);
     tft.setTextDatum(MC_DATUM);
@@ -1721,9 +1765,9 @@ static String localTimeLine() {
 }
 static void drawReadout(int y) {
   GpsFix g = gpsGet();
-  int step = SCR_W < 300 ? 31 : 46;
+  int step = SCR_W < 300 ? 28 : 46;
   int cx = SCR_W / 2;
-  bigFont();
+  tft.setThaiSize(SCR_W < 300 ? 14 : 22);
   if (g.valid) {
     char a[28], b[28];
     snprintf(a, sizeof(a), "%.5f %c", fabs(g.lat), g.lat < 0 ? 'S' : 'N');
@@ -1907,14 +1951,14 @@ static void updateClock() {
   if (!haveLast) { lineText("ต้องมีพิกัดเพื่อคำนวณ", cx, ys, TC_DATUM, C_MUTED); return; }
   static uint32_t rise = 0, set = 0; static bool up = false;
   if (!sunCalcMs || millis() - sunCalcMs > 30000) { sunCalcMs = millis(); sunTimes(ep, lastLat, lastLon, rise, set, up); }
-  lineText(String("อาทิตย์ขึ้น ") + (rise ? fmtLocalEpoch(rise, false) : String("ไม่มีวันนี้")), cx, ys, TC_DATUM, C_TEXT);
-  lineText(String("อาทิตย์ตก ") + (set ? fmtLocalEpoch(set, false) : String("ไม่มีวันนี้")), cx, ys + s2, TC_DATUM, C_TEXT);
+  String sunLine = String("ขึ้น ")+(rise ? fmtLocalEpoch(rise,false):String("--"))+"  ตก "+(set ? fmtLocalEpoch(set,false):String("--"));
+  lineText(sunLine, cx, ys, TC_DATUM, C_TEXT);
   String l;
   if (up && set && set > ep) { uint32_t m = (set - ep) / 60; l = "เหลือแสง " + String(m / 60) + " ชม. " + String(m % 60) + " นาที"; }
   else if (rise && ep < rise) l = "ดวงอาทิตย์ยังไม่ขึ้น";
   else if (set && ep >= set) l = "ดวงอาทิตย์ตกแล้ว";
   else l = up ? "มีแสงตลอดวัน" : "ดวงอาทิตย์อยู่ใต้ขอบฟ้า";
-  lineText(l, cx, ys + 2 * s2, TC_DATUM, up ? NC(0xFFE0) : C_MUTED);
+  lineText(l, cx, ys + s2, TC_DATUM, up ? NC(0xFFE0) : C_MUTED);
 }
 static void clockSave() {
   prefs.putChar("tz", tzHours); prefs.putBool("tzauto", tzAuto); prefs.putBool("dst", tzDst); prefs.putBool("h24", clock24);
@@ -2077,6 +2121,7 @@ static void alarmCheck(uint32_t now) {
   if (sleeping) { sleeping = false; setBacklight(nightNow ? min<int>(brightness, 25) : brightness); }
   lastTouchMs = now;
   screen = SC_ALARM;
+  fieldAlert(FieldAlert::Sunset);
   drawAlarm();
 }
 static void alarmEnd(bool snooze) {
@@ -2121,6 +2166,7 @@ static void mapSetTap(int i) {
   if (!mapStorageSelect(mapSets[i].path)) {
     mapSetError="เลือกไม่ได้ ตรวจการ์ด SD"; drawMapSets(); return;
   }
+  fieldTrackLoop();
   // All data below belongs to the chosen set, never the previous province.
   mapFollow=false; mapToast[0]=0; wpDelMode=false;
   wpClearMs=0; trkClearMs=0; poiQuery=""; poiOffset=0; poiNext=UINT32_MAX;
@@ -2129,8 +2175,107 @@ static void mapSetTap(int i) {
   screen=SC_MAP; redraw();
 }
 
+static void fieldLine(const String &text, int row, uint16_t color=C_TEXT) {
+  tft.setTextFont(1);
+  tft.setTextColor(color);
+  tft.setTextDatum(TL_DATUM);
+  tft.drawString(fitText(text, SCR_W-12), 6, CONTENT_Y+3+row*27);
+}
+
+static void drawField() {
+  btns.clear(); tft.fillScreen(C_BG); drawHeader("ภาคสนาม", true);
+  const char *labels[]={"ตรวจความพร้อม", "บันทึกและย้อนรอย", "แบตเตอรี่และเสียง", "วิทยุ LoRa"};
+  const uint16_t ids[]={B_READY,B_TRACK,B_HARDWARE,B_LORA};
+  for(int i=0;i<4;i++) addBtn(6,CONTENT_Y+6+i*53,SCR_W-12,48,ids[i],labels[i]);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true}};drawFooter(f,1);
+}
+
+static void drawReady() {
+  btns.clear();tft.fillScreen(C_BG);drawHeader("ตรวจความพร้อม",true);
+  GpsFix gps=gpsGet();
+  fieldLine(sdUp?String("SD ว่าง ")+String((SD.totalBytes()-SD.usedBytes())/1048576)+" MB":"ไม่พบ SD",0);
+  fieldLine(gps.valid?String("GPS พร้อม ")+String(gps.sats)+" ดาว":"GPS กำลังรอพิกัด",1);
+  fieldLine(String("แผนที่: ")+mapStorageName(),2);
+  bool local=false;
+  if(mapReady&&gps.valid){int32_t x,y;mapLatLonToPx(gps.lat,gps.lon,mapZ,x,y);local=SD.exists(mapStoragePath(String(mapZ)+"/"+String(x/256)+"/"+String(y/256)+".jpg"));}
+  fieldLine(!gps.valid?"รับพิกัดเพื่อตรวจภาพแผนที่":local?"มีภาพ ณ พิกัด ในซูมที่เปิด":"พิกัดนี้ยังไม่มีภาพในซูมที่เปิด",3);
+  FieldBattery battery=fieldBattery();
+  fieldLine(battery.valid?String("แบต ")+String(battery.volts,2)+" V ~"+String(battery.percent)+"%":"แบต: เปิดวงจรวัดในตั้งค่า",4);
+  fieldLine(String("LoRa: ")+fieldLoRaStateText(),5);
+  fieldLine(fieldNotice,6,C_ACCENT);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true},{B_SUGGEST,"หาแผนที่",I_NONE,gps.valid},{B_USE_SUGGEST,"ใช้ชุดนี้",I_NONE,suggestedMap.path.length()>0}};drawFooter(f,3);
+}
+
+static void suggestMap() {
+  GpsFix gps=gpsGet();suggestedMap={};
+  if(!gps.valid){fieldNotice="ยังไม่มีพิกัด GPS";return;}
+  uint32_t offset=0,next;
+  MapSetEntry item;
+  double best=1e20;
+  do {
+    if(mapStorageList(offset,&item,1,next)!=1) break;
+    File f=SD.open(item.path+"/center.txt");
+    String center=f?readLine(f):String();if(f)f.close();
+    double lat,lon;int z,minz,maxz;
+    if(sscanf(center.c_str(),"%lf %lf %d %d %d",&lat,&lon,&z,&minz,&maxz)==5){
+      int32_t x,y;mapLatLonToPx(gps.lat,gps.lon,maxz,x,y);
+      if(SD.exists(item.path+"/"+String(maxz)+"/"+String(x/256)+"/"+String(y/256)+".jpg")){
+        double distance=geoDistM(gps.lat,gps.lon,lat,lon);
+        if(distance<best){best=distance;suggestedMap=item;}
+      }
+    }
+    offset=next;gpsLoop();yield();
+  } while(next!=UINT32_MAX);
+  fieldNotice=suggestedMap.path.length()?String("แนะนำ ")+suggestedMap.name:"ไม่พบชุดที่มีภาพ ณ พิกัด";
+}
+
+static void drawTrack() {
+  btns.clear();tft.fillScreen(C_BG);drawHeader("บันทึกและย้อนรอย",true);
+  FieldTrackStatus state=fieldTrackStatus();
+  fieldLine(state.recording?"กำลังบันทึก GPS ลง SD":"หยุดบันทึกอยู่",0);
+  fieldLine(String(state.points)+" จุด / "+String(state.bytes/1024)+" KB",1);
+  fieldLine(state.error.length()?state.error:fieldNotice,2,C_ACCENT);
+  addBtn(6,CONTENT_Y+88,SCR_W-12,38,B_REC_TOGGLE,state.recording?"หยุดบันทึก":"เริ่มบันทึกใหม่");
+  addBtn(6,CONTENT_Y+131,SCR_W-12,38,B_REVERSE,"ย้อนรอยบนแผนที่",I_NONE,state.available&&!state.recording);
+  addBtn(6,CONTENT_Y+174,SCR_W-12,38,B_STOP_REVERSE,"ปิดเส้นย้อนรอย",I_NONE,state.backtracking);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true}};drawFooter(f,1);
+}
+
+static void drawHardware() {
+  btns.clear();tft.fillScreen(C_BG);drawHeader("แบตเตอรี่และเสียง",true);
+  FieldConfig config=fieldConfig();FieldBattery battery=fieldBattery();
+  fieldLine(battery.valid?String(battery.volts,3)+" V / ~"+String(battery.percent)+"%":"วงจรวัด ADC35 / แบต 1 เซลล์",0);
+  fieldLine("47k + 47k และ C 100nF",1,C_MUTED);
+  addBtn(6,CONTENT_Y+56,SCR_W-12,38,B_BATTERY,config.batteryEnabled?"วัดแบต: เปิด":"วัดแบต: ปิด");
+  addBtn(6,CONTENT_Y+101,SCR_W-12,38,B_SOUND,config.soundEnabled?"เสียงเตือน: เปิด":"เสียงเตือน: ปิด");
+  addBtn(6,CONTENT_Y+146,SCR_W-12,38,B_SOUND_TEST,"ทดสอบลำโพง");
+  fieldLine(fieldNotice,7,C_ACCENT);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true}};drawFooter(f,1);
+}
+
+static void drawLoRa() {
+  btns.clear();tft.fillScreen(C_BG);drawHeader("วิทยุ E220",true);
+  fieldLine(fieldLoRaStateText(),0,C_ACCENT);
+  FieldRadioMessage items[2];uint32_t latest;
+  int count=fieldLoRaSnapshot(items,2,&latest);
+  for(int i=0;i<count;i++) fieldLine(String(items[i].mine?"> ":"< ")+items[i].text,i+1);
+  fieldLine(fieldNotice,3,C_MUTED);
+  FieldConfig config=fieldConfig();
+  addBtn(4,CONTENT_Y+113,(SCR_W-12)/2,36,B_LORA_ENABLE,config.loraEnabled?"ปิดโมดูล":"เปิดโมดูล");
+  addBtn(SCR_W/2+2,CONTENT_Y+113,(SCR_W-12)/2,36,B_LORA_CONFIG,"ตั้งค่า 11",I_NONE,config.loraEnabled);
+  addBtn(4,CONTENT_Y+155,(SCR_W-12)/2,36,B_LORA_NORMAL,"ใช้งาน 00",I_NONE,config.loraEnabled);
+  addBtn(SCR_W/2+2,CONTENT_Y+155,(SCR_W-12)/2,36,B_LORA_WRITE,"พิมพ์ส่ง",I_NONE,fieldLoRaState()==FieldLoRaState::Ready);
+  FootDef f[]={{B_BACK,"กลับ",I_LEFT,true},{B_LORA_SEND_POS,"ส่งพิกัด",I_NONE,gpsGet().valid&&fieldLoRaState()==FieldLoRaState::Ready}};drawFooter(f,2);
+}
+
 static void redraw() {
   switch (screen) {
+    case SC_FIELD: drawField();break;
+    case SC_READY: drawReady();break;
+    case SC_TRACK: drawTrack();break;
+    case SC_HARDWARE: drawHardware();break;
+    case SC_LORA: drawLoRa();break;
+
     case SC_WHERE: drawWhere(); break;
     case SC_LOST: drawLost(); break;
     case SC_GOTO: drawGoto(); updateGoto(); break;
@@ -2290,6 +2435,8 @@ static void startup() {
     return;
   }
   mapStorageBegin();
+  fieldHardwareBegin(true);
+  fieldTrackBegin();
   mapLoadCenter();
   loadConfig();
   loadCatalog();
@@ -2314,6 +2461,8 @@ static void scrollDoc(int dir) {
 
 static void goBack() {
   switch (screen) {
+    case SC_FIELD: screen=SC_HOME;break;
+    case SC_READY: case SC_TRACK: case SC_HARDWARE: case SC_LORA: screen=SC_FIELD;break;
     case SC_WHERE: screen=gpsHubFrom;break;
     case SC_LOST: screen=lostFromTriage?SC_TRIAGE:SC_WHERE;break;
     case SC_GOTO: screen=gotoFrom;break;
@@ -2332,7 +2481,7 @@ static void goBack() {
     case SC_QUICK:
     case SC_RADAR: screen = SC_NEAR; break;
     case SC_NEAR: screen=SC_MESH;break;
-    case SC_KEYS: screen = kbTarget==2 ? SC_POIS : SC_MESH; break;
+    case SC_KEYS: screen = kbTarget==3 ? SC_LORA : kbTarget==2 ? SC_POIS : SC_MESH; break;
     default: list.clear(); screen = sdUp ? SC_HOME : SC_NOSD; break;
   }
   redraw();
@@ -2349,7 +2498,7 @@ static bool sosOn = false;
 static void setRgbLed(bool on) {
   digitalWrite(PIN_LED_R, on ? LOW : HIGH);
   digitalWrite(PIN_LED_G, on ? LOW : HIGH);
-  digitalWrite(PIN_LED_B, on ? LOW : HIGH);
+  if (!fieldConfig().loraEnabled) digitalWrite(PIN_LED_B, on ? LOW : HIGH);
 }
 
 static void drawLight() {
@@ -2529,7 +2678,7 @@ static void startMesh() {
 static void onButton(uint16_t id) {
   if (id >= B_KEY_BASE) {                              // on-screen keyboard character
     uint32_t cp=id-B_KEY_BASE;
-    if(cp<128&&kbShift&&isalpha((unsigned char)cp))cp=toupper(cp);
+    if(!kbThai&&cp<128&&kbShift&&isalpha((unsigned char)cp))cp=toupper(cp);
     char encoded[5]={0};
     if(cp<128)encoded[0]=cp;
     else if(cp<2048) {encoded[0]=0xC0|(cp>>6);encoded[1]=0x80|(cp&63);}
@@ -2545,6 +2694,40 @@ static void onButton(uint16_t id) {
     screen = SC_MESH;
     redraw();
     return;
+  }
+  if (id >= B_FIELD && id <= B_LORA_SEND_POS) {
+    switch(id){
+      case B_FIELD: screen=SC_FIELD;break;
+      case B_READY: suggestedMap={};fieldNotice="";screen=SC_READY;break;
+      case B_TRACK: fieldNotice="GPX ดาวน์โหลดผ่านหน้าแผนที่มือถือ";screen=SC_TRACK;break;
+      case B_HARDWARE: fieldNotice="";screen=SC_HARDWARE;break;
+      case B_LORA: fieldNotice="M0/M1 สลับ 11 ตั้งค่า / 00 ใช้";screen=SC_LORA;break;
+      case B_REC_TOGGLE: if(!fieldTrackSetRecording(!fieldTrackRecording()))fieldNotice="บันทึกไม่ได้ ตรวจ SD";break;
+      case B_REVERSE: if(fieldTrackStartBacktrack()){screen=SC_MAP;mapFollow=false;}else fieldNotice="ไม่มีเส้นทางย้อนรอย";break;
+      case B_STOP_REVERSE: fieldTrackClearBacktrack();break;
+      case B_SUGGEST: suggestMap();break;
+      case B_USE_SUGGEST:
+        if(mapStorageSelect(suggestedMap.path)){fieldTrackLoop();mapLoadCenter();wpLoad();trkLoad();offlineRouteRefresh();mapFollow=false;screen=SC_MAP;}
+        else fieldNotice="เปิดชุดแผนที่ไม่ได้";
+        break;
+      case B_BATTERY: case B_SOUND: {
+        FieldConfig config=fieldConfig();
+        if(id==B_BATTERY)config.batteryEnabled=!config.batteryEnabled;
+        else config.soundEnabled=!config.soundEnabled;
+        fieldNotice=fieldSaveConfig(config)?"บันทึกแล้ว":"บันทึกไม่ได้ ตรวจ SD";break;
+      }
+      case B_SOUND_TEST: fieldAlert(FieldAlert::Test);break;
+      case B_LORA_ENABLE: {
+        FieldConfig config=fieldConfig();config.loraEnabled=!config.loraEnabled;
+        fieldNotice=fieldSaveConfig(config)?"เปลี่ยนการตั้งค่าแล้ว":"บันทึกไม่ได้ ตรวจ SD";break;
+      }
+      case B_LORA_CONFIG: fieldNotice=fieldLoRaConfigure()?"กำลังอ่านและตรวจโมดูล":"ตั้ง M0=M1 เป็น 1 ก่อน";break;
+      case B_LORA_NORMAL: fieldNotice=fieldLoRaNormalMode()?"พร้อมส่งข้อความ":"ตรวจสถานะและ M0/M1";break;
+      case B_LORA_WRITE: kbTarget=3;kbBuf="";kbShift=false;screen=SC_KEYS;break;
+      case B_LORA_SEND_POS:{GpsFix fix=gpsGet();fieldNotice=fix.valid&&fieldLoRaSend(String("พิกัด ")+String(fix.lat,6)+","+String(fix.lon,6))?"ส่งไปยังโมดูลแล้ว":"ส่งไม่สำเร็จ";break;}
+      default:break;
+    }
+    redraw();return;
   }
   if (id >= B_WHERE && id <= B_TRIP_RESET) { switch(id) {
     case B_WHERE: gpsHubFrom = screen; screen = SC_WHERE; redraw(); break;
@@ -2681,10 +2864,11 @@ default:break;}return;}
     case B_MESH_TYPE: kbTarget = 0; kbBuf = ""; kbShift = false; screen = SC_KEYS; redraw(); break;
     case B_MESH_NAME: kbTarget = 1; kbBuf = meshName(); kbShift = false; screen = SC_KEYS; redraw(); break;
     case B_KB_LANG: kbThai=!kbThai; drawKeys(); break;
-    case B_KB_PAGE: kbThaiPage=(kbThaiPage+1)%4; drawKeys(); break;
+    case B_KB_PAGE: kbShift=!kbShift; drawKeys(); break;
     case B_KB_DEL: if (kbBuf.length()) kbBuf.remove(utf8PreviousCluster(kbBuf.c_str(),kbBuf.length())); drawKbText(); break;
     case B_KB_SHIFT: kbShift = !kbShift; drawKeys(); break;
     case B_KB_SEND:
+      if(kbTarget==3){fieldNotice=fieldLoRaSend(kbBuf)?"เข้าคิวส่งแล้ว":"ส่งไม่ได้ ตรวจโมดูล";screen=SC_LORA;redraw();break;}
       if(kbTarget==2){poiQuery=kbBuf;poiQuery.trim();poiOffset=0;poiHistory.clear();loadPois();screen=SC_POIS;redraw();break;}
       if (kbTarget == 0) {
         kbBuf.trim();
@@ -2959,13 +3143,27 @@ void loop() {
     if (now - radarMs > 2000) { radarMs = now; drawRadar(); }
   }
 
+  fieldHardwareLoop(now);
+  static uint32_t fieldDrawMs=0;
+  if(!sleeping && now-fieldDrawMs>=2000){
+    fieldDrawMs=now;
+    if(screen==SC_READY)drawReady();
+    else if(screen==SC_TRACK)drawTrack();
+    else if(screen==SC_LORA)drawLoRa();
+    else if(screen==SC_HARDWARE)drawHardware();
+  }
+  if(fieldLoRaTakeNew())fieldAlert(FieldAlert::Message);
+  fieldTrackLoop();
+  static uint32_t batteryDrawMs=0;
+  if(!sleeping && screen!=SC_LIGHT && screen!=SC_ALARM && now-batteryDrawMs>=1000){batteryDrawMs=now;drawBatteryStatus();}
   meshLoop();
   {                                                    // a message sent from a phone changes the list too
     static uint32_t lastSeq = 0;
     uint32_t sq = meshChangeCount();                   // also changes when a "got it" reply arrives
     if (sq != lastSeq) { lastSeq = sq; if (screen == SC_MESH && !sleeping) redraw(); }
   }
-  if (meshTakeNew()) {                                 // a message arrived from another board
+  if (meshTakeNew()) {
+    fieldAlert(FieldAlert::Message);                                 // a message arrived from another board
     if (sleeping) { sleeping = false; setBacklight(nightNow ? min<int>(brightness, 25) : brightness); }
     lastTouchMs = now;
     if (screen != SC_LIGHT) {

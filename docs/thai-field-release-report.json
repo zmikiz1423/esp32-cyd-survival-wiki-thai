@@ -1,0 +1,19 @@
+{
+  "version": "1.8.0-th1",
+  "board": "ESP32-2432S028R",
+  "flashOffset": "0x0",
+  "firmwareBytes": 1653328,
+  "articles": 126,
+  "categories": 16,
+  "bookParts": 85,
+  "mapImages": 55125,
+  "hardwareSimulation": "PASS ADC noise+hysteresis,UART profile readback,CRC,rate limit,speaker",
+  "tracksSimulation": "PASS GPS recording,GPX export,per-map isolation,write failure,reverse1400 sampled<=600",
+  "thaiRender": "PASS2995 shapes,no missing Thai/no whole word mismatch",
+  "clinicalReview": "targeted hazard corrections;not clinician certification",
+  "physicalHardwareTested": false,
+  "sha256": {
+    "firmware-CYD28.bin": "afe08e4a4b72634ac9eb9ea91a430db6a4fdf630fb677c5d4ba5cc74abd6c926",
+    "sdcard-TH.zip": "5280dab20f140f29395330e50f6f2b17ff1b2dda674f675075660b3476231fa4"
+  }
+}
