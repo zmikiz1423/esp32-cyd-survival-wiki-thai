@@ -2,7 +2,7 @@
   "version": "1.8.0-th1",
   "board": "ESP32-2432S028R",
   "flashOffset": "0x0",
-  "firmwareBytes": 1653328,
+  "firmwareBytes": 1653296,
   "articles": 126,
   "categories": 16,
   "bookParts": 85,
@@ -13,7 +13,7 @@
   "clinicalReview": "targeted hazard corrections;not clinician certification",
   "physicalHardwareTested": false,
   "sha256": {
-    "firmware-CYD28.bin": "afe08e4a4b72634ac9eb9ea91a430db6a4fdf630fb677c5d4ba5cc74abd6c926",
+    "firmware-CYD28.bin": "b80533013a4f75fb715b125d1d4ebd262a709bdc067e3d7c5bcf31d5cf4a0dab",
     "sdcard-TH.zip": "5280dab20f140f29395330e50f6f2b17ff1b2dda674f675075660b3476231fa4"
   }
 }

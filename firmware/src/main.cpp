@@ -2498,7 +2498,7 @@ static bool sosOn = false;
 static void setRgbLed(bool on) {
   digitalWrite(PIN_LED_R, on ? LOW : HIGH);
   digitalWrite(PIN_LED_G, on ? LOW : HIGH);
-  if (!fieldConfig().loraEnabled) digitalWrite(PIN_LED_B, on ? LOW : HIGH);
+  // IO17 remains an input when the optional radio is off.
 }
 
 static void drawLight() {
@@ -2959,7 +2959,7 @@ void setup() {
   // RGB LED pins (active low)
   pinMode(PIN_LED_R, OUTPUT); digitalWrite(PIN_LED_R, HIGH);
   pinMode(PIN_LED_G, OUTPUT); digitalWrite(PIN_LED_G, HIGH);
-  pinMode(PIN_LED_B, OUTPUT); digitalWrite(PIN_LED_B, HIGH);
+  pinMode(PIN_LED_B, INPUT); // IO17 reserved for optional E220 TXD connection
 
   // Deselect SPI devices early to avoid bus conflicts during init
   pinMode(PIN_SD_CS, OUTPUT);

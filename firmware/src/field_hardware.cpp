@@ -69,7 +69,7 @@ static void applySettings(const FieldConfig &c) {
     rxLength=0;configStep=0;hasTx=false;
   } else if(!c.loraEnabled&&radioStarted) {
     radio.end();radioStarted=false;radioState=FieldLoRaState::Off;configStep=0;
-    pinMode(RADIO_RX,OUTPUT);digitalWrite(RADIO_RX,HIGH); // blue LED off again
+    pinMode(RADIO_RX,INPUT); // External module TX may remain connected while disabled
     pinMode(RADIO_TX,INPUT);
   }
 }
