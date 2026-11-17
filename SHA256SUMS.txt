@@ -1,2 +1,2 @@
-b80533013a4f75fb715b125d1d4ebd262a709bdc067e3d7c5bcf31d5cf4a0dab  firmware-CYD28.bin
+f3c3012feb4fcb7c2e01ca7e57a21766e69a5cdde3ebd945b39f6ab7bdbb9a4d  firmware-CYD28.bin
 5280dab20f140f29395330e50f6f2b17ff1b2dda674f675075660b3476231fa4  sdcard-TH.zip

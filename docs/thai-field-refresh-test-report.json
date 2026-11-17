@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "version": "1.8.0-th2",
+  "unchangedRefreshes": 120,
+  "drawsDuringUnchangedRefreshes": 0,
+  "changedRowButtonBatteryAndRecording": "PASS",
+  "freshScreenClearsOnce": "PASS",
+  "implementation": "extracted actual main.cpp rendering functions with mocked display",
+  "physicalBoardTested": false
+}

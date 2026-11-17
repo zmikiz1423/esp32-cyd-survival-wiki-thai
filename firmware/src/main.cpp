@@ -115,6 +115,11 @@ static std::vector<Btn> btns;
 static MapSetEntry suggestedMap;
 static String fieldNotice;
 static uint32_t lastBatteryRevision = UINT32_MAX;
+static bool lastRecordingIndicator = false;
+static bool fieldRefreshOnly = false;
+static String fieldLineText[8];
+static uint16_t fieldLineColor[8] = {};
+
 
 static const int ROWS_PER_PAGE = CONTENT_H / ROW_H;
 static int listRowsPerPage() { return screen==SC_LIBRARY?CONTENT_H/(SCR_W<300?54:64):ROWS_PER_PAGE; }
@@ -303,6 +308,17 @@ static void drawButton(const Btn &b, bool pressed) {
 }
 
 static void addBtn(int x, int y, int w, int h, uint16_t id, const String &label, uint8_t icon = I_NONE, bool en = true) {
+  if (fieldRefreshOnly) {
+    for (Btn &button : btns) {
+      if (button.id != id || button.x != x || button.y != y || button.w != w || button.h != h) continue;
+      if (button.label != label || button.icon != icon || button.enabled != en) {
+        button.label = label; button.icon = icon; button.enabled = en;
+        drawButton(button, false);
+      }
+      return;
+    }
+    return;
+  }
   btns.push_back({(int16_t)x, (int16_t)y, (int16_t)w, (int16_t)h, id, label, icon, en});
   drawButton(btns.back(), false);
 }
@@ -310,7 +326,7 @@ static void addBtn(int x, int y, int w, int h, uint16_t id, const String &label,
 struct FootDef { uint16_t id; const char *label; uint8_t icon; bool en; };
 static void drawFooter(const FootDef *defs, int n) {
   int y = SCR_H - FOOTER_H;
-  tft.fillRect(0, y, SCR_W, FOOTER_H, C_HEADER);
+  if (!fieldRefreshOnly) tft.fillRect(0, y, SCR_W, FOOTER_H, C_HEADER);
   int w = SCR_W / n;
   for (int i = 0; i < n; i++) {
     int x = i * w;
@@ -346,8 +362,10 @@ static void drawWifiBadge() {
   tft.drawString(wifiOn ? String(webClientCount()) + " คน" : String("ปิด"), cx + (SCR_W < 300 ? 11 : 14), (SCR_W < 300 ? 18 : 24));
 }
 
-static void drawBatteryStatus() {
+static void drawBatteryStatus(bool force = true) {
   FieldBattery battery = fieldBattery();
+  bool recording = fieldTrackRecording();
+  if (!force && battery.revision == lastBatteryRevision && recording == lastRecordingIndicator) return;
   tft.fillRect(0, HEADER_H, SCR_W, STATUS_H, C_HEADER);
   int x = SCR_W-57;
   uint16_t color = battery.valid && battery.percent <= 15 ? C_ACCENT : C_TEXT;
@@ -358,11 +376,12 @@ static void drawBatteryStatus() {
   tft.TFT_eSPI::setTextColor(color, C_HEADER);
   tft.TFT_eSPI::setTextDatum(TL_DATUM);
   tft.TFT_eSPI::drawString(battery.valid ? String(battery.percent)+"%" : "--%", x+22, HEADER_H+3);
-  if (fieldTrackRecording()) {
+  if (recording) {
     tft.TFT_eSPI::setTextColor(NC(TFT_RED), C_HEADER);
     tft.TFT_eSPI::drawString("REC", 5, HEADER_H+3);
   }
   lastBatteryRevision = battery.revision;
+  lastRecordingIndicator = recording;
 }
 
 static void drawHeader(const String &title, bool back) {
@@ -2175,11 +2194,26 @@ static void mapSetTap(int i) {
   screen=SC_MAP; redraw();
 }
 
+static void fieldFrame(const char *title) {
+  if (fieldRefreshOnly) return;
+  btns.clear();
+  tft.fillScreen(C_BG);
+  drawHeader(title, true);
+  for (int i=0; i<8; i++) { fieldLineText[i]=""; fieldLineColor[i]=0; }
+}
+
 static void fieldLine(const String &text, int row, uint16_t color=C_TEXT) {
+  if (row<0 || row>=8) return;
   tft.setTextFont(1);
+  String visible = fitText(text, SCR_W-12);
+  if (fieldRefreshOnly && fieldLineText[row]==visible && fieldLineColor[row]==color) return;
+  fieldLineText[row]=visible;
+  fieldLineColor[row]=color;
+  int y=CONTENT_Y+3+row*27;
+  tft.fillRect(0,y,SCR_W,tft.lineHeight(),C_BG);
   tft.setTextColor(color);
   tft.setTextDatum(TL_DATUM);
-  tft.drawString(fitText(text, SCR_W-12), 6, CONTENT_Y+3+row*27);
+  tft.drawString(visible,6,y);
 }
 
 static void drawField() {
@@ -2191,7 +2225,7 @@ static void drawField() {
 }
 
 static void drawReady() {
-  btns.clear();tft.fillScreen(C_BG);drawHeader("ตรวจความพร้อม",true);
+  fieldFrame("ตรวจความพร้อม");
   GpsFix gps=gpsGet();
   fieldLine(sdUp?String("SD ว่าง ")+String((SD.totalBytes()-SD.usedBytes())/1048576)+" MB":"ไม่พบ SD",0);
   fieldLine(gps.valid?String("GPS พร้อม ")+String(gps.sats)+" ดาว":"GPS กำลังรอพิกัด",1);
@@ -2230,7 +2264,7 @@ static void suggestMap() {
 }
 
 static void drawTrack() {
-  btns.clear();tft.fillScreen(C_BG);drawHeader("บันทึกและย้อนรอย",true);
+  fieldFrame("บันทึกและย้อนรอย");
   FieldTrackStatus state=fieldTrackStatus();
   fieldLine(state.recording?"กำลังบันทึก GPS ลง SD":"หยุดบันทึกอยู่",0);
   fieldLine(String(state.points)+" จุด / "+String(state.bytes/1024)+" KB",1);
@@ -2242,7 +2276,7 @@ static void drawTrack() {
 }
 
 static void drawHardware() {
-  btns.clear();tft.fillScreen(C_BG);drawHeader("แบตเตอรี่และเสียง",true);
+  fieldFrame("แบตเตอรี่และเสียง");
   FieldConfig config=fieldConfig();FieldBattery battery=fieldBattery();
   fieldLine(battery.valid?String(battery.volts,3)+" V / ~"+String(battery.percent)+"%":"วงจรวัด ADC35 / แบต 1 เซลล์",0);
   fieldLine("47k + 47k และ C 100nF",1,C_MUTED);
@@ -2254,11 +2288,11 @@ static void drawHardware() {
 }
 
 static void drawLoRa() {
-  btns.clear();tft.fillScreen(C_BG);drawHeader("วิทยุ E220",true);
+  fieldFrame("วิทยุ E220");
   fieldLine(fieldLoRaStateText(),0,C_ACCENT);
   FieldRadioMessage items[2];uint32_t latest;
   int count=fieldLoRaSnapshot(items,2,&latest);
-  for(int i=0;i<count;i++) fieldLine(String(items[i].mine?"> ":"< ")+items[i].text,i+1);
+  for(int i=0;i<2;i++) fieldLine(i<count?String(items[i].mine?"> ":"< ")+items[i].text:String(),i+1);
   fieldLine(fieldNotice,3,C_MUTED);
   FieldConfig config=fieldConfig();
   addBtn(4,CONTENT_Y+113,(SCR_W-12)/2,36,B_LORA_ENABLE,config.loraEnabled?"ปิดโมดูล":"เปิดโมดูล");
@@ -3147,15 +3181,17 @@ void loop() {
   static uint32_t fieldDrawMs=0;
   if(!sleeping && now-fieldDrawMs>=2000){
     fieldDrawMs=now;
+    fieldRefreshOnly=true;
     if(screen==SC_READY)drawReady();
     else if(screen==SC_TRACK)drawTrack();
     else if(screen==SC_LORA)drawLoRa();
     else if(screen==SC_HARDWARE)drawHardware();
+    fieldRefreshOnly=false;
   }
   if(fieldLoRaTakeNew())fieldAlert(FieldAlert::Message);
   fieldTrackLoop();
   static uint32_t batteryDrawMs=0;
-  if(!sleeping && screen!=SC_LIGHT && screen!=SC_ALARM && now-batteryDrawMs>=1000){batteryDrawMs=now;drawBatteryStatus();}
+  if(!sleeping && screen!=SC_LIGHT && screen!=SC_ALARM && now-batteryDrawMs>=1000){batteryDrawMs=now;drawBatteryStatus(false);}
   meshLoop();
   {                                                    // a message sent from a phone changes the list too
     static uint32_t lastSeq = 0;
